@@ -1,7 +1,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap-datepicker';
+@import 'font-awesome';
 @import 'select2';
 @import 'select2-bootstrap';
 @import 'style';
 @import 'toastr/toastr.min';
+
+@import 'common';
+
+@import 'sessions/new';

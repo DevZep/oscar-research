@@ -1,0 +1,3 @@
+OSCAR.Common =
+  init: ->
+  

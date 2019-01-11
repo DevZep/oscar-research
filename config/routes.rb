@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  get 'home/index'
+  root to: 'dashboard#index'
+  get '/dashboard' => 'dashboard#index'
 
-  devise_for :users
-  root to: 'home#index'
+  devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions', passwords: 'passwords' }
+
+
+  scope 'admin' do
+    resources :users
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
