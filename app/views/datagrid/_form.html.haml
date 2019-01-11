@@ -1,0 +1,13 @@
+= form_for grid, options do |f|
+  %hr/
+  .row
+    - grid.filters.each do |filter|
+      - if filter.type != :dynamic
+        .datagrid-filter.filter
+          = f.datagrid_label filter, title: filter.header
+          = f.datagrid_filter filter, partials: options[:partials]
+  .row
+    .datagrid-actions
+      = f.submit I18n.t('datagrid.form.search').html_safe, class: 'btn btn-primary datagrid-submit'
+      - empty_parameter = Rails.version >= '4.1.0' && Rails.version <= '4.1.2' ? nil : {}
+      = link_to I18n.t('datagrid.form.reset').html_safe, url_for(grid.to_param => empty_parameter), :class => 'btn btn-outline datagrid-reset'

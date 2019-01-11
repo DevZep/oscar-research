@@ -1,23 +1,59 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  datagrid:
+    columns:
+      users:
+        current_password: Current Password
+        current_password_hint: We need to current password to make change
+        date_of_birth: Date of Birth
+        email: Email
+        first_name: First Name
+        id: ID
+        job_title: Job Title
+        last_name: Last Name
+        manage: Manage
+        mobile: Mobile
+        name: Name
+        password: Password
+        password_confirmation: Password Confirmation
+        password_hint: Leave it blank if you don't want to change password
+    from: From
+    to: To
+  users:
+    actions:
+      are_you_sure: Are you sure you want to delete?
+    create:
+      successfully_created: User has been successfully created.
+    destroy:
+      alert: User cannot be deleted.
+      successfully_deleted: User has been successfully deleted.
+    form:
+      cancel: Cancle
+      date_of_birth: Date of Birth
+      email: Email
+      first_name: First Name
+      id: ID
+      job_title: Job Title
+      last_name: Last Name
+      name: Name
+      password: Password
+      password_confirmation: Password Confirmation
+      save: Save
+    index:
+      add_new: Add New User
+      export_to_xls: Export Users
+      results: Results
+    show:
+      about_user: About User
+      are_you_sure: Are you sure you want to delete?
+      date_of_birth: Date of Birth
+      email: Email
+      id: ID
+      job_title: Job Title
+    new:
+      new_user: New User
+    edit:
+      edit_user: Edit User
+    update:
+      successfully_updated: User has been successfully updated.
+
+

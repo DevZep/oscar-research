@@ -28,6 +28,10 @@ gem 'dotenv-rails',               '~> 2.0.2'
 gem 'jbuilder',                   '~> 2.0'
 gem 'fog'
 gem 'appsignal',                  '~> 2.3', '>= 2.3.7'
+gem 'kaminari',                   '~> 1.0', '>= 1.0.1'
+gem 'jquery-datatables-rails',    '~> 3.4.0'
+
+
 
 group :staging, :demo, :production do
   gem 'asset_sync'
