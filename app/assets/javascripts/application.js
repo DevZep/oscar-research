@@ -1,0 +1,13 @@
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require bootstrap-sprockets
+//= require select2
+//= require image_map_resizer/imageMapResizer.min
+//= require metisMenu/jquery.metisMenu
+//= require pace/pace.min
+//= require peity/jquery.peity.min
+//= require query_builder/query-builder.standalone.min
+//= require slimscroll/jquery.slimscroll.min
+//= require toastr/toastr.min
+//= require inspinia.js
