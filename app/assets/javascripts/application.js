@@ -4,12 +4,12 @@
 //= require jquery-ui
 //= require dataTables/jquery.dataTables
 //= require bootstrap-sprockets
-//= require select2
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
 //= require datepicker
 //= require image_map_resizer/imageMapResizer.min
+//= require select2
 
 //WRAPBOOTSTRAP
 //= require metisMenu/jquery.metisMenu
@@ -28,3 +28,4 @@
 
 //= require filters
 //= require users/index
+//= require users/form

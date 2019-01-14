@@ -1,12 +1,14 @@
 class UsersController < AdminController
+  load_and_authorize_resource
+
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @user_grid = UsersGrid.new(params[:users_grid])
     respond_to do |f|
       f.html do
-        @results = @user_grid.assets.size
-        @user_grid.scope { |scope| scope.page(params[:page]).per(10) }
+        @results = @user_grid.scope { |scope| scope.accessible_by(current_ability) }.assets.size
+        @user_grid.scope { |scope| scope.accessible_by(current_ability).page(params[:page]).per(20) }
       end
     end
   end
@@ -54,7 +56,7 @@ class UsersController < AdminController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :start_date, :job_title, :mobile, :date_of_birth, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :start_date, :job_title, :mobile, :date_of_birth, :email, :roles, :password, :password_confirmation)
   end
 
   def find_user

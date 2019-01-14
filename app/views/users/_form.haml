@@ -14,6 +14,7 @@
         .col-xs-12.col-sm-6.col-md-4= f.input :mobile, label: t('.mobile')
         .col-xs-12.col-sm-6.col-md-4= f.input :job_title, label: t('.job_title')
         .col-xs-12.col-sm-6.col-md-4= f.input :email, required: true, label: t('.email')
+        .col-xs-12.col-sm-6.col-md-4= f.input :roles, collection: User::ROLES, label_method: lambda { |val| val.titleize }, label: t('.roles')
         - unless @user.persisted?
           .col-xs-12.col-sm-6.col-md-4= f.input :password, required: true, label: t('.password')
           .col-xs-12.col-sm-6.col-md-4= f.input :password_confirmation, required: true, label: t('.password_confirmation')

@@ -2,11 +2,20 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  after_save :set_created_from
+  ROLES = ['admin', 'user'].freeze
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :roles, inclusion: { in: ROLES }
+
+  before_create :set_created_from
 
   scope :only_from_oscar_research, -> { where(created_from: 'oscar_research') }
+
+  ROLES.each do |role|
+    define_method("#{role.parameterize.underscore}?") do
+      roles == role
+    end
+  end
 
   def active_for_authentication?
     super && created_from == 'oscar_research'
