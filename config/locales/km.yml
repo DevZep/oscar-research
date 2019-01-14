@@ -1,0 +1,56 @@
+km:
+  datagrid:
+    columns:
+      users:
+        current_password: លេខកូដសំងាត់បច្ចុប្បន្ន
+        current_password_hint: យើងត្រូវការពិនិត្យពាក្យសម្ងាត់បច្ចុប្បន្នដើម្បីធ្វើការផ្លាស់ប្តូរ
+        date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
+        email: ឣុីម៉ែល
+        first_name: នាមខ្លួនជាអក្សរឡាតាំង
+        id: លេខសំគាល់
+        job_title: មុខតំណែង
+        last_name: នាមត្រកូល
+        manage: សកម្មភាព
+        mobile: លេខទូរស័ព្ទ
+        name: ឈ្មោះអ្នកប្រើប្រាស់
+        password: ពាក្យសម្ងាត់
+        password_confirmation: បញ្ជាក់ពាក្យសម្ងាត់
+    from: ចាប់ពី
+    to: ដល់
+  users:
+    actions:
+      are_you_sure: តើអ្នកប្រាកដហើយ?
+    create:
+      successfully_created: អ្នកប្រើប្រាស់ត្រូវបានបង្កើតដោយជោគជ័យ
+    destroy:
+      alert: អ្នកប្រើប្រាស់មិនអាចលុបបានទេ
+      successfully_deleted: អ្នកប្រើប្រាស់ត្រូវបានលុបដោយជោគជ័យ
+    form:
+      cancel: ទុកជាមោឃៈ
+      date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
+      email: ឣុីម៉ែល
+      first_name: នាមខ្លួនជាអក្សរឡាតាំង
+      id: ID
+      job_title: មុខតំណែង
+      last_name: នាមត្រកូល
+      mobile: លេខទូរស័ព្ទ
+      password: ពាក្យសម្ងាត់
+      password_confirmation: បញ្ជាក់ពាក្យសម្ងាត់
+      save: រក្សាទុក
+    index:
+      add_new: បន្ថែមឣ្នកប្រើថ្មី
+      export_to_xls: ទាញចេញជាឯកសារប្រភេទ XLS
+      results: លទ្ធផល
+    show:
+      about_user: អំពីអ្នកប្រើប្រាស់
+      are_you_sure: តើអ្នកប្រាកដហើយ?
+      date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
+      email: ឣុីម៉ែល
+      job_title: មុខតំណែង
+      mobile: លេខទូរស័ព្ទ
+    new:
+      new_user: បង្កើតអ្នកប្រើប្រាស់ថ្មី
+    edit:
+      edit_user: កែប្រែពត៌មានអ្នកប្រើប្រាស់
+    update:
+      successfully_updated: អ្នកប្រើប្រាស់ត្រូវបានកែសម្រួលដោយជោគជ័យ
