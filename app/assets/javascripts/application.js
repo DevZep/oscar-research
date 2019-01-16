@@ -10,6 +10,7 @@
 //= require datepicker
 //= require image_map_resizer/imageMapResizer.min
 //= require select2
+//= require icheck
 
 //WRAPBOOTSTRAP
 //= require metisMenu/jquery.metisMenu
@@ -26,7 +27,9 @@
 //= require initializer
 //= require common
 
-//= require filters
+//APPLICATION JS
+//= require client_advanced_searches
+//= require advanced_filter_builder
 //= require users/index
-//= require users/form
 //= require clients/index
+//= require filters

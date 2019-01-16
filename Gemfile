@@ -31,6 +31,8 @@ gem 'appsignal',                  '~> 2.3', '>= 2.3.7'
 gem 'apartment',                  '~> 1.2.0'
 gem 'kaminari',                   '~> 1.0', '>= 1.0.1'
 gem 'jquery-datatables-rails',    '~> 3.4.0'
+gem 'friendly_id',                '~> 5.2', '>= 5.2.3'
+gem 'icheck-rails',               '~> 1.0.2.2'
 
 group :staging, :demo, :production do
   gem 'asset_sync'

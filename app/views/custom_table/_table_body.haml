@@ -1,0 +1,99 @@
+- clients.each do |client|
+  - Organization.switch_to(client.slug.split('-').first)
+  %tr{ 'data-href' => client_path(client) }
+    - if params[:columns].nil? || params[:columns][:slug] == '1'
+      %td.slug= client.slug
+    - if params[:columns].nil? || params[:columns][:ngo] == '1'
+      %td.ngo= Organization.current.full_name
+    - if params[:columns].nil? || params[:columns][:code] == '1'
+      %td.code= client.code
+    - if params[:columns].nil? || params[:columns][:given_name] == '1'
+      %td.given_name= link_to client.given_name, client_path(client), target: :'_blank'
+    - if params[:columns].nil? || params[:columns][:family_name] == '1'
+      %td.family_name= client.family_name
+    - if params[:columns].nil? || params[:columns][:local_given_name] == '1'
+      %td.given_name= client.local_given_name
+    - if params[:columns].nil? || params[:columns][:local_family_name] == '1'
+      %td.family_name= client.local_family_name
+    - if params[:columns].nil? || params[:columns][:gender] == '1'
+      %td.gender= client.gender.try(:titleize)
+    - if params[:columns].nil? || params[:columns][:date_of_birth] == '1'
+      %td.date_of_birth= client.date_of_birth
+    - if params[:columns].nil? || params[:columns][:age] == '1'
+      %td= client.age_as_years
+    - if params[:columns].nil? || params[:columns][:house_number] == '1'
+      %td= client.house_number
+    - if params[:columns].nil? || params[:columns][:strret_number] == '1'
+      %td= client.street_number
+    - if params[:columns].nil? || params[:columns][:village] == '1'
+      - village = locale == :en ? client.village.try(:name_en) : client.village.try(:name_kh)
+      %td= village
+    - if params[:columns].nil? || params[:columns][:commune] == '1'
+      - commune = locale == :en ? client.commune.try(:name_en) : client.commune.try(:name_kh)
+      %td= commune
+    - if params[:columns].nil? || params[:columns][:district] == '1'
+      %td= client.district_name
+    - if params[:columns].nil? || params[:columns][:current_province] == '1'
+      %td= client.province_name
+    - if params[:columns].nil? || params[:columns][:gov_city] == '1'
+      %td= client.gov_city
+    - if params[:columns].nil? || params[:columns][:gov_district] == '1'
+      %td= client.gov_district
+    - if params[:columns].nil? || params[:columns][:gov_commune] == '1'
+      %td= client.gov_commune
+    - if params[:columns].nil? || params[:columns][:gov_date] == '1'
+      %td= client.gov_date
+    - if params[:columns].nil? || params[:columns][:gov_village_code] == '1'
+      %td= client.gov_village_code
+    - if params[:columns].nil? || params[:columns][:gov_client_code] == '1'
+      %td= client.gov_client_code
+    - if params[:columns].nil? || params[:columns][:gov_interview_village] == '1'
+      %td= client.gov_interview_village
+    - if params[:columns].nil? || params[:columns][:gov_interview_commune] == '1'
+      %td= client.gov_interview_commune
+    - if params[:columns].nil? || params[:columns][:gov_interview_district] == '1'
+      %td= client.gov_interview_district
+    - if params[:columns].nil? || params[:columns][:gov_interview_city] == '1'
+      %td= client.gov_interview_city
+    - if params[:columns].nil? || params[:columns][:interviewees_place_of_interview] == '1'
+      %td= list_names(client.interviewees.pluck(:name))
+    - if params[:columns].nil? || params[:columns][:gov_caseworker_name] == '1'
+      %td= client.gov_caseworker_name
+    - if params[:columns].nil? || params[:columns][:gov_caseworker_phone] == '1'
+      %td= client.gov_caseworker_phone
+    - if params[:columns].nil? || params[:columns][:gov_carer_name] == '1'
+      %td= client.gov_carer_name
+    - if params[:columns].nil? || params[:columns][:gov_carer_relationship] == '1'
+      %td= client.gov_carer_relationship
+    - if params[:columns].nil? || params[:columns][:gov_carer_home] == '1'
+      %td= client.gov_carer_home
+    - if params[:columns].nil? || params[:columns][:gov_carer_street] == '1'
+      %td= client.gov_carer_street
+    - if params[:columns].nil? || params[:columns][:gov_carer_village] == '1'
+      %td= client.gov_carer_village
+    - if params[:columns].nil? || params[:columns][:gov_carer_commune] == '1'
+      %td= client.gov_carer_commune
+    - if params[:columns].nil? || params[:columns][:gov_carer_district] == '1'
+      %td= client.gov_carer_district
+    - if params[:columns].nil? || params[:columns][:gov_carer_city] == '1'
+      %td= client.gov_carer_city
+    - if params[:columns].nil? || params[:columns][:gov_carer_phone] == '1'
+      %td= client.gov_carer_phone
+    - if params[:columns].nil? || params[:columns][:gov_information_source] == '1'
+      %td= client.gov_information_source
+    - if params[:columns].nil? || params[:columns][:client_types] == '1'
+      %td= list_names(client.client_types.pluck(:name))
+    - if params[:columns].nil? || params[:columns][:gov_referral_reason] == '1'
+      %td= client.gov_referral_reason
+    - if params[:columns].nil? || params[:columns][:gov_guardian_comment] == '1'
+      %td= client.gov_guardian_comment
+    - @client_needs.each do |need|
+      - if params[:columns].nil? || params[:columns]["need_#{need.id}"] == '1'
+        %td
+          = need_rank(client, need.name)
+    - @client_problems.each do |problem|
+      - if params[:columns].nil? || params[:columns]["problem_#{problem.id}"] == '1'
+        %td
+          = problem_rank(client, problem.name)
+    - if params[:columns].nil? || params[:columns][:caseworker_comment] == '1'
+      %td= client.gov_caseworker_comment

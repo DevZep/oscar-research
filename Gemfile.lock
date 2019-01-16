@@ -142,6 +142,8 @@ GEM
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
     formatador (0.2.5)
+    friendly_id (5.2.3)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -160,6 +162,10 @@ GEM
       ruby_parser (~> 3.5)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    icheck-rails (1.0.2.2)
+      jquery-rails
+      rails (>= 3.1.0)
+      sass-rails
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -341,8 +347,10 @@ DEPENDENCIES
   ffaker (~> 2.10)
   fog
   font-awesome-rails (~> 4.7, >= 4.7.0.2)
+  friendly_id (~> 5.2, >= 5.2.3)
   haml (~> 5.0, >= 5.0.4)
   haml-rails (~> 1.0)
+  icheck-rails (~> 1.0.2.2)
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 3.4.0)
   jquery-rails

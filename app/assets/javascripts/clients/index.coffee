@@ -1,4 +1,4 @@
-CIF.ClientsIndex = do ->
+OSCAR.ClientsIndex = do ->
   _init = ->
     _enableSelect2()
     _columnsVisibility()
@@ -41,7 +41,7 @@ CIF.ClientsIndex = do ->
         # _enableSelect2()
 
   _initAdavanceSearchFilter = ->
-    advanceFilter = new CIF.ClientAdvancedSearches()
+    advanceFilter = new OSCAR.ClientAdvancedSearches()
     advanceFilter.initBuilderFilter()
     advanceFilter.getTranslation()
     advanceFilter.handleSearch()
@@ -73,7 +73,7 @@ CIF.ClientsIndex = do ->
     csiTitle = element.data('title')
     csiyAxisTitle = element.data('yaxis-title')
 
-    report = new CIF.ReportCreator(csiData, csiTitle, csiyAxisTitle, element)
+    report = new OSCAR.ReportCreator(csiData, csiTitle, csiyAxisTitle, element)
     report.lineChart()
 
   _handleCreateCaseReport = ->
@@ -82,7 +82,7 @@ CIF.ClientsIndex = do ->
     caseTitle =  element.data('title')
     caseyAxisTitle =  element.data('yaxis-title')
 
-    report = new CIF.ReportCreator(caseData, caseTitle, caseyAxisTitle, element)
+    report = new OSCAR.ReportCreator(caseData, caseTitle, caseyAxisTitle, element)
     report.lineChart()
 
   _enableSelect2 = ->

@@ -1,0 +1,196 @@
+-# %ul.check-columns-visibility{ 'aria-labelledby': 'dropdownMenuDivider' }
+-#   %li.dropdown
+-#     %a.dropdown-toggle.btn.btn-default{'data-toggle' => 'dropdown', href: '#'}
+-#       = t('.select_columns')
+-#       %span.caret
+-#     %ul.dropdown-menu.columns-visibility
+-#       = form_for 'columns' do |f|
+-#         %li
+-#           .all-visibility.col-sm-12
+-#             = f.check_box 'show_all', { checked: show_all_columns, class: 'i-checks' }
+-#             = label_tag 'show_all' do
+-#               %strong= t('.show_all')
+-#         - Client::CLIENT_FORM_ONE.each do |name|
+-#           %li
+-#             .visibility.col-sm-12
+-#               = f.check_box name, { checked: check_if_true(name), class: 'i-checks' }
+-#               = label_tag name, t(".#{name}")
+-#         -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'code', 'code', checked = params[:code].present?, class: 'i-checks'
+        -#     = label_tag 'Code'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'commune', 'commune', checked = params[:commune].present?, class: 'i-checks'
+        -#     = label_tag 'Commune/Sangkat'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'current_address', 'current_address', checked = params[:current_address].present?, class: 'i-checks'
+        -#     = label_tag 'Current Address'
+        -# %li
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'current_province', 'current_province', checked = params[:current_province].present?, class: 'i-checks'
+        -#     = label_tag 'Current Province'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'date_of_birth', 'date_of_birth', checked = params[:date_of_birth].present?, class: 'i-checks'
+        -#     = label_tag 'Date of Birth'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'district', 'district', checked = params[:district].present?, class: 'i-checks'
+        -#     = label_tag 'District/Khan'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'family_name', 'family_name', checked = params[:family_name].present?, class: 'i-checks'
+        -#     = label_tag 'Family Name'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'local_family_name', 'local_family_name', checked = params[:local_family_name].present?, class: 'i-checks'
+        -#     = label_tag 'Family Name (Local)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gender', 'gender', checked = params[:gender].present?, class: 'i-checks'
+        -#     = label_tag 'Gender'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'given_name', 'given_name', checked = params[:given_name].present?, class: 'i-checks'
+        -#     = label_tag 'Given Name'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'local_given_name', 'local_given_name', checked = params[:local_given_name].present?, class: 'i-checks'
+        -#     = label_tag 'Given Name (Local)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'house_number', 'house_number', checked = params[:house_number].present?, class: 'i-checks'
+        -#     = label_tag 'House'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'id', 'id', checked = params[:id].present?, class: 'i-checks'
+        -#     = label_tag 'ID', t('.id')
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'strret_number', 'strret_number', checked = params[:strret_number].present?, class: 'i-checks'
+        -#     = label_tag 'Street'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'village', 'village', checked = params[:village].present?, class: 'i-checks'
+        -#     = label_tag 'Village'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_city', 'gov_city', checked = params[:gov_city].present?, class: 'i-checks'
+        -#     = label_tag 'City/Province'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_district', 'gov_district', checked = params[:gov_district].present?, class: 'i-checks'
+        -#     = label_tag 'District/Khan'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_commune', 'gov_commune', checked = params[:gov_commune].present?, class: 'i-checks'
+        -#     = label_tag 'Commune/Sangkat'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_date', 'gov_date', checked = params[:gov_date].present?, class: 'i-checks'
+        -#     = label_tag 'Date'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_village_code', 'gov_village_code', checked = params[:gov_village_code].present?, class: 'i-checks'
+        -#     = label_tag 'Village Code'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_client_code', 'gov_client_code', checked = params[:gov_client_code].present?, class: 'i-checks'
+        -#     = label_tag 'Client Code'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_interview_village', 'gov_interview_village', checked = params[:gov_interview_village].present?, class: 'i-checks'
+        -#     = label_tag 'Village (Place of interview)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_interview_commune', 'gov_interview_commune', checked = params[:gov_interview_commune].present?, class: 'i-checks'
+        -#     = label_tag 'Commune/Sangkat (Place of interview)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_interview_district', 'gov_interview_district', checked = params[:gov_interview_district].present?, class: 'i-checks'
+        -#     = label_tag 'District/Khan (Place of interview)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_interview_city', 'gov_interview_city', checked = params[:gov_interview_city].present?, class: 'i-checks'
+        -#     = label_tag 'City/Province (Place of interview)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'interviewees_place_of_interview', 'interviewees_place_of_interview', checked = params[:interviewees_place_of_interview].present?, class: 'i-checks'
+        -#     = label_tag 'Interviewees (Place of interview)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_caseworker_name', 'gov_caseworker_name', checked = params[:gov_caseworker_name].present?, class: 'i-checks'
+        -#     = label_tag 'Caseworker Name (Place of interview)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_caseworker_phone', 'gov_caseworker_phone', checked = params[:gov_caseworker_phone].present?, class: 'i-checks'
+        -#     = label_tag 'Phone Number (Place of interview)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_name', 'gov_carer_name', checked = params[:gov_carer_name].present?, class: 'i-checks'
+        -#     = label_tag 'Name (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_relationship', 'gov_carer_relationship', checked = params[:gov_carer_relationship].present?, class: 'i-checks'
+        -#     = label_tag 'Relationship (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_home', 'gov_carer_home', checked = params[:gov_carer_home].present?, class: 'i-checks'
+        -#     = label_tag 'Home (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_street', 'gov_carer_street', checked = params[:gov_carer_street].present?, class: 'i-checks'
+        -#     = label_tag 'Strret (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_village', 'gov_carer_village', checked = params[:gov_carer_village].present?, class: 'i-checks'
+        -#     = label_tag 'Village (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_commune', 'gov_carer_commune', checked = params[:gov_carer_commune].present?, class: 'i-checks'
+        -#     = label_tag 'Commune/Sangkat (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_district', 'gov_carer_district', checked = params[:gov_carer_district].present?, class: 'i-checks'
+        -#     = label_tag 'District/Khan (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_city', 'gov_carer_city', checked = params[:gov_carer_city].present?, class: 'i-checks'
+        -#     = label_tag 'City/Province (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_carer_phone', 'gov_carer_phone', checked = params[:gov_carer_phone].present?, class: 'i-checks'
+        -#     = label_tag 'Phone number (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_information_source', 'gov_information_source', checked = params[:gov_information_source].present?, class: 'i-checks'
+        -#     = label_tag 'Information source (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'client_types', 'client_types', checked = params[:client_types].present?, class: 'i-checks'
+        -#     = label_tag 'Client type (Client carer)'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_referral_reason', 'gov_referral_reason', checked = params[:gov_referral_reason].present?, class: 'i-checks'
+        -#     = label_tag 'Brief information on the reasons for client transmission'
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = check_box_tag 'gov_guardian_comment', 'gov_guardian_comment', checked = params[:gov_guardian_comment].present?, class: 'i-checks'
+        -#     = label_tag 'Comments from the client/guardians about issues and needs'
+        -# - @client_needs.each do |need|
+        -#   %li
+        -#     .visibility.col-sm-12
+        -#       = f.check_box "need_#{need.id}", { checked: check_if_true("need_#{need.id}"), class: 'i-checks' }
+        -#       = label_tag "#{need.name}"
+        -# - @client_problems.each do |problem|
+        -#   %li
+        -#     .visibility.col-sm-12
+        -#       = f.check_box "problem_#{problem.id}", { checked: check_if_true("problem_#{problem.id}"), class: 'i-checks' }
+        -#       = label_tag "#{problem.name}"
+        -# %li
+        -#   .visibility.col-sm-12
+        -#     = f.check_box 'caseworker_comment', { checked: check_if_true("caseworker_comment"), class: 'i-checks' }
+        -#     = label_tag t('.caseworker_comment')

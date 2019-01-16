@@ -1,45 +1,20 @@
 class ClientsController < AdminController
-  # include GenerateClientExcel
-  # include ClientNeedsAndProblems
 
   before_action :find_client, only: :show
-  # before_action :client_builder_fields, :build_advanced_search, :fetch_advanced_search_queries, only: :index
-  # before_action :basic_params, if: :has_params?
+  before_action :client_builder_fields, :build_advanced_search, :fetch_advanced_search_queries, only: :index
+  before_action :basic_params, if: :has_params?
 
   def index
-    @client_case_workers = client_case_workers
-    @client_needs = client_needs_and_problems[:client_needs].uniq
-    @client_problems = client_needs_and_problems[:client_problems].uniq
     respond_to do |f|
       f.html do
         clients = list_clients_filter
         @clients_count = clients.count
         @clients = Kaminari.paginate_array(clients).page(params[:page]).per(20)
       end
-      f.xls do
-        send_data client_report(list_clients_filter), filename: "client_report-#{Time.now}.xls"
-      end
     end
   end
 
   def show
-    respond_to do |f|
-      f.html do
-      end
-      f.pdf do
-        pdf_name = params[:form] == 'one' ? t('.government_form_one') : 'show'
-        render  pdf:      pdf_name,
-                template: 'clients/show.pdf.haml',
-                page_size: 'A4',
-                layout:   'pdf_design.html.haml',
-                show_as_html: params.key?('debug'),
-                header: { html: { template: 'clients/government_forms/pdf/header.pdf.haml' } },
-                footer: { html: { template: 'clients/government_forms/pdf/footer.pdf.haml' }, right: '[page] of [topage]' },
-                margin: { left: 0, right: 0, top: 10 },
-                dpi: '72',
-                disposition: 'inline'
-      end
-    end
   end
 
   private
@@ -48,8 +23,6 @@ class ClientsController < AdminController
     ngo_short_name = params[:id].split('-').first
     Organization.switch_to(ngo_short_name)
     @client = decorate_clients(Client.friendly.find(params[:id]))
-    @interviewee_names = @client.interviewees.pluck(:name)
-    @client_type_names = @client.client_types.pluck(:name)
   end
 
   def clients_ordered(clients)
@@ -81,23 +54,23 @@ class ClientsController < AdminController
   end
 
   def filtering_params(params)
-    params.slice(:given_name, :family_name, :local_given_name, :local_family_name, :gender, :id)
+    params.slice(:age, :status, :gender)
   end
 
   def client_case_workers
-    org_short_names = Organization.cambodian.visible.pluck(:short_name)
-    client_case_workers = org_short_names.map do |short_name|
-      Organization.switch_to(short_name)
-      User.has_clients.uniq.map{|user| "#{short_name}_#{user.id} _ #{user.name}"}
-    end
-    Organization.switch_to('public')
-    client_case_workers.flatten
+    # org_short_names = Organization.cambodian.visible.pluck(:short_name)
+    # client_case_workers = org_short_names.map do |short_name|
+    #   Organization.switch_to(short_name)
+    #   User.has_clients.uniq.map{|user| "#{short_name}_#{user.id} _ #{user.name}"}
+    # end
+    # Organization.switch_to('public')
+    # client_case_workers.flatten
   end
 
   def client_filter_adavnced_searches
     return unless has_params?
-    basic_rules          = JSON.parse @basic_filter_params
-    basicfield_ngo = []
+    basic_rules     = JSON.parse @basic_filter_params
+    basicfield_ngo  = []
     org_short_names = Organization.cambodian.visible.pluck(:short_name)
     filter_client_advanced_serach(org_short_names, basic_rules)
   end
@@ -114,6 +87,7 @@ class ClientsController < AdminController
   def client_builder_fields
     @builder_fields = get_client_basic_fields
   end
+
   def get_client_basic_fields
     AdvancedSearches::FormOne.new(user: current_user).render
   end
