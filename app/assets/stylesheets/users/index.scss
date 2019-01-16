@@ -1,0 +1,48 @@
+body[id='users-index'] {
+  #user-search-form {
+    margin-top: 20px;
+  }
+
+  td.manage a {
+    margin: 0 5px;
+    text-decoration: none;
+  }
+
+  table.users {
+    th {
+      text-align: center;
+    }
+    margin-bottom: 0;
+    th {
+      border-bottom-width: 0;
+      min-width: 205px;
+    }
+    th.job_title {
+      min-width: 250px;
+    }
+    th.name {
+      min-width: 350px;
+    }
+    th.id {
+      min-width: 120px;
+    }
+    th.email {
+      min-width: 350px;
+    }
+    th.manage {
+      min-width: 150px;
+    }
+  }
+
+  th.modification {
+    min-width: 100px;
+  }
+
+  .date_filter {
+    padding: 6px;
+  }
+
+  .dataTables_scrollBody {
+    max-height: 500px !important;
+  }
+}

@@ -1,0 +1,50 @@
+.row
+  .col-xs-12.user
+    .ibox.mini-margin
+      .ibox-title
+        %h5= "#{t('.about_user')} #{@user.name}"
+        .ibox-tools
+          %a.collapse-link
+            .btn.btn-outline.btn-primary
+              %i.fa.fa-chevron-up
+          %small
+            = link_to edit_user_path(@user) do
+              .btn.btn-outline.btn-success
+                %i.fa.fa-pencil
+          - unless @user == current_user
+            %small
+              = link_to user_path(@user), method: 'delete', data: { confirm: t('.are_you_sure') } do
+                .btn.btn-outline.btn-danger
+                  %i.fa.fa-trash
+      .ibox-content
+        .row.user-summary
+          .col-sm-12
+            %table.table.table-bordered
+              %tr
+                %td.spacing-first-col
+                  = t('.job_title')
+                %td
+                  %strong
+                    = @user.job_title
+              %tr
+                %td.spacing-first-col
+                  = t('.mobile')
+                %td
+                  %strong
+                  = @user.mobile
+              %tr
+                %td.spacing-first-col
+                  = t('.email')
+                %td
+                  %strong
+                    - object_emails = @user.email.split(%r{;\s*}) if @user.email
+                    - if object_emails
+                      - object_emails.each do |object_email|
+                        = mail_to object_email
+
+              %tr
+                %td.spacing-first-col
+                  = t('.date_of_birth')
+                %td
+                  %strong
+                    = @user.date_of_birth

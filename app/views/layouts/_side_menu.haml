@@ -9,7 +9,7 @@
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             %span.clear
               %span.text-muted.text-xs.block
-                =# current_user.name
+                = current_user.name
                 %b.caret
           %ul.dropdown-menu.animated.fadeInRight.m-t-xs
             %li
@@ -19,17 +19,19 @@
               = link_to t('.logout'), destroy_user_session_path, method: :delete
         .logo-element
           = image_tag 'logo_for_OSCaR.png', class: 'log-min img-responsive'
-      %li{ class: "is_active_controller('dashboard')" }
+      %li{ class: is_active_controller('dashboard') }
         = link_to root_path do
           = fa_icon('th-large')
           %span.nav-label= t('.dashboard')
-      %li{ class: "is_active_controller('users')" }
-        -# = link_to users_path do
-        -#   = fa_icon('address-book-o')
-        -#   %span.nav-label= t('.users')
-        -#   %span.label.label-primary.pull-right= @user_count
+      - if can? :manage, User
+        %li{ class: is_active_controller('users') }
+          = link_to users_path do
+            = fa_icon('address-book-o')
+            %span.nav-label= t('.users')
+            %span.label.label-primary.pull-right= @user_count
       %li{ class: clients_menu_active }
         = link_to clients_path do
           = fa_icon('child')
           %span.nav-label= t('.clients')
           %span.label.label-primary.pull-right= @client_count
+
