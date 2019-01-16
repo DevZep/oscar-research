@@ -1,0 +1,97 @@
+.row
+  .col-xs-12
+    .row
+      .col-md-3
+        %span.show-name
+          = @client.name
+        .client-info
+          = @client.slug
+          = @client.gender.titleize
+      .col-md-6
+        %table.table.small.m-b-xs
+          %tbody
+            %tr
+              %td
+                = t('.date_of_birth')
+                %strong= @client.date_of_birth_format
+              %td
+            %tr
+              %td
+                = "#{t('.age')} : "
+                %strong= @client.age
+              %td
+                = "#{t('.current_province')} : "
+                %strong= @client.current_province
+      .col-md-2
+        .dropdown
+          %button.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+            = t('.government_forms')
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to client_path(@client, format: 'pdf', form: 'one'), target: :_blank do
+                %span.text-success= t('.government_form_one')
+            -# %li
+            -#   = link_to client_path(@client, format: 'pdf', form: 'two'), target: :_blank do
+            -#     %span.text-success= t('.government_form_two')
+            -# %li
+            -#   = link_to client_path(@client, format: 'pdf', form: 'three'), target: :_blank do
+            -#     %span.text-success= t('.government_form_three')
+            -# %li
+            -#   = link_to client_path(@client, format: 'pdf', form: 'four'), target: :_blank do
+            -#     %span.text-success= t('.government_form_four')
+            -# %li
+            -#   = link_to client_path(@client, format: 'pdf', form: 'five'), target: :_blank do
+            -#     %span.text-success= t('.government_form_five')
+            -# %li
+            -#   = link_to client_path(@client, format: 'pdf', form: 'six'), target: :_blank do
+            -#     %span.text-success= t('.government_form_six')
+
+.row.mini-margin
+  .col-xs-12
+    .ibox
+      .ibox-title
+        %h5= t('.about_client')
+      .ibox-content
+        .row
+          .col-sm-12.col-md-6.first-table
+            %table.table.table-bordered
+              %tr
+                %td.spacing-first-col
+                  = t('.local_given_name')
+                %td
+                  %strong
+                    = @client.local_given_name
+              %tr
+                %td.spacing-first-col
+                  = t('.local_family_name')
+                %td
+                  %strong
+                    = @client.local_family_name
+              %tr
+                %td.spacing-first-col
+                  = t('.address')
+                %td
+                  %strong
+                    = merged_address(@client)
+          .col-sm-12.col-md-6.second-table
+            %table.table.table-bordered
+              %tr
+                %td.spacing-first-col
+                  = t('.carer_name')
+                %td
+                  %strong
+                    = @client.gov_carer_name
+              %tr
+                %td.spacing-first-col
+                  = t('.carer_phone')
+                %td
+                  %strong
+                    = @client.gov_carer_phone
+              %tr
+                %td.spacing-first-col
+                  = t('.social_worker')
+                %td
+                  %strong= @client.gov_caseworker_name
+
+- Organization.switch_to('public')

@@ -1,0 +1,23 @@
+.row
+  .col-xs-12
+    .ibox
+      .ibox-content.no-border
+        .col-xs-12.col-md-2
+          %label.gov-form-columns= t('.government_form_one')
+          = render 'custom_table/form_one_title'
+        .clearfix
+        %hr/
+        .row
+          .col-xs-12
+            #builder.advanced-search-builder{ 'data-basic-search-rules' => @basic_filter_params, 'data-filter-translation' => { add_filter: t('.add_new_filter'), add_group: t('.add_new_group'), delete_group: t('.delete_group') }}
+            %span.basic-filter-error
+              %i Please Select Field to Filter
+
+      .ibox-footer
+        %button#search.btn.btn-primary= t('.search')
+        = link_to t('.reset'), clients_path, class: 'btn btn-default'
+
+= simple_form_for :client_advanced_search, url: :clients, method: 'GET', html: { id: 'advanced-search' } do |f|
+  = f.hidden_field :basic_rules
+  = hidden_field_tag :locale, "#{params[:locale]}"
+  #client-builder-fields{ data: { fields: @builder_fields.to_json }}

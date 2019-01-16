@@ -1,0 +1,12 @@
+- clients.each do |client|
+  - Organization.switch_to(client.slug.split('-').first)
+  %tr{ 'data-href' => client_path(client) }
+    %td.slug= client.slug
+    %td.given_name= client.given_name
+    %td.family_name= client.family_name
+    %td.given_name= client.local_given_name
+    %td.family_name= client.local_family_name
+    %td.gender= client.gender.try(:titleize)
+    %td.date_of_birth= client.date_of_birth
+    %td= client.province.try(:name)
+    %td= client.gov_carer_name

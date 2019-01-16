@@ -23,13 +23,13 @@
         = link_to root_path do
           = fa_icon('th-large')
           %span.nav-label= t('.dashboard')
-      %li{ class: clients_menu_active }
-        -# = link_to clients_path do
-        -#   = fa_icon('child')
-        -#   %span.nav-label= t('.clients')
-        -#   %span.label.label-primary.pull-right= @client_count
       %li{ class: "is_active_controller('users')" }
         -# = link_to users_path do
         -#   = fa_icon('address-book-o')
         -#   %span.nav-label= t('.users')
         -#   %span.label.label-primary.pull-right= @user_count
+      %li{ class: clients_menu_active }
+        = link_to clients_path do
+          = fa_icon('child')
+          %span.nav-label= t('.clients')
+          %span.label.label-primary.pull-right= @client_count

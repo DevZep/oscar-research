@@ -1,0 +1,32 @@
+%th.slug
+  = t('.slug')
+  .pull-right
+    = render 'order', column: :slug
+%th.given_name
+  =t('.given_name')
+  .pull-right
+    = render 'order', column: :given_name
+%th.family_name
+  =t('.family_name')
+  .pull-right
+    = render 'order', column: :family_name
+%th.given_name
+  =t('.local_given_name')
+  .pull-right
+    = render 'order', column: :local_given_name
+%th.family_name
+  =t('.local_family_name')
+  .pull-right
+    = render 'order', column: :local_family_name
+%th.family_name
+  =t('.gender')
+  .pull-right
+    = render 'order', column: :gender
+%th.date_of_birth
+  =t('.date_of_birth')
+  .pull-right
+    = render 'order', column: :date_of_birth
+%th.birth_province
+  =t('.current_province')
+%th.birth_province
+  =t('.social_worker')

@@ -20,3 +20,5 @@
 //= require util
 //= require initializer
 //= require common
+
+//= require clients/index
