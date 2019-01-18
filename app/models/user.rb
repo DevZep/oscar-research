@@ -28,10 +28,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def active_for_authentication?
-    super && created_from == 'oscar_research'
-  end
-
   def name
     full_name = "#{first_name} #{last_name}"
     full_name.present? ? full_name : 'Unknown'

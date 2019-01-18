@@ -7,10 +7,6 @@ class ApplicationController < ActionController::Base
     Organization.switch_to 'public'
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_path, alert: t('unauthorized.default')
-  end
-
   def after_sign_out_path_for(_resource_or_scope)
     root_url
   end

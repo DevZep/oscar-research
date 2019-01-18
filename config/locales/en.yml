@@ -173,7 +173,7 @@ en:
     columns:
       users:
         current_password: Current Password
-        current_password_hint: We need to current password to make change
+        current_password_hint: We need your current password to make change
         date_of_birth: Date of Birth
         email: Email
         first_name: First Name
