@@ -42,10 +42,6 @@ class Client < ActiveRecord::Base
   has_many :assessments,    dependent: :destroy
 
   scope :live_with_like,              ->(value) { where('clients.live_with iLIKE ?', "%#{value}%") }
-  scope :given_name_like,             ->(value) { where('clients.given_name iLIKE ?', "%#{value}%") }
-  scope :family_name_like,            ->(value) { where('clients.family_name iLIKE ?', "%#{value}%") }
-  scope :local_given_name_like,       ->(value) { where('clients.local_given_name iLIKE ?', "%#{value}%") }
-  scope :local_family_name_like,      ->(value) { where('clients.local_family_name iLIKE ?', "%#{value}%") }
   scope :current_address_like,        ->(value) { where('clients.current_address iLIKE ?', "%#{value}%") }
   scope :house_number_like,           ->(value) { where('clients.house_number iLike ?', "%#{value}%") }
   scope :street_number_like,          ->(value) { where('clients.street_number iLike ?', "%#{value}%") }
@@ -76,20 +72,14 @@ class Client < ActiveRecord::Base
   scope :all_active_types,            ->        { where(status: CLIENT_ACTIVE_STATUS) }
   scope :of_case_worker,              -> (user_id) { joins(:case_worker_clients).where(case_worker_clients: { user_id: user_id }) }
 
-  # def self.filter(options)
-  #   query = all
+  def self.filter(options)
+    query = all
+    query = query.where("gender = ?", "#{options[:gender]}")                      if options[:gender].present?
+    query = query.where("status = ?", "#{options[:status]}")                      if options[:status].present?
+    # query = option_filter(query, options[:case_workers])                          if options[:case_workers].present?
 
-  #   query = query.given_name_like(options[:given_name])                           if options[:given_name].present?
-  #   query = query.family_name_like(options[:family_name])                         if options[:family_name].present?
-  #   query = query.local_given_name_like(options[:local_given_name])               if options[:local_given_name].present?
-  #   query = query.local_family_name_like(options[:local_family_name])             if options[:local_family_name].present?
-  #   query = query.where("gender = ?", "#{options[:gender]}")                      if options[:gender].present?
-  #   query = query.slug_like(options[:id])                                         if options[:id].present?
-  #   # query = query.where("status = ?", "#{options[:status]}")                      if options[:status].present?
-  #   # query = option_filter(query, options[:case_workers])                          if options[:case_workers].present?
-
-  #   query
-  # end
+    query
+  end
 
   # def self.option_filter(clients, case_workers)
   #   current_org_short_name = Organization.current.short_name
@@ -112,18 +102,6 @@ class Client < ActiveRecord::Base
   #   where(date_of_birth: max..min)
   # end
 
-  def name
-    name       = "#{given_name} #{family_name}"
-    local_name = "#{local_given_name} #{local_family_name}"
-    name.present? ? name : local_name.present? ? local_name : 'Unknown'
-  end
-
-  def en_and_local_name
-    en_name = "#{given_name} #{family_name}"
-    local_name = "#{local_given_name} #{local_family_name}"
-
-    local_name.present? ? "#{en_name} (#{local_name})" : en_name.present? ? en_name : 'Unknown'
-  end
 
   # def self.next_assessment_candidates
   #   Assessment.where('client IN (?) AND ', self)
@@ -209,9 +187,14 @@ class Client < ActiveRecord::Base
     ((date - date_of_birth) / 365).to_i
   end
 
-  # def age_extra_months(date = Date.today)
-  #   ((date - date_of_birth) % 365 / 31).to_i
-  # end
+  def age_filter_query(dob)
+    return if dob.nil?
+    ((Date.today - dob) / 365).to_i
+  end
+
+  def age_extra_months(date = Date.today)
+    ((date - date_of_birth) % 365 / 31).to_i
+  end
 
   # def able?
   #   able_state == ABLE_STATES[0]

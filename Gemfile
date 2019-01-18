@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 
 gem 'rails',                      '4.2.2'
+gem 'active_model_serializers',   '~> 0.10.8'
 gem 'pg',                         '~> 0.18.4'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -33,6 +34,8 @@ gem 'kaminari',                   '~> 1.0', '>= 1.0.1'
 gem 'jquery-datatables-rails',    '~> 3.4.0'
 gem 'friendly_id',                '~> 5.2', '>= 5.2.3'
 gem 'icheck-rails',               '~> 1.0.2.2'
+gem 'lodash-rails'
+gem 'draper',                     '~> 2.1.0'
 
 group :staging, :demo, :production do
   gem 'asset_sync'

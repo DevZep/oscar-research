@@ -5,10 +5,10 @@ module AdvancedSearches
     def self.render
       group                 = format_header('basic_fields')
       ngos = ['basicfield_NGO', all_ngos]
-      text_fields               = text_type_list.map { |item| AdvancedSearches::FilterTypes.text_options(item, format_header(item), group) }
+      # text_fields               = text_type_list.map { |item| AdvancedSearches::FilterTypes.text_options(item, format_header(item), group) }
       drop_list_fields          = drop_down_type_list.map { |item| AdvancedSearches::FilterTypes.drop_list_options(item.first, format_header(item.first), item.last, group) }
       drop_list_fields << drop_list_ngos(ngos.first, format_header(ngos.first), ngos.last, group)
-      search_fields         = drop_list_fields + text_fields
+      search_fields         = drop_list_fields
       search_fields.sort_by { |f| f[:label].downcase }
     end
 

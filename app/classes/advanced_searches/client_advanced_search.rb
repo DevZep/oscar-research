@@ -1,7 +1,7 @@
 module AdvancedSearches
-  class ClientAdvancedSearches
+  class ClientAdvancedSearch
     def initialize(basic_rules, clients)
-      @clients            = client
+      @clients            = clients
       @basic_rules        = basic_rules
     end
 

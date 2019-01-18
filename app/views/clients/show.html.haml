@@ -3,7 +3,7 @@
     .row
       .col-md-3
         %span.show-name
-          = @client.name
+
         .client-info
           = @client.slug
           = @client.gender.titleize
@@ -58,16 +58,16 @@
             %table.table.table-bordered
               %tr
                 %td.spacing-first-col
-                  = t('.local_given_name')
+                  = t('.age')
                 %td
                   %strong
-                    = @client.local_given_name
+                    = @client.age_as_years
               %tr
                 %td.spacing-first-col
-                  = t('.local_family_name')
+                  = t('.gender')
                 %td
                   %strong
-                    = @client.local_family_name
+                    = @client.gender.try(&:titleize)
               %tr
                 %td.spacing-first-col
                   = t('.address')

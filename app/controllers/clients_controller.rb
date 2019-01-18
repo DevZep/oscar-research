@@ -1,15 +1,16 @@
 class ClientsController < AdminController
 
   before_action :find_client, only: :show
-  before_action :client_builder_fields, :build_advanced_search, :fetch_advanced_search_queries, only: :index
+  before_action :find_params_advanced_search, :client_builder_fields, :build_advanced_search, :fetch_advanced_search_queries, only: :index
   before_action :basic_params, if: :has_params?
 
   def index
     respond_to do |f|
+      clients = list_clients_filter
       f.html do
-        clients = list_clients_filter
         @clients_count = clients.count
-        @clients = Kaminari.paginate_array(clients).page(params[:page]).per(20)
+        @clients = clients
+        # @clients = Kaminari.paginate_array(clients).page(params[:page]).per(20)
       end
     end
   end
@@ -26,7 +27,7 @@ class ClientsController < AdminController
   end
 
   def clients_ordered(clients)
-    clients = clients.sort_by(&:name)
+    clients = clients
     column = params[:order]
     return clients unless column
     if %w(age_as_years id_poor).include?(column)
@@ -54,7 +55,7 @@ class ClientsController < AdminController
   end
 
   def filtering_params(params)
-    params.slice(:age, :status, :gender)
+    params.slice(:status, :gender)
   end
 
   def client_case_workers

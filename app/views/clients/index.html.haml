@@ -1,5 +1,5 @@
 .row
-  .col-xs-12.col-md-9
+  .col-xs-12.col-md-9#action-btns
     %button.btn.btn-primary.query.client-search{"aria-expanded" => 'false', "data-target" => '#client-search-form', "data-toggle" => 'collapse', type: 'button'}
       %i.fa.fa-filter
     %button.btn.btn-primary.query.client-advance-search{"aria-expanded" => 'false', "data-target" => '#client-advance-search-form', "data-toggle" => 'collapse', type: 'button'}
@@ -8,9 +8,7 @@
       = t('.load_save_search')
     %button.btn.btn-primary#save-search-setting{ 'data-toggle': 'modal', 'data-target': '#save-query' }
       = t('.save_search_settings')
-    = link_to current_url({format: 'xls', type: 'basic_info'}), class: 'btn btn-primary btn-export' do
-      %i.fa.fa-download
-      = t('.export_to_xls')
+    = hidden_field_tag 'export-to-xls', t('.export_to_xls')
 .row
   .col-xs-12
     = render 'filter'
@@ -30,20 +28,39 @@
         %h5= @clients_count
         %span.label.label-info= t('.results')
       .ibox-content
-        #clients-table.tab-pane{role: "tabpanel"}
-          .table-responsive.clients-table
-            %table.table.table-bordered.table-hover.table-striped.clients
-              .row
-                - if @advanced_search_params.present? && @advanced_search_params[:basic_rules].present? && params[:default_column].nil?
-                  %thead
-                    = render 'custom_table/table_header'
-                  %tbody.page
-                    = render 'custom_table/table_body', clients: @clients
-                - else
-                  %thead
-                    = render 'table_header'
-                  %tbody
-                    = render 'table_body', clients: @clients
-      .text-center
-        = paginate @clients
+        #clients-table.tab-pane{role: "tabpanel", data: {source: api_clients_path } }
+          %table.clients.table.table-striped.table-bordered.table-hover.display
+            - if @advanced_search_params.present? && @advanced_search_params[:basic_rules].present? && params[:default_column].nil?
+              %thead
+                %tr
+                  = render 'custom_table/table_header'
+              %tbody.page
+                = render 'custom_table/table_body', clients: @clients
+              %tfoot
+                %tr
+                  = render 'custom_table/table_header'
+            - else
+              %thead
+                %tr
+                  = render 'table_header'
+              / %tbody
+              /   = render 'table_body', clients: @clients
+              %tfoot
+                %tr
+                  = render 'table_header'
+      /     .table-responsive.clients-table
+      /       %table.table.table-bordered.table-hover.table-striped.clients
+      /         .row
+      /           - if @advanced_search_params.present? && @advanced_search_params[:basic_rules].present? && params[:default_column].nil?
+      /             %thead
+      /               = render 'custom_table/table_header'
+      /             %tbody.page
+      /               = render 'custom_table/table_body', clients: @clients
+      /           - else
+      /             %thead
+      /               = render 'table_header'
+      /             %tbody
+      /               = render 'table_body', clients: @clients
+      / .text-center
+      /   = paginate @clients
 - Organization.switch_to('public')

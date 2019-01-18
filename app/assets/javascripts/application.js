@@ -2,8 +2,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require dataTables/jquery.dataTables
 //= require bootstrap-sprockets
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require datatables/dataTables.buttons.min
+//= require datatables/buttons.flash.min
+//= require datatables/jszip.min
+//= require datatables/buttons.html5.min
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.en-GB.js
@@ -11,6 +16,7 @@
 //= require image_map_resizer/imageMapResizer.min
 //= require select2
 //= require icheck
+//= require lodash
 
 //WRAPBOOTSTRAP
 //= require metisMenu/jquery.metisMenu
@@ -28,8 +34,8 @@
 //= require common
 
 //APPLICATION JS
-//= require client_advanced_searches
-//= require advanced_filter_builder
 //= require users/index
 //= require clients/index
 //= require filters
+//= require advanced_filter_builder
+//= require client_advanced_searches
