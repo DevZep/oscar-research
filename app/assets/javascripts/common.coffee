@@ -21,7 +21,5 @@ OSCAR.Common =
     if Object.keys(messageInfo).length > 0
       if messageInfo.messageType == 'notice'
         toastr.success(messageInfo.message, '', messageOption)
-        debugger
       else if messageInfo.messageType == 'alert'
         toastr.error(messageInfo.message, '', messageOption)
-        debugger
