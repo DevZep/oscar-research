@@ -4,12 +4,9 @@ class UsersController < AdminController
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @user_grid = UsersGrid.new(params[:users_grid])
     respond_to do |f|
-      f.html do
-        @results = @user_grid.scope { |scope| scope.accessible_by(current_ability) }.assets.size
-        @user_grid.scope { |scope| scope.accessible_by(current_ability).page(params[:page]).per(20) }
-      end
+      f.html
+      f.json { render json: UsersDatatable.new(view_context)}
     end
   end
 

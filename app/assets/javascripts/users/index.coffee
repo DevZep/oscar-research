@@ -1,8 +1,17 @@
 OSCAR.UsersIndex = do ->
   _init = ->
+    _initDataTable()
     _fixedHeaderTableColumns()
     _getUserPath()
 
+  _initDataTable = ->
+    $('#users').dataTable
+      sPaginationType: "full_numbers"
+      bJQueryUI: true
+      bProcessing: true
+      bServerSide: true
+      sAjaxSource: $('#users').data('source')
+      
   _fixedHeaderTableColumns = ->
     $('.users-table').removeClass('table-responsive')
     if !$('table.users tbody tr td').hasClass('noresults')
