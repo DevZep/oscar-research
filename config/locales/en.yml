@@ -32,6 +32,7 @@ en:
       age: Age
       export_to_xls: Export to XLS
       load_save_search: Load Saved Search
+      number_active_program: Number of Active Program
       report_builder: Report Builder
       results: Results
       save_search_settings: Save Search Settings
@@ -43,9 +44,11 @@ en:
       search: Search
       status: Status
     table_header:
+      all_csi_assessments: All CSI Assessments
       current_province: Current Province
       date_of_birth: Date of Birth
       gender: Gender
+      number_active_program: Number of Active Program
       slug: ID
       social_worker: DoSVY Social Worker
       status: Status
@@ -70,6 +73,7 @@ en:
   custom_table:
     basic_fields: Client Basic Fields
     form_one_title:
+      active_program_stream: Active Program Stream
       age: Age
       birth_province: Birth Province
       cambodia: Cambodia
@@ -110,14 +114,15 @@ en:
       gov_information_source: Information source (Client carer)
       gov_referral_reason: Brief information on the reasons for client transmission
       government_form_one: Initial Information Form
+      house_number: House
       id: ID
       local_family_name: Family Name (kh)
       local_given_name: Given Name (kh)
-      house_number: House
       ngo: NGO
       select_columns: Select Columns
       slug: ID
       show_all: Show All
+      status: Status
       street_number: Street
       village: Village
     table_header:
@@ -167,10 +172,13 @@ en:
       ngo: NGO
       slug: ID
       show_all: Show All
+      status: Status
       street_number: Street
       village: Village
   datagrid:
     columns:
+      clients:
+        total: Total
       users:
         current_password: Current Password
         current_password_hint: We need your current password to make change

@@ -1,6 +1,6 @@
 .row
   .col-xs-12.col-md-9#action-btns
-    %button.btn.btn-primary.query.client-search{"aria-expanded" => 'false', "data-target" => '#client-search-form', "data-toggle" => 'collapse', type: 'button'}
+    = link_to clients_path, class: 'btn btn-primary query client-search' do
       %i.fa.fa-filter
     %button.btn.btn-primary.query.client-advance-search{"aria-expanded" => 'false', "data-target" => '#client-advance-search-form', "data-toggle" => 'collapse', type: 'button'}
       = t('.report_builder')
@@ -28,7 +28,7 @@
         %h5= @clients_count
         %span.label.label-info= t('.results')
       .ibox-content
-        #clients-table.tab-pane{role: "tabpanel", data: {source: api_clients_path } }
+        #clients-table.tab-pane{role: "tabpanel" }
           %table.clients.table.table-striped.table-bordered.table-hover.display
             - if @advanced_search_params.present? && @advanced_search_params[:basic_rules].present? && params[:default_column].nil?
               %thead
@@ -43,8 +43,8 @@
               %thead
                 %tr
                   = render 'table_header'
-              / %tbody
-              /   = render 'table_body', clients: @clients
+              %tbody
+                = render 'table_body', clients: @clients
               %tfoot
                 %tr
                   = render 'table_header'

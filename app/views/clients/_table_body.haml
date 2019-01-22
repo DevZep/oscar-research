@@ -1,8 +1,15 @@
 - clients.each do |client|
-  - Organization.switch_to(client.slug.split('-').first)
   %tr{ 'data-href' => client_path(client) }
     %td= client.age_as_years
     %td= client.gender.try(&:titleize)
     %td= client.status
+    %td
+      %span.btn.btn-info.btn-xs
+        = "#{t('datagrid.columns.clients.total')}:"
+        = client.enrollment_count
+    %td
+      %span.btn.btn-info.btn-xs
+        = "#{t('datagrid.columns.clients.total')}:"
+        = client.assessment_count
     %td= client.province_name
     %td= client.district_name

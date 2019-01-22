@@ -1,8 +1,8 @@
 module AdvancedSearches
   class ClientBaseSqlBuilder
-    ASSOCIATION_FIELDS = ['age', 'current_province', 'village', 'commune', 'district']
+    ASSOCIATION_FIELDS = ['age', 'current_province', 'district', 'active_program_stream']
     BLANK_FIELDS = ['date_of_birth']
-    SENSITIVITY_FIELDS = %w(given_name family_name local_given_name local_family_name kid_id street_number house_number gov_city gov_district gov_commune gov_village_code gov_client_code gov_interview_village gov_interview_commune gov_interview_district gov_interview_city gov_caseworker_name gov_caseworker_phone gov_carer_name gov_carer_relationship gov_carer_home gov_carer_street gov_carer_village gov_carer_commune gov_carer_district gov_carer_city gov_carer_phone)
+    # SENSITIVITY_FIELDS = %w(kid_id street_number house_number gov_city gov_district gov_commune gov_village_code gov_client_code gov_interview_village gov_interview_commune gov_interview_district gov_interview_city gov_caseworker_name gov_caseworker_phone gov_carer_name gov_carer_relationship gov_carer_home gov_carer_street gov_carer_village gov_carer_commune gov_carer_district gov_carer_city gov_carer_phone)
 
     def initialize(clients, rules)
       @clients     = clients
@@ -24,20 +24,6 @@ module AdvancedSearches
           association_filter = AdvancedSearches::ClientAssociationFilter.new(@clients, field, operator, value).get_sql
           @sql_string << association_filter[:id]
           @values     << association_filter[:values]
-        elsif form_builder.first == 'need'
-          need = Need.find_by(name: form_builder.last)
-          need = AdvancedSearches::ClientNeedsSqlBuilder.new(need, rule).get_sql
-          @sql_string << need[:id]
-          @values << need[:values]
-        elsif form_builder.first == 'problem'
-          problem = Problem.find_by(name: form_builder.last)
-          problem = AdvancedSearches::ClientProblemsSqlBuilder.new(problem, rule).get_sql
-          @sql_string << problem[:id]
-          @values << problem[:values]
-        elsif form_builder.last == 'NGO'
-          ngo = AdvancedSearches::OrganizationFilter.new(operator, value).get_sql
-          @sql_string << ngo[:id]
-          @values << ngo[:values]
         elsif form_builder.first == 'basicfield'
           field = field.split('basicfield_').last
           value = field == 'grade' ? validate_integer(value) : value
@@ -62,22 +48,12 @@ module AdvancedSearches
     def base_sql(field, operator, value)
       case operator
       when 'equal'
-        if SENSITIVITY_FIELDS.include?(field)
-          @sql_string << "lower(clients.#{field}) = ?"
-          @values << value.downcase
-        else
-          @sql_string << "clients.#{field} = ?"
-          @values << value
-        end
+        @sql_string << "clients.#{field} = ?"
+        @values << value
 
       when 'not_equal'
-        if SENSITIVITY_FIELDS.include?(field)
-          @sql_string << "lower(clients.#{field}) != ?"
-          @values << value.downcase
-        else
-          @sql_string << "clients.#{field} != ?"
-          @values << value
-        end
+        @sql_string << "clients.#{field} != ?"
+        @values << value
 
       when 'less'
         @sql_string << "clients.#{field} < ?"

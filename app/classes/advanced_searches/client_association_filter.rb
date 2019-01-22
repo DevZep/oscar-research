@@ -14,17 +14,29 @@ module AdvancedSearches
         values = birth_province
       when 'district'
         values = district_query
-      when 'commune'
-        values = commune_query
-      when 'village'
-        values = village_query
       when 'age'
         values = age_field_query
+      when 'active_program_stream'
+        values = active_program_stream_query
       end
       { id: sql_string, values: values }
     end
 
     private
+
+    def active_program_stream_query
+      clients = @clients.joins(:client_enrollments).where(client_enrollments: { status: 'Active' })
+      case @operator
+      when 'equal'
+        clients.where('client_enrollments.program_stream_id = ?', @value).distinct.ids
+      when 'not_equal'
+        clients.where.not('client_enrollments.program_stream_id = ?', @value).distinct.ids
+      when 'is_empty'
+        @clients.where.not(id: clients.distinct.ids).ids
+      when 'is_not_empty'
+        clients.distinct.ids
+      end
+    end
 
     def birth_province
       clients = @clients.joins(:province)
@@ -49,36 +61,6 @@ module AdvancedSearches
         clients = clients.where(district_id: district_id).ids if district_id.present?
       when 'not_equal'
         clients = clients.where.not(district_id: district_id).ids if district_id.present?
-      when 'is_empty'
-        @clients.where.not(id: clients.ids).ids
-      when 'is_not_empty'
-        @clients.where(id: clients.ids).ids
-      end
-    end
-
-    def commune_query
-      clients = @clients.joins(:commune)
-      commune_id = District.find_by(name: @value).try(:id)
-      case @operator
-      when 'equal'
-        clients = clients.where(commune_id: commune_id).ids if commune_id.present?
-      when 'not_equal'
-        clients = clients.where.not(commune_id: commune_id).ids if province_id.present?
-      when 'is_empty'
-        @clients.where.not(id: clients.ids).ids
-      when 'is_not_empty'
-        @clients.where(id: clients.ids).ids
-      end
-    end
-
-    def village_query
-      clients = @clients.joins(:village)
-      village_id = District.find_by(name: @value).try(:id)
-      case @operator
-      when 'equal'
-        clients = clients.where(village_id: village_id).ids if village_id.present?
-      when 'not_equal'
-        clients = clients.where.not(village_id: village_id).ids if village_id.present?
       when 'is_empty'
         @clients.where.not(id: clients.ids).ids
       when 'is_not_empty'

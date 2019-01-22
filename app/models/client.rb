@@ -7,10 +7,7 @@ class Client < ActiveRecord::Base
 
   friendly_id :slug, use: :slugged
 
-  CLIENT_STATUSES = ['Referred', 'Active EC', 'Active KC', 'Active FC',
-                      'Independent - Monitored', 'Exited - Dead',
-                      'Exited - Age Out', 'Exited Independent', 'Exited Adopted',
-                      'Exited Other'].freeze
+  CLIENT_STATUSES = ['Accepted', 'Active', 'Exited', 'Referred'].freeze
 
   CLIENT_ACTIVE_STATUS = ['Active EC', 'Active FC', 'Active KC'].freeze
   ABLE_STATES = %w(Accepted Rejected Discharged).freeze
@@ -40,6 +37,8 @@ class Client < ActiveRecord::Base
   has_many :cases,          dependent: :destroy
   has_many :case_notes,     dependent: :destroy
   has_many :assessments,    dependent: :destroy
+  has_many :client_enrollments, dependent: :destroy
+  has_many :program_streams, through: :client_enrollments
 
   scope :live_with_like,              ->(value) { where('clients.live_with iLIKE ?', "%#{value}%") }
   scope :current_address_like,        ->(value) { where('clients.current_address iLIKE ?', "%#{value}%") }

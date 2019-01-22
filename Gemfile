@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 
 gem 'rails',                      '4.2.2'
-gem 'active_model_serializers',   '~> 0.10.8'
 gem 'pg',                         '~> 0.18.4'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

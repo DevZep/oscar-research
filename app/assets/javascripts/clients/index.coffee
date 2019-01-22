@@ -119,24 +119,6 @@ OSCAR.ClientsIndex = do ->
       $('.visibility input[type=checkbox]').iCheck('uncheck')
 
   _fixedHeaderTableColumns = ->
-    # $('.clients-table').removeClass('table-responsive')
-    # if !$('table.clients tbody tr td').hasClass('noresults')
-    #   $('table.clients').dataTable(
-    #     "scrollY": "200px"
-    #     "sScrollX": "auto"
-    #     'sScrollY': 'auto'
-    #     'bFilter': false
-    #     'bAutoWidth': true
-    #     'bSort': false
-    #     'bInfo': false
-    #     'bLengthChange': false
-    #     'bPaginate': false
-    #     'fixedHeader': true
-    #     "paging": false
-    #   )
-    # else
-    #   $('.clients-table').addClass('table-responsive')
-
     $('table.clients thead tr').clone(true).appendTo 'table.clients thead'
     $('table.clients thead tr:eq(1) th').each (i) ->
       title = $(@).text()
@@ -154,45 +136,18 @@ OSCAR.ClientsIndex = do ->
         'bAutoWidth': true
         'orderCellsTop': true
         'fixedHeader': true
-        'ajax': $('#clients-table').data('source')
-        'columns': [
-          {'data': 'gender'}
-          {'data': 'status'}
-          {'data': 'district'}
-          {'data': 'current_province'}
-        ]
         'pageLength': 20
         'dom': 'Bfrtip'
         'buttons': [
           'excel'
         ]
-        'initComplete': ->
-          @api().columns().every ->
-            column = this
-            select = $('<select><option value=""></option></select>').appendTo($(column.footer()).empty()).on('change', ->
-                      val = $.fn.dataTable.util.escapeRegex($(this).val())
-                      column.search((if val then '^' + val + '$' else ''), true, false).draw()
-                    )
-
-            column.data().unique().sort().each (d, j) ->
-              select.append '<option value="' + d + '">' + d + '</option>'
-              return
-            return
-          return
       )
 
-    # $('.dataTables_scrollFoot').appendTo('#client-advance-search-form')
-    #action-btns
     $('.dt-button').appendTo('#action-btns')
     toXlsText = $('#export-to-xls').val()
     $('.dt-button').addClass('btn btn-primary')
     .html("<i class='fa fa-download'></i> #{toXlsText}")
     .removeClass('dt-button buttons-excel buttons-html5');
-    $('#clients-table select').select2
-      minimumInputLength: 0
-      allowClear: true
-      width: '250px'
-
 
   _cssClassForlabelDynamic = ->
     $('.dynamic_filter').prev('label').css( "display", "block" )
@@ -225,14 +180,14 @@ OSCAR.ClientsIndex = do ->
 
 
   _handleScrollTable = ->
-    # $(window).load ->
-    #   ua = navigator.userAgent
-    #   unless /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)
-    #     $('.clients-table .dataTables_scrollBody').niceScroll
-    #       scrollspeed: 30
-    #       cursorwidth: 10
-    #       cursoropacitymax: 0.4
-    #     _handleResizeWindow()
+    $(window).load ->
+      ua = navigator.userAgent
+      unless /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)
+        $('.clients-table .dataTables_scrollBody').niceScroll
+          scrollspeed: 30
+          cursorwidth: 10
+          cursoropacitymax: 0.4
+        _handleResizeWindow()
 
   _getClientPath = ->
     return if $('table.clients tbody tr').text().trim() == 'No results found' || $('table.clients tbody tr').text().trim() == 'មិនមានលទ្ធផល' || $('table.clients tbody tr').text().trim() == 'No data available in table'

@@ -41,10 +41,13 @@ class ClientsController < AdminController
   end
 
   def fetch_clients
+    # org_short_names = Organization.pluck(:short_name)
     org_short_names = Organization.cambodian.visible.pluck(:short_name)
-    clients = org_short_names.map do |short_name|
+    clients = []
+    org_short_names.each do |short_name|
       Organization.switch_to(short_name)
-      filtering_params(params).present? ? Client.filter(filtering_params(params)).reload : Client.all.reload
+      clients << clients_query
+      clients.flatten.to_a
     end
     Organization.switch_to('public')
     clients.flatten
@@ -54,25 +57,12 @@ class ClientsController < AdminController
     ClientDecorator.decorate(value)
   end
 
-  def filtering_params(params)
-    params.slice(:status, :gender)
-  end
-
-  def client_case_workers
-    # org_short_names = Organization.cambodian.visible.pluck(:short_name)
-    # client_case_workers = org_short_names.map do |short_name|
-    #   Organization.switch_to(short_name)
-    #   User.has_clients.uniq.map{|user| "#{short_name}_#{user.id} _ #{user.name}"}
-    # end
-    # Organization.switch_to('public')
-    # client_case_workers.flatten
-  end
-
   def client_filter_adavnced_searches
     return unless has_params?
     basic_rules     = JSON.parse @basic_filter_params
     basicfield_ngo  = []
     org_short_names = Organization.cambodian.visible.pluck(:short_name)
+    # org_short_names = Organization.pluck(:short_name)
     filter_client_advanced_serach(org_short_names, basic_rules)
   end
 
@@ -109,16 +99,24 @@ class ClientsController < AdminController
     if has_params?
       clients = clients_ordered(client_filter_adavnced_searches)
     else
-      clients = clients_ordered(fetch_clients)
+      clients = fetch_clients
     end
   end
 
   def filter_client_advanced_serach(ngos, basic_rules)
     clients = ngos.map do |short_name|
       Organization.switch_to(short_name)
-      AdvancedSearches::ClientAdvancedSearch.new(basic_rules, Client.all).filter.reload
+      AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients_query).filter.reload
     end
     Organization.switch_to('public')
     clients.flatten
+  end
+
+  def clients_query
+    Client.includes(:province, :district, :client_enrollments, :assessments)
+          .select("id, slug, date_of_birth, status, gender, province_id, district_id,
+                  (SELECT COUNT(id) FROM client_enrollments WHERE client_enrollments.client_id = clients.id AND status = 'Active') as enrollment_count,
+                  (SELECT COUNT(id) FROM assessments WHERE assessments.client_id = clients.id AND assessments.default = true) as assessment_count
+                ")
   end
 end

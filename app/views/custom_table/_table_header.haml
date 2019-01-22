@@ -2,6 +2,12 @@
   %th= t('.age')
 - if params[:columns].nil? || params[:columns][:gender]  == '1'
   %th= t('.gender')
+- if params[:columns].nil? || params[:columns][:status] == '1'
+  %th= t('.status')
+- if params[:columns].nil? || params[:columns][:number_active_program] == '1'
+  %th=t('.number_active_program')
+- if params[:columns].nil? || params[:columns][:all_csi_assessments] == '1'
+  %th=t('.all_csi_assessments')
 - if params[:columns].nil? || params[:columns][:district]  == '1'
   %th= t('.district')
 - if params[:columns].nil? || params[:columns][:current_province]  == '1'
