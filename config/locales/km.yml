@@ -145,8 +145,16 @@ km:
       save: រក្សាទុក
     index:
       add_new: បន្ថែមឣ្នកប្រើថ្មី
-      export_to_xls: ទាញចេញជាឯកសារប្រភេទ XLS
+      date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
+      email: ឣុីម៉ែល
+      id: ID
+      job_title: មុខតំណែង
+      mobile: លេខទូរស័ព្ទ
+      name: ឈ្មោះ
       results: លទ្ធផល
+      search: ស្វែងរក
+    new:
+      new_user: New User
     show:
       about_user: អំពីអ្នកប្រើប្រាស់
       are_you_sure: តើអ្នកប្រាកដហើយ?

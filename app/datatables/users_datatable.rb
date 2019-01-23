@@ -9,6 +9,7 @@ class UsersDatatable
     {
       sEcho: params[:sEcho].to_i,
       iTotalRecords: User.count,
+      iTotalDisplayRecords: users.total_count,
       aaData: data
     }
   end
