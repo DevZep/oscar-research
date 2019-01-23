@@ -45,22 +45,3 @@
                   = render 'table_header'
               %tbody
                 = render 'table_body', clients: @clients
-              %tfoot
-                %tr
-                  = render 'table_header'
-      /     .table-responsive.clients-table
-      /       %table.table.table-bordered.table-hover.table-striped.clients
-      /         .row
-      /           - if @advanced_search_params.present? && @advanced_search_params[:basic_rules].present? && params[:default_column].nil?
-      /             %thead
-      /               = render 'custom_table/table_header'
-      /             %tbody.page
-      /               = render 'custom_table/table_body', clients: @clients
-      /           - else
-      /             %thead
-      /               = render 'table_header'
-      /             %tbody
-      /               = render 'table_body', clients: @clients
-      / .text-center
-      /   = paginate @clients
-- Organization.switch_to('public')
