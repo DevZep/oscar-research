@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
       roles == role
     end
   end
+  
+  def active_for_authentication?
+    super && created_from == 'oscar_research'
+  end
 
   def name
     full_name = "#{first_name} #{last_name}"

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   before_action :authenticate_user!
 
   protect_from_forgery with: :exception
@@ -6,6 +8,10 @@ class ApplicationController < ActionController::Base
 
   def switch_organization
     Organization.switch_to 'public'
+  end
+
+  rescue_from Pundit::NotAuthorizedError do |exception|
+    redirect_to root_url, alert: 'You are not authorized to access this page.'
   end
 
   def set_locale

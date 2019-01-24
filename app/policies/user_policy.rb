@@ -1,15 +1,20 @@
 class UserPolicy < ApplicationPolicy
 
-  def edit
+  def edit?
+    user.admin?
   end
 
-  def read
+  def new?
+    user.admin?
   end
 
-  def show
+  def index?
+    user.admin?
   end
 
-  def create
-  end
-  
+  alias show? index?
+
+  alias create? new?
+
+  alias update? edit?
 end

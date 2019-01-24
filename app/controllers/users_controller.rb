@@ -8,6 +8,7 @@ class UsersController < AdminController
         users        = list_users_filter
         @users_count = users.count
         @users       = Kaminari.paginate_array(users).page(params[:page]).per(20)
+        authorize @users
       end
       f.json { render json: UsersDatatable.new(view_context)}
     end
@@ -15,10 +16,12 @@ class UsersController < AdminController
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user
     if @user.save
       redirect_to @user, notice: t('.successfully_created')
     else
@@ -27,12 +30,15 @@ class UsersController < AdminController
   end
 
   def show
+    authorize @user
   end
 
   def edit
+    authorize @user
   end
 
   def update
+    authorize @user
     if @user.update_attributes(user_params)
       redirect_to @user, notice: t('.successfully_updated')
     else
@@ -41,6 +47,7 @@ class UsersController < AdminController
   end
 
   def destroy
+    authorize @user
     if @user.destroy
       redirect_to users_url, notice: t('.successfully_deleted')
     else
@@ -78,7 +85,7 @@ class UsersController < AdminController
   end
 
   def fetch_users
-    users = User.all.reload
+    users = User.only_from_oscar_research.reload
     users.flatten
   end
 
