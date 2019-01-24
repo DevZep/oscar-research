@@ -139,7 +139,15 @@ OSCAR.ClientsIndex = do ->
         'pageLength': 20
         'dom': 'Bfrtip'
         'buttons': [
-          'excel'
+          {
+            extend: 'excelHtml5',
+            messageTop: 'The information in this table is copyright to OSCaR Research.',
+            customize: ( xlsx )->
+                # var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                styles = xlsx.xl['styles.xml']
+                # $('row c[r^="C"]', sheet).attr( 's', '2' );
+                $('fonts font name', styles).attr('val', 'Khmer OS Content')
+          }
         ]
       )
 
