@@ -1,0 +1,27 @@
+.row
+  .col-xs-12
+    .pull-right
+      = link_to t('.add_new'), new_user_path, class: 'btn btn-primary'
+
+%p#searchTranslate.hide= t('.search')
+.row.mini-margin
+  .col-xs-12
+    .ibox
+      .ibox-title
+        %h5= @users_count
+        %span.label.label-info= t('.results')
+      .ibox-content
+        #users-table.tab-pane{role: "tabpanel"}
+          .table-responsive.users-table
+            %table.table.table-bordered.table-hover.table-striped.users#users.display{"data-source" => "#{users_url(format: "json")}"}
+              .row
+                %thead
+                  %tr
+                    %th= t('.id')
+                    %th= t('.name')
+                    %th= t('.date_of_birth')
+                    %th= t('.mobile')
+                    %th= t('.email')
+                    %th= t('.job_title')
+                    %th= t('.manage')
+                %tbody#users-body

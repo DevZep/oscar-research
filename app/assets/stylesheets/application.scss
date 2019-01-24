@@ -1,12 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap-datepicker';
+@import 'dataTables/bootstrap/3/jquery.dataTables.bootstrap';
 @import 'font-awesome';
 @import 'select2';
 @import 'select2-bootstrap';
-@import 'style';
 @import 'toastr/toastr.min';
-
+@import 'style';
 @import 'common';
 
 @import 'sessions/new';
+@import 'users';

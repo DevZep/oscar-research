@@ -1,0 +1,4 @@
+= link_to edit_user_path(object), class: 'btn btn-outline btn-success btn-xs' do
+  = fa_icon('pencil')
+= link_to user_path(object), class: 'btn btn-outline btn-danger btn-xs', method: :delete, data: { confirm: t('.are_you_sure') } do
+  = fa_icon('trash')

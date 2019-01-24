@@ -9,6 +9,10 @@ module ApplicationHelper
     end
   end
 
+  def is_active_controller(controller_name)
+    params[:controller] == controller_name ? "active" : nil
+  end
+
   def authorized_body
     'unauthorized-background' unless user_signed_in?
   end
