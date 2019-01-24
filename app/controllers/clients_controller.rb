@@ -23,6 +23,8 @@ class ClientsController < AdminController
   def find_client
     ngo_short_name = params[:id].split('-').first
     Organization.switch_to(ngo_short_name)
+    # redirect_to(clients_path, alert: I18n.t('unauthorized.default')) unless Setting.first.sharing_data?
+    render file: "#{Rails.root}/app/views/errors/404", layout: false, status: :not_found unless Setting.first.sharing_data?
     @client = decorate_clients(Client.friendly.find(params[:id]))
   end
 
@@ -46,6 +48,7 @@ class ClientsController < AdminController
     clients = []
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
+      next unless Setting.first.sharing_data?
       clients << clients_query
       clients.flatten.to_a
     end
@@ -106,6 +109,7 @@ class ClientsController < AdminController
   def filter_client_advanced_serach(ngos, basic_rules)
     clients = ngos.map do |short_name|
       Organization.switch_to(short_name)
+      next unless Setting.first.sharing_data?
       AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients_query).filter.reload
     end
     Organization.switch_to('public')

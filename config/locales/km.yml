@@ -62,19 +62,10 @@ km:
       about_client: អំពីអតិចិជន
       address: ឣាសយដ្ឋាន
       age: អាយុ
-      carer_name: អ្នកថែទាំកុមារ
-      carer_phone: លេខទូរស័ព្ទរបស់អ្នកថែទាំកុមារ
+      all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
       current_province: ខេត្តបច្ចុប្បន្ន
-      date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
       district: ស្រុក/ខណ្ឌ
-      government_forms: របាយការណ៍សម្រាប់រដ្ឋាភិបាល
-      government_form_five: 'ទម្រង់ទី៥: តាមដាន និងត្រួតពិនិត្យ'
-      government_form_four: 'ទម្រង់ទី៤: ការទុកដាក់កុមារ'
-      government_form_one: 'ទម្រង់ទី១: ព័ត៌មានបឋម'
-      government_form_six: 'ទម្រង់ទី៦: ប៉ាន់ប្រមាណចុងក្រោយ'
-      government_form_three: 'ទម្រង់ទី៣: ផែនការសេវាសំរាប់ករណី និង គ្រួសារ'
-      government_form_two: 'ទម្រង់ទី២: ការប៉ាន់ប្រមាណករណី និងគ្រួសារ'
-      social_worker: អ្នកកាន់ករណី
+      number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
       status: ស្ថានភាព
   custom_table:
     basic_fields: ពត៌មានទូទៅរបស់អតិថិជន

@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_action :switch_organization, :set_locale
   protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render file: "#{Rails.root}/app/views/errors/404", layout: false, status: :not_found
+  end
+
   def switch_organization
     Organization.switch_to 'public'
   end
