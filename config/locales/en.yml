@@ -310,6 +310,11 @@ en:
     destroy:
       alert: User cannot be deleted.
       successfully_deleted: User has been successfully deleted.
+    edit:
+      edit_user: Edit User
+    filter:
+      reset: Reset
+      search: Search
     form:
       cancel: Cancle
       date_of_birth: Date of Birth
@@ -326,6 +331,17 @@ en:
       add_new: Add New User
       export_to_xls: Export Users
       results: Results
+      date_of_birth: Date of Birth
+      email: Email
+      export_to_xls: Export Users
+      id: ID
+      job_title: Job Title
+      mobile: Mobile
+      name: Name
+      results: Results
+      search: Search
+    new:
+      new_user: New User
     show:
       about_user: About User
       are_you_sure: Are you sure you want to delete?

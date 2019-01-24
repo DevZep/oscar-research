@@ -1,5 +1,5 @@
 require "dotenv"
-Dotenv.load
+# Dotenv.load
 
 require "capistrano/setup"
 require "capistrano/deploy"

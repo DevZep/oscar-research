@@ -1,15 +1,15 @@
 class UsersController < AdminController
-  load_and_authorize_resource
 
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @user_grid = UsersGrid.new(params[:users_grid])
     respond_to do |f|
       f.html do
-        @results = @user_grid.scope { |scope| scope.accessible_by(current_ability) }.assets.size
-        @user_grid.scope { |scope| scope.accessible_by(current_ability).page(params[:page]).per(20) }
+        users        = list_users_filter
+        @users_count = users.count
+        @users       = Kaminari.paginate_array(users).page(params[:page]).per(20)
       end
+      f.json { render json: UsersDatatable.new(view_context)}
     end
   end
 
@@ -61,5 +61,28 @@ class UsersController < AdminController
 
   def find_user
     @user = User.find(params[:id])
+  end
+
+  def users_ordered(users)
+    users = users.sort_by(&:name)
+    column = params[:order]
+    return users unless column
+    if %w(age_as_years id_poor).include?(column)
+      ordered = users.sort_by{ |p| p.send(column).to_i }
+    elsif column == 'slug'
+      ordered = users.sort_by{ |p| [p.send(column).split('-').first, p.send(column)[/\d+/].to_i] }
+    else
+      ordered = users.sort_by{ |p| p.send(column).to_s.downcase }
+    end
+    column.present? && params[:descending] == 'true' ? ordered.reverse : ordered
+  end
+
+  def fetch_users
+    users = User.all.reload
+    users.flatten
+  end
+
+  def list_users_filter
+    users = users_ordered(fetch_users)
   end
 end
