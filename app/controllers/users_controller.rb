@@ -15,7 +15,7 @@ class UsersController < AdminController
   end
 
   def new
-    @user = User.new
+    @user = User.new(enable_research_log_in: true)
     # authorize @user
   end
 

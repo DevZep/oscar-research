@@ -135,6 +135,8 @@ km:
       cancel: ទុកជាមោឃៈ
       date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
       email: ឣុីម៉ែល
+      enable_log_in_to_gov: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
+      enable_log_in_to_research: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Research
       first_name: នាមខ្លួនជាអក្សរឡាតាំង
       id: ID
       job_title: មុខតំណែង
