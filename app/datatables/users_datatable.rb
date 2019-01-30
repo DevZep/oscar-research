@@ -34,7 +34,7 @@ private
   end
 
   def fetch_users
-    users = User.only_from_oscar_research.order("#{sort_column} #{sort_direction}")
+    users = User.order("#{sort_column} #{sort_direction}")
     users = users.page(page)
     if params[:sSearch].present?
       users = users.where("first_name like :search or last_name like :search or mobile like :search or email like :search", search: "%#{params[:sSearch]}%")

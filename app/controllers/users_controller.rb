@@ -8,7 +8,7 @@ class UsersController < AdminController
         users        = list_users_filter
         @users_count = users.count
         @users       = Kaminari.paginate_array(users).page(params[:page]).per(20)
-        authorize @users
+        # authorize @users
       end
       f.json { render json: UsersDatatable.new(view_context)}
     end
@@ -16,12 +16,12 @@ class UsersController < AdminController
 
   def new
     @user = User.new
-    authorize @user
+    # authorize @user
   end
 
   def create
     @user = User.new(user_params)
-    authorize @user
+    # authorize @user
     if @user.save
       redirect_to @user, notice: t('.successfully_created')
     else
@@ -30,15 +30,15 @@ class UsersController < AdminController
   end
 
   def show
-    authorize @user
+    # authorize @user
   end
 
   def edit
-    authorize @user
+    # authorize @user
   end
 
   def update
-    authorize @user
+    # authorize @user
     if @user.update_attributes(user_params)
       redirect_to @user, notice: t('.successfully_updated')
     else
@@ -47,7 +47,7 @@ class UsersController < AdminController
   end
 
   def destroy
-    authorize @user
+    # authorize @user
     if @user.destroy
       redirect_to users_url, notice: t('.successfully_deleted')
     else
@@ -63,7 +63,7 @@ class UsersController < AdminController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :start_date, :job_title, :mobile, :date_of_birth, :email, :roles, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :start_date, :job_title, :mobile, :date_of_birth, :email, :roles, :password, :password_confirmation, :enable_research_log_in, :enable_gov_log_in)
   end
 
   def find_user
@@ -85,7 +85,7 @@ class UsersController < AdminController
   end
 
   def fetch_users
-    users = User.only_from_oscar_research.reload
+    users = User.all.reload
     users.flatten
   end
 
