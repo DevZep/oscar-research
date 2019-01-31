@@ -45,8 +45,7 @@ body[id='users-index'] {
   .dataTables_scrollBody {
     max-height: 500px !important;
   }
-  
-  .manage-column.align {
-    center
+  td.manage-column{
+    align: center;
   }
 }
