@@ -1,5 +1,5 @@
 - clients.each do |client|
-  %tr{ 'data-href' => client_path(client) }
+  %tr
     %td= client.age_as_years
     %td= client.gender.try(&:titleize)
     %td= client.status

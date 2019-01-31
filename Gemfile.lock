@@ -103,8 +103,6 @@ GEM
     concurrent-ruby (1.1.4)
     connection_pool (2.2.2)
     crass (1.0.4)
-    datagrid (1.5.8)
-      rails (>= 4.0)
     debug_inspector (0.0.3)
     devise (4.5.0)
       bcrypt (~> 3.0)
@@ -345,7 +343,6 @@ DEPENDENCIES
   capistrano-sidekiq!
   carrierwave (~> 1.1.0)
   coffee-rails (~> 4.1.0)
-  datagrid (~> 1.5, >= 1.5.8)
   devise (~> 4.5)
   devise_token_auth (~> 1.0)
   dotenv-rails (~> 2.0.2)
@@ -378,4 +375,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.17.1
+   1.16.2

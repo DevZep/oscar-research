@@ -4,7 +4,7 @@
       %li.nav-header
         .dropdown.profile-element
           .image-wrapper.text-center
-            = image_tag 'logo_for_OSCaR.png', class: 'img-circle logo-style'
+            = image_tag 'oscar_research1.png', width: '100'
           %hr.line-border
           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             %span.clear
@@ -27,9 +27,10 @@
         = link_to clients_path do
           = fa_icon('child')
           %span.nav-label= t('.clients')
-          %span.label.label-primary.pull-right= @client_count
-      %li{ class: is_active_controller('users') }
-        = link_to users_path do
-          = fa_icon('address-book-o')
-          %span.nav-label= t('.users')
-          %span.label.label-primary.pull-right= @users_count
+          %span.label.label-primary.pull-right= @clients_count
+      - if policy(current_user).index?
+        %li{ class: is_active_controller('users') }
+          = link_to users_path do
+            = fa_icon('address-book-o')
+            %span.nav-label= t('.users')
+            %span.label.label-primary.pull-right= @user_count

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  ROLES = ['admin', 'user'].freeze
+  ROLES = ['admin', 'guest'].freeze
 
   has_many :case_worker_clients, dependent: :restrict_with_error
   has_many :clients, through: :case_worker_clients
@@ -13,14 +13,7 @@ class User < ActiveRecord::Base
 
   before_create :set_created_from
 
-  scope :only_from_oscar_research, -> { where(created_from: 'oscar_research') }
-  scope :first_name_like, ->(value) { where('first_name iLIKE ?', "%#{value}%") }
-  scope :last_name_like,  ->(value) { where('last_name iLIKE ?', "%#{value}%") }
-  scope :mobile_like,     ->(value) { where('mobile iLIKE ?', "%#{value}%") }
-  scope :email_like,      ->(value) { where('email iLIKE  ?', "%#{value}%") }
-  scope :job_title_are,   ->        { where.not(job_title: '').pluck(:job_title).uniq }
-  scope :province_are,    ->        { joins(:province).pluck('provinces.name', 'provinces.id').uniq }
-  scope :has_clients,     ->        { joins(:clients).without_json_fields.uniq }
+  before_create :enable_log_in
 
   ROLES.each do |role|
     define_method("#{role.parameterize.underscore}?") do
@@ -28,15 +21,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def active_for_authentication?
+    super && enable_research_log_in?
+  end
+
   def name
     full_name = "#{first_name} #{last_name}"
     full_name.present? ? full_name : 'Unknown'
   end
 
+  def oscar_team?
+    email == ENV['OSCAR_TEAM_EMAIL']
+  end
+
   private
 
-    def set_created_from
-      self.created_from = 'oscar_research'
-    end
-
+  def enable_log_in
+    self.enable_research_log_in = true
+  end
 end

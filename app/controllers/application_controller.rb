@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   before_action :authenticate_user!
   before_action :switch_organization, :set_locale
   protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
@@ -19,6 +21,10 @@ class ApplicationController < ActionController::Base
 
   def switch_organization
     Organization.switch_to 'public'
+  end
+
+  rescue_from Pundit::NotAuthorizedError do |exception|
+    redirect_to root_url, alert: 'You are not authorized to access this page.'
   end
 
   def set_locale

@@ -1,6 +1,4 @@
 class ClientsController < AdminController
-
-  before_action :find_client, only: :show
   before_action :find_params_advanced_search, :client_builder_fields, :build_advanced_search, :fetch_advanced_search_queries, only: :index
   before_action :basic_params, if: :has_params?
 
@@ -15,18 +13,7 @@ class ClientsController < AdminController
     end
   end
 
-  def show
-  end
-
   private
-
-  def find_client
-    ngo_short_name = params[:id].split('-').first
-    Organization.switch_to(ngo_short_name)
-    # redirect_to(clients_path, alert: I18n.t('unauthorized.default')) unless Setting.first.sharing_data?
-    render file: "#{Rails.root}/app/views/errors/404", layout: false, status: :not_found unless Setting.first.sharing_data?
-    @client = decorate_clients(Client.friendly.find(params[:id]))
-  end
 
   def clients_ordered(clients)
     clients = clients

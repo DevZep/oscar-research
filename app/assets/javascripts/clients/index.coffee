@@ -4,7 +4,6 @@ OSCAR.ClientsIndex = do ->
     _columnsVisibility()
     _fixedHeaderTableColumns()
     _setDefaultCheckColumnVisibilityAll()
-    _getClientPath()
     _initAdavanceSearchFilter()
     _toggleCollapseFilter()
     _handleAutoCollapse()
@@ -196,11 +195,5 @@ OSCAR.ClientsIndex = do ->
           cursorwidth: 10
           cursoropacitymax: 0.4
         _handleResizeWindow()
-
-  _getClientPath = ->
-    return if $('table.clients tbody tr').text().trim() == 'No results found' || $('table.clients tbody tr').text().trim() == 'មិនមានលទ្ធផល' || $('table.clients tbody tr').text().trim() == 'No data available in table'
-    $('table.clients tbody tr').click (e) ->
-      return if $(e.target).hasClass('btn') || $(e.target).hasClass('fa') || $(e.target).is('a')
-      window.open($(@).data('href'), '_blank')
 
   { init: _init }

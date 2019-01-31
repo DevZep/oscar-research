@@ -311,6 +311,8 @@ en:
       cancel: Cancle
       date_of_birth: Date of Birth
       email: Email
+      enable_log_in_to_gov: Enable login to OSCaR Gov
+      enable_log_in_to_research: Enable login to OSCaR Research
       first_name: First Name
       id: ID
       job_title: Job Title

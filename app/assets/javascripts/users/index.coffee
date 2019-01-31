@@ -32,14 +32,14 @@ OSCAR.UsersIndex = do ->
             "className": 'manage-column',
             "targets": -1,
             "data": null,
-            "defaultContent": '<button align="center" class="btn btn-xs btn-success btn-outline edit-user-button"><span class="fa fa-pencil edit-user-button"></span></button>
+            "defaultContent": '<button class="btn btn-xs btn-success btn-outline edit-user-button"><span class="fa fa-pencil edit-user-button"></span></button>
                                <a data-confirm="Are you sure you want to delete?" class="btn btn-outline btn-danger btn-xs delete-user-button" rel="nofollow" data-method="delete"><i class="fa fa-trash delete-user-button"></i></a>'
         } ]
 
     )
-
     setTimeout (->
       rows = $('#users-body > tr')
+      $('td.manage-column').attr('align', 'center')
       $.each rows, (index, item) ->
         href = $($(item).find('td a')).attr('href')
         $(item).attr('data-href', href)
