@@ -22,11 +22,19 @@ module ApplicationHelper
     any_active_menu(names)
   end
 
+  def error_notification(f)
+    content_tag(:div, t('review_problem'), class: 'alert alert-danger') if f.error_notification.present?
+  end
+
   def current_url(new_params)
     url_for params: params.merge(new_params)
   end
 
   def any_active_menu(names)
     'active' if names.include? controller_name
+  end
+
+  def date_format(date)
+    date.strftime('%d %B %Y') if date.present?
   end
 end

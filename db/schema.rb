@@ -1618,6 +1618,9 @@ ActiveRecord::Schema.define(version: 20190111073828) do
   end
 
   add_index "visits", ["user_id"], name: "index_visits_on_user_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["organization_id"], name: "index_users_on_organization_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "able_screening_questions", "question_groups"
   add_foreign_key "able_screening_questions", "stages"
