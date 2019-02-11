@@ -121,7 +121,7 @@ OSCAR.ClientsIndex = do ->
     $('table.clients thead tr').clone(true).appendTo 'table.clients thead'
     $('table.clients thead tr:eq(1) th').each (i) ->
       title = $(@).text()
-      $(@).html '<input type="text" placeholder="Search ' + title + '" />'
+      $(@).html '<input type="text" />'
       $('input', @).on 'keyup change', ->
         if table.column(i).search() != @value
           table.column(i).search(@value).draw()
@@ -136,7 +136,7 @@ OSCAR.ClientsIndex = do ->
         'orderCellsTop': true
         'fixedHeader': true
         'pageLength': 20
-        'dom': 'Bfrtip'
+        'dom': 'Birtp'
         'buttons': [
           {
             extend: 'excelHtml5',

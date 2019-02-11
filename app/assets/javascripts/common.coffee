@@ -1,6 +1,7 @@
 OSCAR.Common =
   init: ->
     @initNotification()
+    @initIcheck()
 
   initNotification: ->
     messageOption = {
@@ -23,3 +24,8 @@ OSCAR.Common =
         toastr.success(messageInfo.message, '', messageOption)
       else if messageInfo.messageType == 'alert'
         toastr.error(messageInfo.message, '', messageOption)
+
+  initIcheck: ->
+    $('.i-checks').iCheck
+      checkboxClass: 'icheckbox_square-green'
+      radioClass: 'iradio_square-green'

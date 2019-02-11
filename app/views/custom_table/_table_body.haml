@@ -1,6 +1,6 @@
 - clients.each do |client|
   - Organization.switch_to(client.slug.split('-').first)
-  %tr{ 'data-href' => client_path(client) }
+  %tr
     - if params[:columns].nil? || params[:columns][:age] == '1'
       %td= client.age_as_years
     - if params[:columns].nil? || params[:columns][:gender] == '1'
@@ -21,4 +21,3 @@
       %td= client.district_name
     - if params[:columns].nil? || params[:columns][:current_province] == '1'
       %td= client.province_name
-

@@ -46,6 +46,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener',            '~> 1.4.1'
   gem 'capistrano-rails',         '~> 1.1.1'
   gem 'capistrano-passenger',     '~> 0.1.1'
   gem 'capistrano-rvm',           '~> 0.1.2'

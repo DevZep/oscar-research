@@ -3,13 +3,15 @@
     %td= client.age_as_years
     %td= client.gender.try(&:titleize)
     %td= client.status
-    %td
-      %span.btn.btn-info.btn-xs
-        = "#{t('datagrid.columns.clients.total')}:"
-        = client.enrollment_count
-    %td
-      %span.btn.btn-info.btn-xs
-        = "#{t('datagrid.columns.clients.total')}:"
-        = client.assessment_count
+    %td.text-center
+      -# %span.btn.btn-info.btn-xs
+      -#   = "#{t('datagrid.columns.clients.total')}:"
+      -#   = client.enrollment_count
+      = client.enrollment_count
+    %td.text-center
+      -# %span.btn.btn-info.btn-xs
+      -#   = "#{t('datagrid.columns.clients.total')}:"
+      -#   = client.assessment_count
+      = client.assessment_count
     %td= client.province_name
     %td= client.district_name

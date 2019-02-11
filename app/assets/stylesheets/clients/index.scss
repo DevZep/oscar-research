@@ -1,4 +1,10 @@
 body[id='clients-index'] {
+  #clients-table {
+    td {
+      cursor: auto;
+    }
+  }
+
   #client-search-form {
     margin-top: 15px;
   }
