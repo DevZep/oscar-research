@@ -1,0 +1,16 @@
+body[id='users-new'], body[id='users-create'],
+body[id='users-edit'], body[id='users-update'] {
+  .enable-login {
+    span {
+      display: inline-block;
+      margin-right: 20px;
+    }
+    label {
+        padding-left: 0;
+    }
+    .iradio_square-green {
+      margin-right: 5px;
+    }
+  }
+
+}
