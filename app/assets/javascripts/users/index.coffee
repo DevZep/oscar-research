@@ -10,7 +10,7 @@ OSCAR.UsersIndex = do ->
     previous = $('#previous-translate').text()
     $('table.users thead tr:eq(1) th').each (i) ->
       title = $(@).text()
-      $(@).html '<input type="text" placeholder="' + search + '" />'
+      $(@).html '<input type="text" />'
       $('input', @).on 'keyup change', ->
         if table.column(i).search() != @value
           table.column(i).search(@value).draw()
@@ -22,9 +22,9 @@ OSCAR.UsersIndex = do ->
     table = $('table.users').DataTable(
       # bServerSide: true
       # bFilter: false
-      bInfo: false
+      'dom': 'irtp'
       bLengthChange: false
-      sAjaxSource: $('#users').data('source')  
+      sAjaxSource: $('#users').data('source')
       "scrollY": "200px"
       "sScrollX": "auto"
       'sScrollY': 'auto'
@@ -45,7 +45,7 @@ OSCAR.UsersIndex = do ->
               previous: previous,
               next:     next
           },
-      
+
     )
     setTimeout (->
       rows = $('#users-body > tr')
@@ -55,7 +55,7 @@ OSCAR.UsersIndex = do ->
         $(item).attr('data-href', href)
         $($(item).find('button.edit-user-button')).attr('name', href + '/edit')
         $($(item).find('a.delete-user-button')).attr('href', href)
-      ), 100 
+      ), 100
 
   _getUserPath = ->
     setTimeout (->
