@@ -121,6 +121,14 @@ km:
       not_saved:
         one: កំហុស ១  បានហាមឃាត់  %{resource} ពីការរក្សាទុក
         other: "%{count} កំហុស បានហាមឃាត់ %{resource} ពីការរក្សាទុក"
+  layouts:
+    side_menu:
+      edit_profile: កែសម្រួលព័ត៌មានផ្ទាល់ខ្លួន
+      dashboard: តារាងទិន្នន័យ
+      logout: ចាកចេញ
+      users: អ្នកប្រើ
+    top_navbar:
+      logout: ចាកចេញ
   unauthorized: 
     default: មិនអាចដំណើរការចូលបានទេ
   users:
@@ -138,21 +146,25 @@ km:
       enable_log_in_to_gov: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
       enable_log_in_to_research: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Research
       first_name: នាមខ្លួនជាអក្សរឡាតាំង
-      id: ID
+      id: លេខសំគាល់
       job_title: មុខតំណែង
       last_name: នាមត្រកូល
       mobile: លេខទូរស័ព្ទ
       password: ពាក្យសម្ងាត់
       password_confirmation: បញ្ជាក់ពាក្យសម្ងាត់
+      roles: តួនាទី
       save: រក្សាទុក
     index:
       add_new: បន្ថែមឣ្នកប្រើថ្មី
       date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
       email: ឣុីម៉ែល
-      id: ID
+      id: លេខសំគាល់
       job_title: មុខតំណែង
+      manage: សកម្មភាព
       mobile: លេខទូរស័ព្ទ
       name: ឈ្មោះ
+      next: ទំព័របន្ទាប់
+      previous: ចុងក្រោយ
       results: លទ្ធផល
       search: ស្វែងរក
     new:

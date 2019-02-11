@@ -122,6 +122,14 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+  layouts:
+    site_menu:
+      edit_profile: Edit Profile
+      dashboard: Dashboard
+      logout: Logout
+      users: Users
+    top_navbar:
+      logout: Logout
   unauthorized:
     default: This page cannot be accessed
   users:
@@ -138,7 +146,7 @@ en:
       reset: Reset
       search: Search
     form:
-      cancel: Cancle
+      cancel: Cancel
       date_of_birth: Date of Birth
       email: Email
       enable_log_in_to_gov: Enable login to OSCaR Gov
@@ -150,6 +158,7 @@ en:
       name: Name
       password: Password
       password_confirmation: Password Confirmation
+      roles: Permission
       save: Save
     index:
       add_new: Add New User
@@ -158,8 +167,11 @@ en:
       export_to_xls: Export Users
       id: ID
       job_title: Job Title
+      manage: Manage
       mobile: Mobile
       name: Name
+      next: Next
+      previous: Previous
       results: Results
       search: Search
     new:
