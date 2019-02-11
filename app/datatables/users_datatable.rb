@@ -24,7 +24,9 @@ private
         user.date_of_birth,
         user.mobile,
         user.email,
-        user.job_title
+        user.job_title,
+        user.enable_research_log_in? ? 'Yes' : 'No',
+        user.enable_gov_log_in? ? 'Yes' : 'No'
       ]
     end
   end
