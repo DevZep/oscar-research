@@ -25,17 +25,8 @@ module AdvancedSearches
     private
 
     def active_program_stream_query
-      clients = @clients.joins(:client_enrollments).where(client_enrollments: { status: 'Active' })
-      case @operator
-      when 'equal'
-        clients.where('client_enrollments.program_stream_id = ?', @value).distinct.ids
-      when 'not_equal'
-        clients.where.not('client_enrollments.program_stream_id = ?', @value).distinct.ids
-      when 'is_empty'
-        @clients.where.not(id: clients.distinct.ids).ids
-      when 'is_not_empty'
-        clients.distinct.ids
-      end
+      clients = @clients.select{|client| client.enrollment_count == @value.to_i}
+      clients.map(&:id)
     end
 
     def birth_province

@@ -123,8 +123,10 @@ OSCAR.ClientsIndex = do ->
       title = $(@).text()
       $(@).html '<input type="text" />'
       $('input', @).on 'keyup change', ->
-        if table.column(i).search() != @value
+        if table.column(i).search() != @value && i != 1
           table.column(i).search(@value).draw()
+        else
+          table.column(i).search("^" + @value, true, false, true).draw();
         return
       return
 

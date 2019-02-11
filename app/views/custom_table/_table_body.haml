@@ -8,15 +8,15 @@
     - if params[:columns].nil? || params[:columns][:status] == '1'
       %td= client.status
     - if params[:columns].nil? || params[:columns][:number_active_program] == '1'
-      %td
-        %span.btn.btn-info.btn-xs
-          = "#{t('datagrid.columns.clients.total')}:"
-          = client.enrollment_count
+      %td.text-center
+        / %span.btn.btn-info.btn-xs
+        /   = "#{t('datagrid.columns.clients.total')}:"
+        = client.enrollment_count
     - if params[:columns].nil? || params[:columns][:all_csi_assessments] == '1'
-      %td
-        %span.btn.btn-info.btn-xs
-          = "#{t('datagrid.columns.clients.total')}:"
-          = client.assessment_count
+      %td.text-center
+        / %span.btn.btn-info.btn-xs
+        /  = "#{t('datagrid.columns.clients.total')}:"
+        = client.assessment_count
     - if params[:columns].nil? || params[:columns][:district] == '1'
       %td= client.district_name
     - if params[:columns].nil? || params[:columns][:current_province] == '1'

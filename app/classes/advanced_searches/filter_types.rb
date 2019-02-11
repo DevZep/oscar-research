@@ -11,12 +11,13 @@ module AdvancedSearches
     end
 
     def self.number_options(field_name, label, group)
+      operators = field_name == 'active_program_stream' ? ['equal'] : ['equal', 'not_equal', 'less', 'less_or_equal', 'greater', 'greater_or_equal', 'between', 'is_empty', 'is_not_empty']
       {
         id: field_name,
         optgroup: group,
         label: label,
         type: 'integer',
-        operators: ['equal', 'not_equal', 'less', 'less_or_equal', 'greater', 'greater_or_equal', 'between', 'is_empty', 'is_not_empty']
+        operators: operators
       }
     end
 

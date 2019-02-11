@@ -18,14 +18,13 @@ module AdvancedSearches
     private
 
     def number_type_list
-      ['age']
+      ['age', 'active_program_stream']
     end
 
     def drop_down_type_list
       [
         ['basicfield_gender', { female: 'Female', male: 'Male' }],
         ['status', client_status],
-        ['active_program_stream', active_program_options],
         ['current_province', provinces],
         ['district', districts]
       ]
@@ -35,18 +34,18 @@ module AdvancedSearches
       Client::CLIENT_STATUSES.sort.map { |s| { s => s.capitalize } }
     end
 
-    def active_program_options
-      enrollments = []
-      org_short_names = Organization.cambodian.visible.pluck(:short_name)
-      org_short_names.each do |short_name|
-        Organization.switch_to(short_name)
-        program_ids = ClientEnrollment.active.pluck(:program_stream_id).uniq
-        enrollments << ProgramStream.where(id: program_ids).order(:name).map { |ps| { ps.id.to_s => ps.name } }
-      end
-      Organization.switch_to('public')
+    # def active_program_options
+    #   enrollments = []
+    #   org_short_names = Organization.cambodian.visible.pluck(:short_name)
+    #   org_short_names.each do |short_name|
+    #     Organization.switch_to(short_name)
+    #     program_ids = ClientEnrollment.active.pluck(:program_stream_id).uniq
+    #     enrollments << ProgramStream.where(id: program_ids).order(:name).map { |ps| { ps.id.to_s => ps.name } }
+    #   end
+    #   Organization.switch_to('public')
 
-      enrollments.flatten.uniq
-    end
+    #   enrollments.flatten.uniq
+    # end
 
     def provinces
       org_short_names = Organization.cambodian.visible.pluck(:short_name)
