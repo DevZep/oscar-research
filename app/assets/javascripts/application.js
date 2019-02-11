@@ -13,6 +13,7 @@
 //= require select2
 
 //WRAPBOOTSTRAP
+//= require iCheck/icheck.min.js
 //= require metisMenu/jquery.metisMenu
 //= require pace/pace.min
 //= require peity/jquery.peity.min
