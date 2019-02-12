@@ -1,5 +1,4 @@
-- clients.each do |client|
-  - Organization.switch_to(client.slug.split('-').first)
+- clients.compact.each do |client|
   %tr
     - if params[:columns].nil? || params[:columns][:age] == '1'
       %td= client.age_as_years
