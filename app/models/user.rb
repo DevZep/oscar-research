@@ -11,8 +11,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :roles, inclusion: { in: ROLES }
 
-  before_create :set_created_from
-
   before_create :enable_log_in
 
   ROLES.each do |role|
