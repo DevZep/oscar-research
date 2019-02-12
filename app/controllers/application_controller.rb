@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :switch_organization, :set_locale
   protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
 
+  rescue_from ActionController::RoutingError, with: -> { render_404  }
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
     render file: "#{Rails.root}/app/views/errors/404", layout: false, status: :not_found
   end
@@ -30,5 +32,12 @@ class ApplicationController < ActionController::Base
   def set_locale
     locale = I18n.available_locales.include?(params[:locale].to_sym) ? params[:locale] : I18n.locale if params[:locale].present?
     I18n.locale = locale || I18n.locale
+  end
+
+  def render_404
+    respond_to do |format|
+      format.html { render template: 'errors/404', status: 404 }
+      format.all { render nothing: true, status: 404 }
+    end
   end
 end
