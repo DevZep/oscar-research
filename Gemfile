@@ -50,9 +50,10 @@ group :development do
   gem 'capistrano-rails',         '~> 1.1.1'
   gem 'capistrano-passenger',     '~> 0.1.1'
   gem 'capistrano-rvm',           '~> 0.1.2'
-  gem 'capistrano-sidekiq',   github: 'seuros/capistrano-sidekiq'
+  gem 'capistrano-sidekiq',       github: 'seuros/capistrano-sidekiq'
   gem 'capistrano-foreman'
-  gem 'brakeman', '~> 4.0.1', :require => false
+  gem 'brakeman',                 '~> 4.0.1', :require => false
+  gem 'bullet',                   '~> 5.9'
 end
 
 gem 'sdoc',                       '~> 0.4.0', group: :doc

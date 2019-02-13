@@ -1,5 +1,5 @@
 class ClientsController < AdminController
-  before_action :find_params_advanced_search, :client_builder_fields, :build_advanced_search, :fetch_advanced_search_queries, only: :index
+  before_action :find_params_advanced_search, :build_advanced_search, :fetch_advanced_search_queries, only: :index
   before_action :basic_params, if: :has_params?
 
   def index
@@ -65,14 +65,6 @@ class ClientsController < AdminController
     @other_advanced_searches = AdvancedSearch.non_of(current_user).order(:name)
   end
 
-  def client_builder_fields
-    @builder_fields = get_client_basic_fields
-  end
-
-  def get_client_basic_fields
-    AdvancedSearches::FormOne.new(user: current_user).render
-  end
-
   def has_params?
     @advanced_search_params.present? && @advanced_search_params[:basic_rules].present?
   end
@@ -104,7 +96,7 @@ class ClientsController < AdminController
   end
 
   def clients_query
-    Client.includes(:province, :district, :client_enrollments, :assessments)
+    Client.includes(:province, :district)
           .select("id, slug, date_of_birth, status, gender, province_id, district_id,
                   (SELECT COUNT(id) FROM client_enrollments WHERE client_enrollments.client_id = clients.id AND status = 'Active') as enrollment_count,
                   (SELECT COUNT(id) FROM assessments WHERE assessments.client_id = clients.id AND assessments.default = true) as assessment_count

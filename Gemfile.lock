@@ -71,6 +71,9 @@ GEM
       sass (>= 3.3.4)
     brakeman (4.0.1)
     builder (3.2.3)
+    bullet (5.9.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (10.0.2)
     capistrano (3.11.0)
       airbrussh (>= 1.0.0)
@@ -324,6 +327,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
+    uniform_notifier (1.12.1)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -342,6 +346,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails (~> 1.8, >= 1.8.0.1)
   bootstrap-sass (~> 3.3.5)
   brakeman (~> 4.0.1)
+  bullet (~> 5.9)
   byebug
   capistrano-foreman
   capistrano-passenger (~> 0.1.1)
@@ -383,4 +388,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.16.2
+   1.17.1

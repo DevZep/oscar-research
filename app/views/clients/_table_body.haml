@@ -4,14 +4,14 @@
     %td= client.gender.try(&:titleize)
     %td= client.status
     %td.text-center
-      -# %span.btn.btn-info.btn-xs
-      -#   = "#{t('datagrid.columns.clients.total')}:"
-      -#   = client.enrollment_count
       = client.enrollment_count
-    %td.text-center
-      -# %span.btn.btn-info.btn-xs
-      -#   = "#{t('datagrid.columns.clients.total')}:"
-      -#   = client.assessment_count
-      = client.assessment_count
     %td= client.province_name
     %td= client.district_name
+    %td.text-center
+      .tooltip-demo.text-center
+        = link_to '#!', {'data-container' => 'body', 'data-content' => "<div>#{all_csi_assessment_lists(client)}</div>", 'data-original-title' => t('datagrid.columns.clients.total'), 'data-placement' => 'top', 'data-toggle' => 'popover', title: '', type: 'button', 'data-html' => 'true' } do
+          %span.btn.btn-info.btn-xs
+            = "#{t('datagrid.columns.clients.total')}:"
+            = client.assessment_count
+    = domain_cell_data(client)
+- Organization.switch_to('public')
