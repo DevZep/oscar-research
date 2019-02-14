@@ -104,7 +104,7 @@ class ClientsController < AdminController
   end
 
   def clients_query
-    Client.includes(:province, :district, :client_enrollments, :assessments)
+    Client.includes(:province, :district)
           .select("id, slug, date_of_birth, status, gender, province_id, district_id,
                   (SELECT COUNT(id) FROM client_enrollments WHERE client_enrollments.client_id = clients.id AND status = 'Active') as enrollment_count,
                   (SELECT COUNT(id) FROM assessments WHERE assessments.client_id = clients.id AND assessments.default = true) as assessment_count

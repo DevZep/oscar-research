@@ -121,12 +121,10 @@ OSCAR.ClientsIndex = do ->
     $('table.clients thead tr').clone(true).appendTo 'table.clients thead'
     $('table.clients thead tr:eq(1) th').each (i) ->
       title = $(@).text()
-      $(@).html '<input type="text" />'
+      $(@).html "<input type='text' name='#{i == 1 && "gender"}' />"
       $('input', @).on 'keyup change', ->
         if table.column(i).search() != @value && i != 1
           table.column(i).search(@value).draw()
-        else
-          table.column(i).search("^" + @value, true, false, true).draw();
         return
       return
 
@@ -151,6 +149,10 @@ OSCAR.ClientsIndex = do ->
           }
         ]
       )
+
+    $('table.clients thead tr:eq(1) th input[name="gender"]').on 'keyup', ->
+      table.columns(1).search("^" + @value, true, false).draw();
+      return
 
     $('.dt-button').appendTo('#action-btns')
     toXlsText = $('#export-to-xls').val()
