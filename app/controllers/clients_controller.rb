@@ -1,5 +1,5 @@
 class ClientsController < AdminController
-  before_action :find_params_advanced_search, :client_builder_fields, :build_advanced_search, :fetch_advanced_search_queries, only: :index
+  before_action :find_params_advanced_search, :build_advanced_search, :fetch_advanced_search_queries, only: :index
   before_action :basic_params, if: :has_params?
 
   def index
@@ -63,14 +63,6 @@ class ClientsController < AdminController
   def fetch_advanced_search_queries
     @my_advanced_searches    = current_user.advanced_searches.order(:name)
     @other_advanced_searches = AdvancedSearch.non_of(current_user).order(:name)
-  end
-
-  def client_builder_fields
-    @builder_fields = get_client_basic_fields
-  end
-
-  def get_client_basic_fields
-    AdvancedSearches::FormOne.new(user: current_user).render
   end
 
   def has_params?
