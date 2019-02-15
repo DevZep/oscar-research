@@ -33,7 +33,6 @@ gem 'icheck-rails',               '~> 1.0.2.2'
 gem 'lodash-rails'
 gem 'draper',                     '~> 2.1.0'
 gem 'apartment',                  '~> 1.2.0'
-gem 'friendly_id',            '~> 5.1.0'
 
 group :staging, :demo, :production do
   gem 'appsignal',                '~> 2.3', '>= 2.3.7'
