@@ -49,9 +49,11 @@ module AdvancedSearches
 
     def provinces
       org_short_names = Organization.cambodian.visible.pluck(:short_name)
-      provinces = org_short_names.map do |short_name|
+      provinces = []
+      org_short_names.map do |short_name|
         Organization.switch_to(short_name)
-        Province.all.pluck(:name, :id)
+        next unless Setting.first.sharing_data?
+        provinces << Province.all.pluck(:name, :id)
       end
       Organization.switch_to('public')
       provinces.flatten(1).uniq(&:first).sort.map{ |s| { s[0] => s[0] } }
@@ -59,9 +61,11 @@ module AdvancedSearches
 
     def districts
       org_short_names = Organization.cambodian.visible.pluck(:short_name)
-      districts = org_short_names.map do |short_name|
+      districts = []
+      org_short_names.map do |short_name|
         Organization.switch_to(short_name)
-        District.all.pluck(:name, :id)
+        next unless Setting.first.sharing_data?
+        districts << District.all.pluck(:name, :id)
       end
       Organization.switch_to('public')
       districts.flatten(1).uniq(&:first).sort.map{ |s| { s[0] => s[0] } }
