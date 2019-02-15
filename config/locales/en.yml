@@ -336,6 +336,8 @@ en:
       results: Results
       date_of_birth: Date of Birth
       email: Email
+      enable_gov_log_in: Enable login to OSCaR Gov
+      enable_research_log_in: Enable login to OSCaR Research
       export_to_xls: Export Users
       id: ID
       job_title: Job Title
@@ -353,6 +355,8 @@ en:
       are_you_sure: Are you sure you want to delete?
       date_of_birth: Date of Birth
       email: Email
+      enable_gov_log_in: Enable login to OSCaR Gov
+      enable_research_log_in: Enable login to OSCaR Research
       id: ID
       job_title: Job Title
     new:

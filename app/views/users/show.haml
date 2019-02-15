@@ -48,3 +48,17 @@
                 %td
                   %strong
                     = @user.date_of_birth
+
+              %tr
+                %td.spacing-first-col
+                  = t('.enable_research_log_in')
+                %td
+                  %strong
+                    = @user.enable_research_log_in? ? 'Yes' : 'No'
+
+              %tr
+                %td.spacing-first-col
+                  = t('.enable_gov_log_in')
+                %td
+                  %strong
+                    = @user.enable_gov_log_in? ? 'Yes' : 'No'
