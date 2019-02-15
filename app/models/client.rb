@@ -1,5 +1,6 @@
 class Client < ActiveRecord::Base
   extend FriendlyId
+  include ActionView::Helpers::TextHelper
 
   attr_reader :assessments_count
   attr_accessor :assessment_id
@@ -180,6 +181,9 @@ class Client < ActiveRecord::Base
   # def latest_case
   #   cases.active.latest_kinship.presence || cases.active.latest_foster.presence
   # end
+  def display_age
+    pluralize(self.age_as_years, 'year') + ' ' + pluralize(self.age_extra_months, 'month') if date_of_birth.present?
+  end
 
   def age_as_years(date = Date.today)
     return if date_of_birth.nil?
