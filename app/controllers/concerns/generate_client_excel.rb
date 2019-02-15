@@ -92,7 +92,7 @@ module GenerateClientExcel
     values << client.local_family_name if params[:columns].nil? || params[:columns][:local_family_name] == '1'
     values << client.gender if params[:columns].nil? || params[:columns][:gender] == '1'
     values << client.date_of_birth if params[:columns].nil? || params[:columns][:date_of_birth] == '1'
-    values << client.age_as_years if params[:columns].nil? || params[:columns][:age] == '1'
+    values << client.display_age if params[:columns].nil? || params[:columns][:age] == '1'
     values << client.current_address if params[:columns].nil? || params[:columns][:current_address] == '1'
     values << client.house_number if params[:columns].nil? || params[:columns][:house_number] == '1'
     values << client.street_number if params[:columns].nil? || params[:columns][:street_number] == '1'

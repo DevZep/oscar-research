@@ -1,7 +1,7 @@
 - clients.compact.each do |client|
   %tr
     - if params[:columns].nil? || params[:columns][:age] == '1'
-      %td= client.age_as_years
+      %td= client.display_age
     - if params[:columns].nil? || params[:columns][:gender] == '1'
       %td= client.gender.try(:titleize)
     - if params[:columns].nil? || params[:columns][:status] == '1'

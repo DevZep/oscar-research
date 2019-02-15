@@ -1,6 +1,6 @@
 - clients.each do |client|
   %tr
-    %td= client.age_as_years
+    %td= client.display_age
     %td= client.gender.try(&:titleize)
     %td= client.status
     %td.text-center
