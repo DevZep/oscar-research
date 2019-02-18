@@ -25,7 +25,6 @@ OSCAR.UsersIndex = do ->
       'dom': 'irtp'
       bLengthChange: false
       sAjaxSource: $('#users').data('source')
-      "scrollY": "200px"
       "sScrollX": "auto"
       'sScrollY': 'auto'
       'bAutoWidth': true
