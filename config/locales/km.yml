@@ -335,6 +335,8 @@ km:
       results: លទ្ធផល
       date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
       email: ឣុីម៉ែល
+      enable_gov_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
+      enable_research_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Research
       id: លេខសំគាល់
       job_title: មុខតំណែង
       manage: សកម្មភាព
@@ -351,6 +353,8 @@ km:
       are_you_sure: តើអ្នកប្រាកដហើយ?
       date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
       email: ឣុីម៉ែល
+      enable_gov_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
+      enable_research_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Research
       job_title: មុខតំណែង
       mobile: លេខទូរស័ព្ទ
     new:

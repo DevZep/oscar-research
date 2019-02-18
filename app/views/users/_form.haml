@@ -17,9 +17,15 @@
       .row
         .col-xs-12.col-sm-6.col-md-4= f.input :roles, collection: User::ROLES, label_method: lambda { |val| val.titleize }, label: t('.roles')
         - if !@user.oscar_team?
-          .i-checks
-            .col-xs-12.col-sm-6.col-md-4= f.input :enable_research_log_in, label: t('.enable_log_in_to_research'), as: :radio_buttons
-            .col-xs-12.col-sm-6.col-md-4= f.input :enable_gov_log_in, label: t('.enable_log_in_to_gov'), as: :radio_buttons
+          .col-xs-12.col-sm-6.col-md-4
+            .i-checks.enable-login
+              %label= "#{t('.enable_log_in_to_research')}?"
+              = f.input :enable_research_log_in, as: :radio_buttons, label: false
+
+          .col-xs-12.col-sm-6.col-md-4
+            .i-checks.enable-login
+              %label= "#{t('.enable_log_in_to_gov')}?"
+              = f.input :enable_gov_log_in, as: :radio_buttons, label: false
       .row
         - unless @user.persisted?
           .col-xs-12.col-sm-6.col-md-4= f.input :password, required: true, label: t('.password')
