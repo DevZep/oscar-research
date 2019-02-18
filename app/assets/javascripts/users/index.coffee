@@ -35,7 +35,7 @@ OSCAR.UsersIndex = do ->
             'className': 'manage-column',
             'targets': -1,
             'data': null,
-            'defaultContent': '<button class="btn btn-xs btn-success btn-outline edit-user-button"><span class="fa fa-pencil edit-user-button"></span></button>
+            'defaultContent': '<a class="btn btn-xs btn-success btn-outline edit-user-button"><span class="fa fa-pencil edit-user-button"></span></a>
                                <a data-confirm="Are you sure you want to delete?" class="btn btn-outline btn-danger btn-xs delete-user-button" rel="nofollow" data-method="delete"><i class="fa fa-trash delete-user-button"></i></a>'
         } ]
       'language':
@@ -52,7 +52,7 @@ OSCAR.UsersIndex = do ->
       $.each rows, (index, item) ->
         href = $($(item).find('td a')).attr('href')
         $(item).attr('data-href', href)
-        $($(item).find('button.edit-user-button')).attr('name', href + '/edit')
+        $($(item).find('a.edit-user-button')).attr('href', href + '/edit')
         $($(item).find('a.delete-user-button')).attr('href', href)
       ), 100
 
@@ -60,8 +60,9 @@ OSCAR.UsersIndex = do ->
     setTimeout (->
       return if $('table.users tbody tr').text().trim() == 'No results found' || $('table.users tbody tr').text().trim() == 'មិនមានលទ្ធផល' || $('table.users tbody tr').text().trim() == 'No data available in table'
       $('tbody#users-body tr').click (e) ->
+        e.preventDefault()
         if ($(e.target).hasClass('btn') || $(e.target).hasClass('fa') || $(e.target).is('a')) and $(e.target).hasClass('edit-user-button')
-          href = $(e.target.parentElement).context.name || $(e.target).context.name
+          href = $(e.target.parentElement).context.href || $(e.target).context.href
           window.open(href, '_blank')
         else if ($(e.target).hasClass('btn') || $(e.target).hasClass('fa') || $(e.target).is('a')) and $(e.target).hasClass('delete-user-button')
           return
