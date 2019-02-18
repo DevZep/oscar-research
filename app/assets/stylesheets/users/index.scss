@@ -1,4 +1,4 @@
-body[id='users-index'] {
+body[id="users-index"] {
   #user-search-form {
     margin-top: 20px;
   }
@@ -32,6 +32,10 @@ body[id='users-index'] {
     th.manage {
       min-width: 150px;
     }
+    td:last-child,
+    td:nth-child(7) {
+      text-align: center;
+    }
   }
 
   th.modification {
@@ -46,10 +50,10 @@ body[id='users-index'] {
     max-height: 500px !important;
   }
 
-  td.manage-column{
+  td.manage-column {
     align: center;
   }
-  .dataTables_paginate{
+  .dataTables_paginate {
     margin-top: 10px;
   }
 }
