@@ -1,5 +1,5 @@
 - clients.each do |client|
-  - url = encrypted_consumer_key(client.slug)
+  - url = encrypted_client_slug(client.slug)
   %tr{"data-href" => "/clients/#{url}"}
     %td= client.display_age
     %td= client.gender.try(&:titleize)
