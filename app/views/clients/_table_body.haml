@@ -1,0 +1,10 @@
+- clients.each do |client|
+  %tr
+    %td= client.display_age
+    %td= client.gender.try(&:titleize)
+    %td= client.status
+    %td.text-center
+      = client.enrollment_count
+    %td= client.province_name
+    %td= client.district_name
+- Organization.switch_to('public')

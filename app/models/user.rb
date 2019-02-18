@@ -7,6 +7,10 @@ class User < ActiveRecord::Base
 
   ROLES = ['admin', 'guest'].freeze
 
+  has_many :case_worker_clients, dependent: :restrict_with_error
+  has_many :clients, through: :case_worker_clients
+  has_many :advanced_searches, dependent: :destroy
+
   validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :roles, inclusion: { in: ROLES }
 

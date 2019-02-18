@@ -1,6 +1,176 @@
 en:
+  clients:
+    client_advanced_searches:
+      client_advanced_searches:
+        government_form_one: Initial Information Form
+        search: Search
+        reset: Reset
+      load_save_search:
+        my_saved_search: My Saved Search
+        other_saved_search: Other Saved Search
+        search_settings_list: Search Settings List
+      my_saved_searches:
+        action: Action
+        date: Date
+        description: Description
+        load: Load
+        name: Name
+      other_saved_searches:
+        action: Action
+        date: Date
+        description: Description
+        load: Load
+        name: Name
+        owner: Owner
+      save_search_setting:
+        cancel: Cancel
+        description: Description
+        name: Name
+        new_search_setting: New Search Setting
+        save: Save
+    index:
+      age: Age
+      export_to_xls: Export to XLS
+      load_save_search: Load Saved Search
+      number_active_program: Number of Active Program
+      report_builder: Report Builder
+      results: Results
+      save_search_settings: Save Search Settings
+      status: Status
+    filter:
+      gender: Gender
+      reset: Reset
+      slug: ID
+      search: Search
+      status: Status
+    table_header:
+      all_csi_assessments: All CSI Assessments
+      current_province: Current Province
+      date_of_birth: Date of Birth
+      gender: Gender
+      number_active_program: Number of Active Program
+      slug: ID
+      social_worker: DoSVY Social Worker
+      status: Status
+    show:
+      about_client: About Client
+      address: Address
+      age: Age
+      all_csi_assessments: All CSI Assessments
+      current_province: Current Province
+      district: District/Khan
+      gender: Gender
+      number_active_program: Number of Active Program
+      status: Status
+  custom_table:
+    basic_fields: Client Basic Fields
+    form_one_title:
+      active_program_stream: Active Program Stream
+      age: Age
+      birth_province: Birth Province
+      cambodia: Cambodia
+      caseworker_comment: Caseworker Comment
+      code: Code
+      commune: Commune/Sangkat
+      client_types: Client type (Client carer)
+      current_address: Current Address
+      current_province: Current Province
+      date_of_birth: Date of Birth
+      district: District/Khan
+      family_name: Family Name
+      gender: Gender
+      given_name: Given Name
+      gov_client_code: Client Code (Government Report)
+      gov_city: City/Province (Government Report)
+      gov_commune: Commune/Sangkat (Government Report)
+      gov_date: Date (Government Report)
+      gov_district: District/Khan (Government Report)
+      gov_interview_city: City/Province (Place of interview)
+      gov_interview_commune: Commune/Sangkat (Place of interview)
+      gov_interview_district: District/Khan (Place of interview)
+      gov_interview_village: Village (Place of interview)
+      gov_village_code: Village Code (Government Report)
+      interviewees_place_of_interview: Interviewees (Place of interview)
+      gov_carer_city: City/Province (Client carer)
+      gov_carer_commune: Commune/Sangkat (Client carer)
+      gov_carer_district: District/Khan (Client carer)
+      gov_carer_name: Name (Client carer)
+      gov_carer_home: Home (Client carer)
+      gov_carer_phone: Phone number (Client carer)
+      gov_carer_relationship: Relationship (Client carer)
+      gov_carer_street: Strret (Client carer)
+      gov_carer_village: Village (Client carer)
+      gov_caseworker_name: DoSVY Social Worker
+      gov_caseworker_phone: DoSVY Social Worker Phone Number
+      gov_guardian_comment: Comments from the client/guardians about issues and needs
+      gov_information_source: Information source (Client carer)
+      gov_referral_reason: Brief information on the reasons for client transmission
+      government_form_one: Initial Information Form
+      house_number: House
+      id: ID
+      local_family_name: Family Name (kh)
+      local_given_name: Given Name (kh)
+      ngo: NGO
+      select_columns: Select Columns
+      slug: ID
+      show_all: Show All
+      status: Status
+      street_number: Street
+      village: Village
+    table_header:
+      age: Age
+      birth_province: Birth Province
+      caseworker_comment: Caseworker Comment
+      code: Code
+      commune: Commune/Sangkat
+      client_types: Client type (Client carer)
+      current_address: Current Address
+      current_province: Current Province
+      date_of_birth: Date of Birth
+      district: District/Khan
+      family_name: Family Name
+      gender: Gender
+      given_name: Given Name
+      gov_city: City/Province (Government Report)
+      gov_commune: Commune/Sangkat (Government Report)
+      gov_client_code: Client Code (Government Report)
+      gov_date: Date (Government Report)
+      gov_district: District/Khan (Government Report)
+      gov_interview_city: City/Province (Place of interview)
+      gov_interview_commune: Commune/Sangkat (Place of interview)
+      gov_interview_district: District/Khan (Place of interview)
+      gov_interview_village: Village (Place of interview)
+      gov_village_code: Village Code (Government Report)
+      gov_carer_city: City/Province (Client carer)
+      gov_carer_commune: Commune/Sangkat (Client carer)
+      gov_carer_district: District/Khan (Client carer)
+      gov_carer_name: Name (Client carer)
+      gov_carer_home: Home (Client carer)
+      gov_carer_phone: Phone number (Client carer)
+      gov_carer_relationship: Relationship (Client carer)
+      gov_carer_street: Strret (Client carer)
+      gov_carer_village: Village (Client carer)
+      gov_caseworker_name: DoSVY Social Worker
+      gov_caseworker_phone: DoSVY Social Worker Phone Number
+      gov_guardian_comment: Comments from the client/guardians about issues and needs
+      gov_information_source: Information source (Client carer)
+      gov_referral_reason: Brief information on the reasons for client transmission
+      government_form_one: Initial Information Form
+      house_number: House
+      id: ID
+      interviewees_place_of_interview: Interviewees (Place of interview)
+      local_family_name: Family Name (kh)
+      local_given_name: Given Name (kh)
+      ngo: NGO
+      slug: ID
+      show_all: Show All
+      status: Status
+      street_number: Street
+      village: Village
   datagrid:
     columns:
+      clients:
+        total: Total
       users:
         current_password: Current Password
         current_password_hint: We need your current password to make change
@@ -162,6 +332,8 @@ en:
       save: Save
     index:
       add_new: Add New User
+      export_to_xls: Export Users
+      results: Results
       date_of_birth: Date of Birth
       email: Email
       enable_gov_log_in: Enable login to OSCaR Gov
@@ -187,5 +359,9 @@ en:
       enable_research_log_in: Enable login to OSCaR Research
       id: ID
       job_title: Job Title
+    new:
+      new_user: New User
+    edit:
+      edit_user: Edit User
     update:
       successfully_updated: User has been successfully updated.

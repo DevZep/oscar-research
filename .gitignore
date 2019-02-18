@@ -24,3 +24,5 @@ dump.rdb
 .DS_Store
 dump.rdb
 vendor/data
+# Igore dump file
+*.dump

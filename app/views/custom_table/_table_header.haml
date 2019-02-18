@@ -1,0 +1,13 @@
+- if params[:columns].nil? || params[:columns][:age]  == '1'
+  %th= t('.age')
+- if params[:columns].nil? || params[:columns][:gender]  == '1'
+  %th= t('.gender')
+- if params[:columns].nil? || params[:columns][:status] == '1'
+  %th= t('.status')
+- if params[:columns].nil? || params[:columns][:number_active_program] == '1'
+  %th=t('.number_active_program')
+- if params[:columns].nil? || params[:columns][:district]  == '1'
+  %th= t('.district')
+- if params[:columns].nil? || params[:columns][:current_province]  == '1'
+  %th= t('.current_province')
+

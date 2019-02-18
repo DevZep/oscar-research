@@ -1,7 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import 'bootstrap-datepicker';
 @import 'dataTables/bootstrap/3/jquery.dataTables.bootstrap';
+@import 'datatables/buttons.dataTables.min';
+@import 'bootstrap-datepicker';
 @import 'font-awesome';
 @import 'select2';
 @import 'select2-bootstrap';
@@ -9,6 +10,9 @@
 @import 'iCheck/custom';
 @import 'style';
 @import 'common';
+@import 'icheck/square/green';
 
 @import 'sessions/new';
 @import 'users/*';
+@import 'clients/*';
+@import 'query_builder/query-builder.default';

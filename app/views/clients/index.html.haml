@@ -1,0 +1,40 @@
+.row
+  .col-xs-12.col-md-9#action-btns
+    -# = link_to clients_path, class: 'btn btn-primary query client-search' do
+    -#   %i.fa.fa-filter
+    %button.btn.btn-primary.query.client-advance-search{"aria-expanded" => 'false', "data-target" => '#client-advance-search-form', "data-toggle" => 'collapse', type: 'button'}
+      = t('.report_builder')
+    -# %button.btn.btn-primary#load-saved-search{ 'data-toggle': 'modal', 'data-target': '#load-save-search' }
+    -#   = t('.load_save_search')
+    -# %button.btn.btn-primary#save-search-setting{ 'data-toggle': 'modal', 'data-target': '#save-query' }
+    -#   = t('.save_search_settings')
+    = hidden_field_tag 'export-to-xls', t('.export_to_xls')
+.row
+  .col-xs-12
+    = render 'filter'
+.row
+  .col-xs-12
+    .ibox-content#client-advance-search-form.collapse
+      = render 'clients/client_advanced_searches/client_advanced_searches'
+
+.row.mini-margin
+  .col-xs-12
+    .ibox
+      -# .ibox-title
+        -# %h5= @clients_count
+        -# %span.label.label-info= t('.results')
+      .ibox-content
+        #clients-table.tab-pane{role: "tabpanel" }
+          %table.clients.table.table-striped.table-bordered.table-hover.display
+            - if @advanced_search_params.present? && @advanced_search_params[:basic_rules].present? && params[:default_column].nil?
+              %thead
+                %tr
+                  = render 'custom_table/table_header'
+              %tbody.page
+                = render 'custom_table/table_body', clients: @clients
+            - else
+              %thead
+                %tr
+                  = render 'table_header'
+              %tbody
+                = render 'table_body', clients: @clients

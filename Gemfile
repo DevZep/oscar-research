@@ -25,13 +25,17 @@ gem 'mini_magick',                '~> 4.5'
 gem 'dotenv-rails',               '~> 2.0.2'
 gem 'jbuilder',                   '~> 2.0'
 gem 'fog'
-gem 'appsignal',                  '~> 2.3', '>= 2.3.7'
+gem 'apartment',                  '~> 1.2.0'
 gem 'kaminari',                   '~> 1.0', '>= 1.0.1'
 gem 'jquery-datatables-rails',    '~> 3.4.0'
+gem 'friendly_id',                '~> 5.2', '>= 5.2.3'
+gem 'icheck-rails',               '~> 1.0.2.2'
+gem 'lodash-rails'
+gem 'draper',                     '~> 2.1.0'
 gem 'apartment',                  '~> 1.2.0'
-gem 'friendly_id',            '~> 5.1.0'
 
 group :staging, :demo, :production do
+  gem 'appsignal',                '~> 2.3', '>= 2.3.7'
   gem 'asset_sync'
 end
 
@@ -47,9 +51,10 @@ group :development do
   gem 'capistrano-rails',         '~> 1.1.1'
   gem 'capistrano-passenger',     '~> 0.1.1'
   gem 'capistrano-rvm',           '~> 0.1.2'
-  gem 'capistrano-sidekiq',   github: 'seuros/capistrano-sidekiq'
+  gem 'capistrano-sidekiq',       github: 'seuros/capistrano-sidekiq'
   gem 'capistrano-foreman'
-  gem 'brakeman', '~> 4.0.1', :require => false
+  gem 'brakeman',                 '~> 4.0.1', :require => false
+  gem 'bullet',                   '~> 5.9'
 end
 
 gem 'sdoc',                       '~> 0.4.0', group: :doc

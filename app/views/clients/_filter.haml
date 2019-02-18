@@ -1,0 +1,19 @@
+/ .ibox-content.client-search-form.collapse#client-search-form
+/   = form_tag clients_path, method: 'get' do
+/     .row
+/       .datagrid-filter.filter.form-group.col-xs-12.col-sm-6.col-lg-4
+/         %label= t('.gender', hello: t('hello'))
+/         = select_tag :gender, options_for_select([['Male', 'male'], ['Female', 'female']], selected: params[:gender]), class: 'form-control', include_blank: ''
+/       .datagrid-filter.filter.form-group.col-xs-12.col-sm-6.col-lg-4
+/         %label= t('.age')
+/         = number_field_tag :age, params[:age], class: 'form-control'
+/       .datagrid-filter.filter.form-group.col-xs-12.col-sm-6.col-lg-4
+/         %label= t('.status')
+/         = select_tag :status, options_for_select(Client::CLIENT_STATUSES, selected: params[:status]), class: 'form-control', include_blank: ''
+/       -# .datagrid-filter.filter.form-group.col-xs-12.col-sm-6.col-lg-4
+/       -#   %label Case worker
+/       -#   = select_tag :case_workers, options_for_select(case_worker_options(@client_case_workers), selected: params[:case_workers]), class: 'form-control', include_blank: '', multiple: true
+/     .row
+/       .col-xs-12
+/         = submit_tag t('.search'), name: nil, class: 'btn btn-primary'
+/         = link_to t('.reset'), clients_path, class: 'btn btn-default'

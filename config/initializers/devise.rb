@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -8,12 +6,8 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '81461aa2975f0152bdc59be8bfa15c11a70db7cf28c4ad77e7811edfef34648a0445029ddc637bc5215e2fca6c92207f5dd0ed643348f994d4691cfb64c44e57'
-  
-  # ==> Controller configuration
-  # Configure the parent class to the devise controllers.
-  # config.parent_controller = 'DeviseController'
-
+  # config.secret_key = 'e7cd61c80bc50db87c927faad1c673e070f694ef46754e6e41de0cb6d96d5ac1c638ad77a24d3ab6e4f359582c5afb609b8a666e2ef9906a7db8ad43b4ea9796'
+  config.secret_key = ENV["SECRET_KEY_BASE"] if Rails.env.production? || Rails.env.staging?
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -114,7 +108,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 11
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'e2abde38cdfab24c82d040d25b5beb2fa3c2bffbebc9ccc1af955d196ef929e520472e6185385e37e7e5ec6447e72ff175ff9c24406b906e741a0014dbb57e82'
+  # config.pepper = '47b3e067148abd74f27b34c2ce8396c07829500fa6de0c089264e06c31ae35c45598731e6a18575a72e6fcb9bd6274825e75dfeae786971a2962913f210f188a'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -163,7 +157,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 0..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
@@ -280,11 +274,4 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-
-  # ==> Turbolinks configuration
-  # If your app is using Turbolinks, Turbolinks::Controller needs to be included to make redirection work correctly:
-  #
-  # ActiveSupport.on_load(:devise_failure_app) do
-  #   include Turbolinks::Controller
-  # end
 end

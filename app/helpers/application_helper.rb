@@ -33,4 +33,8 @@ module ApplicationHelper
   def any_active_menu(names)
     'active' if names.include? controller_name
   end
+
+  def date_format(date)
+    date.strftime('%d %B %Y') if date.present?
+  end
 end

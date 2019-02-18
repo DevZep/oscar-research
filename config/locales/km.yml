@@ -1,6 +1,181 @@
 km:
+  clients:
+    client_advanced_searches:
+      client_advanced_searches:
+        government_form_one: 'ទម្រង់ទី១: ព័ត៌មានបឋម'
+        search: ស្វែងរក
+        reset: សំអាត
+      load_save_search:
+        my_saved_search: ការស្វែងរករបស់ខ្ញុំ
+        other_saved_search: ការស្វែងរកដទៃទៀត
+        search_settings_list: តារាងការស្វែងរកឆ្លាតវៃ
+      my_saved_searches:
+        action: សកម្មភាព
+        date: កាលបរិច្ឆេទ
+        description: ការបរិយាយ
+        load: ផ្ទុកការស្វែងរក
+        name: ឈ្មោះ
+      other_saved_searches:
+        action: សកម្មភាព
+        date: កាលបរិច្ឆេទ
+        description: ការបរិយាយ
+        load: ផ្ទុកការស្វែងរក
+        name: ឈ្មោះ
+        owner: អ្នកបង្កើត
+      save_search_setting:
+        cancel: ទុកជាមោឃៈ
+        description: ការបរិយាយ
+        name: ឈ្មោះ
+        new_search_setting: ការស្វែងរកឆ្លាតវៃថ្មី
+        save: រក្សាទុក
+    index:
+      age: អាយុ
+      all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      gender: ភេទ
+      export_to_xls: ទាញចេញជាឯកសារប្រភេទ XLS
+      load_save_search: ផ្ទុកការស្វែងរក
+      number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
+      report_builder: ការស្វែងរកឆ្លាតវៃ
+      results: លទ្ធផល
+      save_search_settings: រក្សាទុកទម្រង់នៃការស្វែងរក
+      status: ស្ថានភាព
+    filter:
+      age: អាយុ
+      district: ស្រុក/ខណ្ឌ
+      gender: ភេទ
+      reset: សំអាត
+      slug: លេខសំគាល់
+      search: ស្វែងរក
+      status: ស្ថានភាព
+    table_header:
+      age: អាយុ
+      all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      current_province: ខេត្តបច្ចុប្បន្ន
+      date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
+      district: ស្រុក/ខណ្ឌ
+      gender: ភេទ
+      number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
+      slug: លេខសំគាល់
+      social_worker: អ្នកកាន់ករណី
+      status: ស្ថានភាព
+    show:
+      about_client: អំពីអតិចិជន
+      address: ឣាសយដ្ឋាន
+      age: អាយុ
+      all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      current_province: ខេត្តបច្ចុប្បន្ន
+      district: ស្រុក/ខណ្ឌ
+      number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
+      status: ស្ថានភាព
+  custom_table:
+    basic_fields: ពត៌មានទូទៅរបស់អតិថិជន
+    form_one_title:
+      age: អាយុ
+      birth_province: ស្រុកកំណើត
+      cambodia: កម្ពុជា
+      caseworker_comment: មតិយោបល់របស់អ្នកកាន់ករណី
+      client_types: ប្រភេទកុមារ (Client carer)
+      code: លេខសំគាល់គ្រួសារ
+      commune: ឃុំ/សង្កាត់
+      current_address: ឣាសយដ្ឋានបច្ចុប្បន្ន
+      current_province: ខេត្តបច្ចុប្បន្ន
+      date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
+      district: ស្រុក/ខណ្ឌ
+      family_name: នាមត្រកូលជាអក្សរឡាតាំង
+      gender: ភេទ
+      given_name: នាមខ្លួនជាអក្សរឡាតាំង
+      gov_carer_name: អ្នកថែទាំកុមារ (Client carer)
+      gov_carer_relationship: ទំនាក់ទំនងជាមួយកុមារ (Client carer)
+      gov_carer_home: ផ្ទះលេខ (Client carer)
+      gov_carer_street: ផ្លូវលេខ (Client carer)
+      gov_carer_village: ភូមិ (Client carer)
+      gov_carer_commune: ឃុំ/សង្កាត់ (Client carer)
+      gov_carer_district: ក្រុង/ស្រុក/ខណ្ឌ (Client carer)
+      gov_carer_city: រាជធានី/ខេត្ត (Client carer)
+      gov_carer_phone: លេខទូរស័ព្ទរបស់អ្នកថែទាំកុមារ (Client carer)
+      gov_caseworker_name: ឈ្មោះអ្នកកាន់ករណី
+      gov_caseworker_phone: លេខទូរស័ព្ទរបស់អ្នកកាន់ករណី
+      gov_city: រាជធានី/ខេត្ត (Government Report)
+      gov_client_code: លេខកូដកុមារ (Government Report)
+      gov_commune: ឃុំ/សង្កាត់ (Government Report)
+      gov_district: ក្រុង/ស្រុក/ខណ្ឌ (Government Report)
+      gov_date: ថ្ងៃ/ខែ/ឆ្នាំ (Government Report)
+      gov_guardian_comment: យោបល់របស់កុមារនិង/អាណាព្យាបាល អំពីបញ្ហា និងតម្រូវការ
+      gov_information_source: ប្រភពពត៌មាន (Client carer)
+      gov_interview_city: រាជធានី/ខេត្ត (Place of interview)
+      gov_interview_commune: ឃុំ/សង្កាត់ (Place of interview)
+      gov_interview_district: ក្រុង/ស្រុក/ខណ្ឌ (Place of interview)
+      gov_interview_village: ភូមិ (Place of interview)
+      gov_referral_reason: ពត៌មានសង្ខេបពីមូលហេតុនៃការបញ្ជូនកុមារមករកសេវា
+      gov_village_code: លេខកូដភូមិ (Government Report)
+      government_form_one: 'ទម្រង់ទី១: ព័ត៌មានបឋម'
+      house_number: ផ្ទះលេខ
+      id: លេខសំគាល់
+      interviewees_place_of_interview: អ្នកផ្ដល់បទសម្ភាសន៍ (Place of interview)
+      local_family_name: នាមត្រកូលជាអក្សរខ្មែរ
+      local_given_name: នាមខ្លួនជាអក្សរខ្មែរ
+      ngo: អង្គការ
+      select_columns: ជ្រើសរើសជួរឈរ
+      show_all: បង្ហាញទាំងអស់
+      slug: លេខសម្គាល់
+      status: ស្ថានភាព
+      street_number: ផ្លូវលេខ
+      village: ភូមិ
+    table_header:
+      age: អាយុ
+      all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      birth_province: ស្រុកកំណើត
+      caseworker_comment: មតិយោបល់របស់អ្នកកាន់ករណី
+      client_types: ប្រភេទកុមារ (Client carer)
+      code: លេខសំគាល់គ្រួសារ
+      commune: ឃុំ/សង្កាត់
+      current_address: ឣាសយដ្ឋានបច្ចុប្បន្ន
+      current_province: ខេត្តបច្ចុប្បន្ន
+      date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
+      district: ស្រុក/ខណ្ឌ
+      family_name: នាមត្រកូលជាអក្សរឡាតាំង
+      gender: ភេទ
+      given_name: នាមខ្លួនជាអក្សរឡាតាំង
+      gov_carer_name: អ្នកថែទាំកុមារ (Client carer)
+      gov_carer_relationship: ទំនាក់ទំនងជាមួយកុមារ (Client carer)
+      gov_carer_home: ផ្ទះលេខ (Client carer)
+      gov_carer_street: ផ្លូវលេខ (Client carer)
+      gov_carer_village: ភូមិ (Client carer)
+      gov_carer_commune: ឃុំ/សង្កាត់ (Client carer)
+      gov_carer_district: ក្រុង/ស្រុក/ខណ្ឌ (Client carer)
+      gov_carer_city: រាជធានី/ខេត្ត (Client carer)
+      gov_carer_phone: លេខទូរស័ព្ទរបស់អ្នកថែទាំកុមារ (Client carer)
+      gov_caseworker_name: ឈ្មោះអ្នកកាន់ករណី
+      gov_caseworker_phone: លេខទូរស័ព្ទរបស់អ្នកកាន់ករណី
+      gov_city: រាជធានី/ខេត្ត (Government Report)
+      gov_client_code: លេខកូដកុមារ (Government Report)
+      gov_commune: ឃុំ/សង្កាត់ (Government Report)
+      gov_district: ក្រុង/ស្រុក/ខណ្ឌ (Government Report)
+      gov_date: ថ្ងៃ/ខែ/ឆ្នាំ (Government Report)
+      gov_guardian_comment: យោបល់របស់កុមារនិង/អាណាព្យាបាល អំពីបញ្ហា និងតម្រូវការ
+      gov_information_source: ប្រភពពត៌មាន (Client carer)
+      gov_interview_city: រាជធានី/ខេត្ត (Place of interview)
+      gov_interview_commune: ឃុំ/សង្កាត់ (Place of interview)
+      gov_interview_district: ក្រុង/ស្រុក/ខណ្ឌ (Place of interview)
+      gov_interview_village: ភូមិ (Place of interview)
+      gov_referral_reason: ពត៌មានសង្ខេបពីមូលហេតុនៃការបញ្ជូនកុមារមករកសេវា
+      gov_village_code: លេខកូដភូមិ (Government Report)
+      government_form_one: 'ទម្រង់ទី១: ព័ត៌មានបឋម'
+      local_family_name: នាមត្រកូលជាអក្សរខ្មែរ
+      local_given_name: នាមខ្លួនជាអក្សរខ្មែរ
+      house_number: ផ្ទះលេខ
+      id: លេខសំគាល់
+      interviewees_place_of_interview: អ្នកផ្ដល់បទសម្ភាសន៍ (Place of interview)
+      ngo: អង្គការ
+      slug: លេខសម្គាល់
+      show_all: បង្ហាញទាំងអស់
+      status: ស្ថានភាព
+      street_number: ផ្លូវលេខ
+      village: ភូមិ
   datagrid:
     columns:
+      clients:
+        total: សរុប
       users:
         current_password: លេខកូដសំងាត់បច្ចុប្បន្ន
         current_password_hint: យើងត្រូវការពិនិត្យពាក្យសម្ងាត់បច្ចុប្បន្នដើម្បីធ្វើការផ្លាស់ប្តូរ
@@ -129,7 +304,7 @@ km:
       users: អ្នកប្រើ
     top_navbar:
       logout: ចាកចេញ
-  unauthorized: 
+  unauthorized:
     default: មិនអាចដំណើរការចូលបានទេ
   users:
     actions:
@@ -156,6 +331,8 @@ km:
       save: រក្សាទុក
     index:
       add_new: បន្ថែមឣ្នកប្រើថ្មី
+      export_to_xls: ទាញចេញជាឯកសារប្រភេទ XLS
+      results: លទ្ធផល
       date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
       email: ឣុីម៉ែល
       enable_gov_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
