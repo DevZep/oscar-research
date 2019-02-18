@@ -1,7 +1,7 @@
 class Organization < ActiveRecord::Base
   mount_uploader :logo, ImageUploader
 
-  scope :visible, -> { where.not(short_name: ['cwd', 'myan', 'rok', 'shared', 'my', 'cccu']) }
+  scope :visible, -> { where.not(short_name: ['demo', 'cwd', 'myan', 'rok', 'shared', 'my', 'cccu']) }
   scope :cambodian, -> { where(country: 'cambodia') }
 
   validates :full_name, :short_name, presence: true
