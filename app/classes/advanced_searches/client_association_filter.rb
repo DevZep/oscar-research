@@ -25,7 +25,7 @@ module AdvancedSearches
     private
 
     def active_program_stream_query
-      clients = @clients.select{|client| client.enrollment_count == @value.to_i}
+      clients = @clients.select{|client| client.client_enrollments.active.count == @value.to_i}
       clients.map(&:id)
     end
 
