@@ -7,6 +7,20 @@ OSCAR.ClientsIndex = do ->
     _initAdavanceSearchFilter()
     _toggleCollapseFilter()
     _handleAutoCollapse()
+    _getClientPath()
+  #   _appendCsiScores()
+  #
+  # _appendCsiScores = ->
+  #   $('#csiScores').on 'show.bs.modal', (event) ->
+  #     button = $(event.relatedTarget)
+  #     recipient = button.data('whatever')
+  #     modal = $(this)
+  #     modal.find('.modal-body').text recipient
+
+  _getClientPath = ->
+    $('table.clients tbody tr').click (e) ->
+      return if $(@).text().trim() == 'No data available in table' || $(e.target).hasClass('btn') || $(e.target).hasClass('fa') || $(e.target).is('a')
+      window.open($(@).data('href'), '_blank')
 
   _hideClientFilters = ->
     dataFilters = $('#client-search-form .datagrid-filter')
@@ -148,7 +162,9 @@ OSCAR.ClientsIndex = do ->
                 $('fonts font name', styles).attr('val', 'Khmer OS Content')
           }
         ]
-      )
+        drawCallback: (settings) ->
+          _getClientPath()
+        )
 
     $('table.clients thead tr:eq(1) th input[name="gender"]').on 'keyup', ->
       table.columns(1).search("^" + @value, true, false).draw();

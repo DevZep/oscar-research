@@ -1,0 +1,10 @@
+body[id='clients-show'] {
+  table#csi-scores {
+    th, td {
+      min-width: 160px;
+    }
+    .align-middle {
+      vertical-align: middle;
+    }
+  }
+}

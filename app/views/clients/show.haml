@@ -1,0 +1,81 @@
+-# .row
+-#   .col-xs-12
+-#     .row
+-#       .col-md-3
+-#         .client-info
+-#           = @client.gender.titleize
+-#       .col-md-6
+-#         %table.table.small.m-b-xs
+-#           %tbody
+-#             %tr
+-#               %td
+-#                 = "#{t('.age')} : "
+-#                 %strong= @client.display_age
+-#               %td
+-#                 = "#{t('.current_province')} : "
+-#                 %strong= @client.province_name
+
+.row.mini-margin
+  .col-xs-12
+    .ibox
+      .ibox-title
+        %h5= t('.about_client')
+      .ibox-content
+        .row
+          .col-sm-12.col-md-6.first-table
+            %table.table.table-bordered
+              %tr
+                %td
+                  = t('.current_province')
+                %td
+                  %strong
+                    = @client.province_name
+              %tr
+                %td
+                  = t('.current_district')
+                %td
+                  %strong
+                    = @client.district_name
+              %tr
+                %td
+                  = t('.age')
+                %td
+                  %strong
+                    = @client.display_age
+          .col-sm-12.col-md-6.second-table
+            %table.table.table-bordered
+              %tr
+                %td
+                  = t('.number_active_program')
+                %td
+                  %strong
+                    = @client.enrollment_count
+              %tr
+                %td
+                  = t('.status')
+                %td
+                  %strong
+                    = @client.status
+              %tr
+                %td
+                  = t('.gender')
+                %td
+                  %strong
+                    = @client.gender.try(:titleize)
+          .col-xs-12
+            .table-responsive
+              %table.table.table-bordered#csi-scores
+                %tr
+                  %th.text-center.align-middle Date of Assessment
+                  - @csi_domains.each do |domain|
+                    %th.text-center.align-middle= domain.identity
+                - if @client.assessments.any?
+                  - @client.assessments.most_recents.each do |assessment|
+                    %tr
+                      %td.text-center= date_format(assessment.created_at)
+                      - @csi_domains.each do |domain|
+                        %td.text-center= assessment.assessment_domains.find_by(domain: domain).try(:score)
+                - else
+                  %tr
+                    %td{ colspan: @csi_domains.count + 1 } No data
+- Organization.switch_to('public')

@@ -40,6 +40,7 @@ class Client < ActiveRecord::Base
   has_many :assessments,    dependent: :destroy
   has_many :client_enrollments, dependent: :destroy
   has_many :program_streams, through: :client_enrollments
+  has_many :referrals, dependent: :destroy
 
   scope :live_with_like,              ->(value) { where('clients.live_with iLIKE ?', "%#{value}%") }
   scope :current_address_like,        ->(value) { where('clients.current_address iLIKE ?', "%#{value}%") }

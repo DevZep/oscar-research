@@ -1,5 +1,10 @@
 - clients.each do |client|
-  %tr
+  %tr{ data: { href: "/clients/id#{client.slug}" } }
+    -# %td
+    -#   %button.btn.btn-primary{ "data-target" => "#csiScores", "data-toggle" => "modal", "data-whatever" => "#{client.slug}", :type => "button"}
+    -#     CSI Scores
+
+    -# %td= client.slug
     %td= client.display_age
     %td= client.gender.try(&:titleize)
     %td= client.status
@@ -7,4 +12,7 @@
       = client.enrollment_count
     %td= client.province_name
     %td= client.district_name
+
+-# = render 'csi_scores'
+
 - Organization.switch_to('public')

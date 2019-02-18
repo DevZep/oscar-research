@@ -1,6 +1,7 @@
 class ClientsController < AdminController
   before_action :find_params_advanced_search, :client_builder_fields, :build_advanced_search, only: :index
   before_action :basic_params, if: :has_params?
+  before_action :find_client, :find_csi_domains, only: :show
 
   def index
     respond_to do |f|
@@ -11,6 +12,9 @@ class ClientsController < AdminController
         # @clients = Kaminari.paginate_array(clients).page(params[:page]).per(20)
       end
     end
+  end
+
+  def show
   end
 
   private
@@ -104,5 +108,22 @@ class ClientsController < AdminController
                   (SELECT COUNT(id) FROM client_enrollments WHERE client_enrollments.client_id = clients.id AND status = 'Active') as enrollment_count,
                   (SELECT COUNT(id) FROM assessments WHERE assessments.client_id = clients.id AND assessments.default = true) as assessment_count
                 ")
+    # Client.includes(:province, :district, :referrals)
+    #       .select("id, slug, date_of_birth, status, gender, province_id, district_id,
+    #               (SELECT referred_from FROM referrals WHERE referrals.client_id = clients.id),
+    #               (SELECT COUNT(id) FROM client_enrollments WHERE client_enrollments.client_id = clients.id AND status = 'Active') as enrollment_count,
+    #               (SELECT COUNT(id) FROM assessments WHERE assessments.client_id = clients.id AND assessments.default = true) as assessment_count
+    #             ")
+  end
+
+  def find_client
+    client_id = params[:id].split('id').last
+    ngo_short_name = client_id.split('-').first
+    Organization.switch_to(ngo_short_name)
+    @client = clients_query.friendly.find(client_id)
+  end
+
+  def find_csi_domains
+    @csi_domains = Domain.csi_domains
   end
 end
