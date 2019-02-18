@@ -28,4 +28,4 @@
               .col-xs-12.col-md-4= f.input :current_password, hint: t('.we_need_your_current_password_to_confirm_your_changes'), required: true, label: t('.current_password')
         .ibox-footer
           = f.submit t('.save'), class: 'btn btn-primary form-btn'
-          = link_to t('.cancel'), dashboard_path, class: 'btn btn-default form-btn'
+          = link_to t('.cancel'), root_path, class: 'btn btn-default form-btn'
