@@ -12,6 +12,10 @@ class UserPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def destroy?
+    user.admin?
+  end
+
   alias show? index?
 
   alias create? new?

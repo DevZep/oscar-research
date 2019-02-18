@@ -2,10 +2,10 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title ResearchModuleApp
+    %title OSCaR Learning
     = stylesheet_link_tag    'application', media: 'all'
     = csrf_meta_tags
-    
+
   %body{id: "#{controller_name}-#{params[:action]}", class: "pace-done #{authorized_body}"}
     - if user_signed_in?
       #wrapper{ data: flash_alert }

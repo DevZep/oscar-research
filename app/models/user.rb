@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :visits, dependent: :destroy
+  has_many :advanced_searches, dependent: :destroy
+
   ROLES = ['admin', 'guest'].freeze
 
   validates :email, presence: true, uniqueness: { case_sensitive: false }
