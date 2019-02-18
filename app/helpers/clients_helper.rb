@@ -87,4 +87,9 @@ module ClientsHelper
   #     end
   #   end
   # end
+  def encrypted_consumer_key(id)
+    key = ENV['KEY']
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    encrypted_data = crypt.encrypt_and_sign(id)
+  end
 end

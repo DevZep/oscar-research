@@ -35,7 +35,7 @@ class ClientsController < AdminController
 
   def fetch_clients
     # org_short_names = Organization.pluck(:short_name)
-    org_short_names = Organization.cambodian.visible.pluck(:short_name)
+    org_short_names = Organization.cambodian.pluck(:short_name)
     clients = []
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
@@ -117,7 +117,8 @@ class ClientsController < AdminController
   end
 
   def find_client
-    client_id = params[:id].split('id').last
+    crypt = ActiveSupport::MessageEncryptor.new(ENV['KEY'])
+    client_id  = crypt.decrypt_and_verify(params[:id])
     ngo_short_name = client_id.split('-').first
     Organization.switch_to(ngo_short_name)
     @client = clients_query.friendly.find(client_id)

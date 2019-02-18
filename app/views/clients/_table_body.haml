@@ -1,10 +1,6 @@
 - clients.each do |client|
-  %tr{ data: { href: "/clients/id#{client.slug}" } }
-    -# %td
-    -#   %button.btn.btn-primary{ "data-target" => "#csiScores", "data-toggle" => "modal", "data-whatever" => "#{client.slug}", :type => "button"}
-    -#     CSI Scores
-
-    -# %td= client.slug
+  - url = encrypted_consumer_key(client.slug)
+  %tr{"data-href" => "/clients/#{url}"}
     %td= client.display_age
     %td= client.gender.try(&:titleize)
     %td= client.status
