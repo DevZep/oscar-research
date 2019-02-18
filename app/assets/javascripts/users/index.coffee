@@ -51,6 +51,7 @@ OSCAR.UsersIndex = do ->
       $('td.manage-column').attr('align', 'center')
       $.each rows, (index, item) ->
         href = $($(item).find('td a')).attr('href')
+        href = href.replace('?locale=en', '')
         $(item).attr('data-href', href)
         $($(item).find('a.edit-user-button')).attr('href', href + '/edit')
         $($(item).find('a.delete-user-button')).attr('href', href)
