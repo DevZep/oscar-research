@@ -13,15 +13,16 @@ module AdvancedSearchHelper
 
   def format_header(key)
     translations = {
-      active_program_stream: I18n.t('custom_table.form_one_title.active_program_stream'),
-      age: I18n.t('custom_table.form_one_title.age'),
+      active_program_stream: I18n.t('custom_table.active_program_stream'),
+      basicfield_date_of_birth: I18n.t('custom_table.form_one_title.age'),
       basic_fields: I18n.t('custom_table.basic_fields'),
       basicfield_gender: I18n.t('custom_table.form_one_title.gender'),
-      current_province: I18n.t('custom_table.form_one_title.current_province'),
-      district: I18n.t('custom_table.form_one_title.district'),
+      csi_domain_scores: I18n.t('custom_table.csi_domain_scores'),
+      basicfield_current_province: I18n.t('custom_table.form_one_title.current_province'),
+      basicfield_district: I18n.t('custom_table.form_one_title.district'),
       form_one: I18n.t('custom_table.form_one_title.government_form_one'),
-      gender: I18n.t('custom_table.form_one_title.gender'),
-      status: I18n.t('custom_table.form_one_title.status')
+      basicfield_gender: I18n.t('custom_table.form_one_title.gender'),
+      basicfield_status: I18n.t('custom_table.form_one_title.status')
     }
     translations[key.to_sym] || ''
   end

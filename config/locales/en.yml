@@ -28,6 +28,7 @@ en:
         name: Name
         new_search_setting: New Search Setting
         save: Save
+
     index:
       age: Age
       export_to_xls: Export to XLS
@@ -44,8 +45,10 @@ en:
       search: Search
       status: Status
     table_header:
+      age: Age
       all_csi_assessments: All CSI Assessments
       current_province: Current Province
+      district: District/Khan
       date_of_birth: Date of Birth
       gender: Gender
       number_active_program: Number of Active Program
@@ -63,7 +66,9 @@ en:
       number_active_program: Number of Active Program
       status: Status
   custom_table:
+    active_program_stream: Active Program Stream
     basic_fields: Client Basic Fields
+    csi_domain_scores: CSI Domain Scores
     form_one_title:
       active_program_stream: Active Program Stream
       age: Age

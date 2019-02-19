@@ -3,17 +3,19 @@ class AdminController < ApplicationController
   before_action :authenticate_user!, :set_sidebar_basic_info
 
   def set_sidebar_basic_info
-    @client_count  = all_clients.count
+    @client_count  = all_clients
     @user_count    = User.count
   end
 
   def all_clients
     org_short_names = Organization.cambodian.visible.pluck(:short_name)
-    clients = org_short_names.map do |short_name|
+    clients = 0
+    org_short_names.each do |short_name|
       Organization.switch_to(short_name)
-      Client.all.reload
+      next unless Setting.first.sharing_data?
+      clients += Client.count
     end
     Organization.switch_to('public')
-    clients.flatten
+    clients
   end
 end

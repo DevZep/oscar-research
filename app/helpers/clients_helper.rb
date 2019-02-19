@@ -59,32 +59,27 @@ module ClientsHelper
     client.client_problems.find_by(problem_id: problem.id).try(:rank)
   end
 
-  # def all_csi_assessment_lists(client)
-  #   Organization.switch_to(client.slug.split('-').first)
-  #   object = client.assessments.defaults
-  #   content_tag(:ul) do
-  #     object.each do |assessment|
-  #       concat(content_tag(:li, assessment.basic_info))
-  #     end
-  #   end
-  # end
+  def all_csi_assessment_lists(scores)
+    content_tag(:ul) do
+      scores.each do |score|
+        concat(content_tag(:li, score))
+      end
+    end
+  end
 
-  # def domain_header
-  #   content_tag :div do
-  #     Domain.csi_domains.order_by_identity.map do |domain|
-  #       concat content_tag(:th, domain.identity)
-  #     end
-  #   end
-  # end
+  def domain_header
+    content_tag(:div) do
+      Domain.csi_domains.order_by_identity.map do |domain|
+        concat content_tag(:th, domain.identity, class: 'text-center')
+      end
+    end
+  end
 
-  # def domain_cell_data(client)
-  #   Organization.switch_to(client.slug.split('-').first)
-  #   content_tag :div do
-  #     assessment = client.assessments.defaults.latest_record
-  #     Domain.csi_domains.order_by_identity.map do |domain|
-  #       score = assessment.assessment_domains.find_by(domain_id: domain.id).try(:score) if assessment.present?
-  #       concat content_tag(:td, score, class: 'text-center')
-  #     end
-  #   end
-  # end
+  def domain_cell_data(domain_scores)
+    content_tag(:div) do
+      domain_scores.map do |score|
+        concat content_tag(:td, score, class: 'text-center')
+      end
+    end
+  end
 end

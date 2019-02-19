@@ -6,7 +6,6 @@ class ClientsController < AdminController
     respond_to do |f|
       clients = list_clients_filter
       f.html do
-        @clients_count = clients.count
         @clients = clients
         # @clients = Kaminari.paginate_array(clients).page(params[:page]).per(20)
       end
@@ -32,15 +31,15 @@ class ClientsController < AdminController
   def fetch_clients
     # org_short_names = Organization.pluck(:short_name)
     org_short_names = Organization.cambodian.visible.pluck(:short_name)
-    clients = []
+    all_clients = []
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
       next unless Setting.first.sharing_data?
-      clients << clients_query
-      clients.flatten.to_a
+      clients = Client.includes(:province, :district).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
+      all_clients << map_clients(clients)
     end
     Organization.switch_to('public')
-    clients.flatten
+    all_clients.flatten(1)
   end
 
   def decorate_clients(value)
@@ -92,17 +91,27 @@ class ClientsController < AdminController
     clients = ngos.map do |short_name|
       Organization.switch_to(short_name)
       next unless Setting.first.sharing_data?
-      AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients_query).filter.reload
+      all_clients = Client.select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
+      filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, all_clients).filter
+      map_clients(filered_clients.includes(:province, :district))
     end
     Organization.switch_to('public')
-    clients.flatten
+    clients.flatten(1).compact
   end
 
-  def clients_query
-    Client.includes(:province, :district)
-          .select("id, slug, date_of_birth, status, gender, province_id, district_id,
-                  (SELECT COUNT(id) FROM client_enrollments WHERE client_enrollments.client_id = clients.id AND status = 'Active') as enrollment_count,
-                  (SELECT COUNT(id) FROM assessments WHERE assessments.client_id = clients.id AND assessments.default = true) as assessment_count
-                ")
+  def map_clients(clients)
+    scores = []
+    ActiveRecord::Associations::Preloader.new.preload(clients.to_a, :assessments, Assessment.defaults)
+    ActiveRecord::Associations::Preloader.new.preload(clients.to_a, :client_enrollments, ClientEnrollment.active)
+    csi_domains = Domain.csi_domains.order_by_identity
+
+    clients_array = clients.map do |client|
+      default_assessments = client.assessments.defaults
+      enrollment_count    = client.client_enrollments.active
+      scores = default_assessments.map {|assessment| assessment.basic_info }
+      assessment = default_assessments.latest_record
+      domain_scores = csi_domains.map{ |domain| score = assessment.assessment_domains.find_by(domain_id: domain.id).try(:score) if assessment.present? }
+      { client: client, scores: scores, assessment_count: default_assessments.count, enrollment_count: enrollment_count.count, domain_scores: domain_scores }
+    end
   end
 end
