@@ -8,4 +8,5 @@ class Domain < ActiveRecord::Base
 
   scope :csi_domains, -> { where(custom_domain: false) }
   scope :order_by_identity, -> { order(:identity) }
+  scope :order_by_name, -> { order(:name) }
 end

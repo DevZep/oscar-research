@@ -103,7 +103,7 @@ class ClientsController < AdminController
     scores = []
     ActiveRecord::Associations::Preloader.new.preload(clients.to_a, :assessments, Assessment.defaults)
     ActiveRecord::Associations::Preloader.new.preload(clients.to_a, :client_enrollments, ClientEnrollment.active)
-    csi_domains = Domain.csi_domains.order_by_identity
+    csi_domains = Domain.csi_domains.order_by_name
 
     clients_array = clients.map do |client|
       default_assessments = client.assessments.defaults
