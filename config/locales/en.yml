@@ -66,7 +66,9 @@ en:
       number_active_program: Number of Active Program
       status: Status
   custom_table:
+    active_program_stream: Active Program Stream
     basic_fields: Client Basic Fields
+    csi_domain_scores: CSI Domain Scores
     form_one_title:
       active_program_stream: Active Program Stream
       age: Age
