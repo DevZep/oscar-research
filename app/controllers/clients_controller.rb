@@ -35,7 +35,7 @@ class ClientsController < AdminController
 
   def fetch_clients
     # org_short_names = Organization.pluck(:short_name)
-    org_short_names = Organization.cambodian.pluck(:short_name)
+    org_short_names = Organization.cambodian.visible.pluck(:short_name)
     clients = []
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
