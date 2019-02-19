@@ -16,6 +16,6 @@ class Assessment < ActiveRecord::Base
   end
 
   def assessment_domains_score
-    domains.pluck(:name, :score).map { |item| item.join(': ') }.join(', ')
+    domains.pluck(:name, :score).sort.map { |item| item.join(': ') }.join(', ')
   end
 end

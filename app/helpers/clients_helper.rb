@@ -69,7 +69,7 @@ module ClientsHelper
 
   def domain_header
     content_tag(:div) do
-      Domain.csi_domains.order_by_identity.map do |domain|
+      Domain.csi_domains.order_by_name.map do |domain|
         concat content_tag(:th, domain.identity, class: 'text-center')
       end
     end
