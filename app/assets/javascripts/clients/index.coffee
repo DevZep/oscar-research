@@ -121,7 +121,11 @@ OSCAR.ClientsIndex = do ->
     $('table.clients thead tr').clone(true).appendTo 'table.clients thead'
     $('table.clients thead tr:eq(1) th').each (i) ->
       title = $(@).text()
-      $(@).html "<input type='text' name='#{i == 1 && "gender"}' />"
+      if i != 6
+        $(@).html "<input type='text' name='#{i == 1 && "gender"}' />"
+      else
+        $(@).html "&nbsp;"
+
       $('input', @).on 'keyup change', ->
         if table.column(i).search() != @value && i != 1
           table.column(i).search(@value).draw()

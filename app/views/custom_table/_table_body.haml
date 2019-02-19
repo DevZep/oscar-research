@@ -1,15 +1,19 @@
-- clients.compact.each do |client|
+- clients.each do |client_hash|
+  - client = client_hash[:client]
   %tr
-    - if params[:columns].nil? || params[:columns][:age] == '1'
-      %td= client.display_age
-    - if params[:columns].nil? || params[:columns][:gender] == '1'
-      %td= client.gender.try(:titleize)
-    - if params[:columns].nil? || params[:columns][:status] == '1'
-      %td= client.status
-    - if params[:columns].nil? || params[:columns][:number_active_program] == '1'
-      %td.text-center
-        = client.enrollment_count
-    - if params[:columns].nil? || params[:columns][:district] == '1'
-      %td= client.district_name
-    - if params[:columns].nil? || params[:columns][:current_province] == '1'
-      %td= client.province_name
+    %td= client.display_age
+    %td= client.gender.try(&:titleize)
+    %td= client.status
+    %td= client.province_name
+    %td= client.district_name
+    %td.text-center
+      = client_hash[:enrollment_count]
+    %td.text-center
+      .tooltip-demo.text-center
+        = link_to '#!', {'data-container' => 'body', 'data-content' => "<div>#{all_csi_assessment_lists(client_hash[:scores])}</div>", 'data-original-title' => t('datagrid.columns.clients.total'), 'data-placement' => 'top', 'data-toggle' => 'popover', title: '', type: 'button', 'data-html' => 'true' } do
+          %span.btn.btn-info.btn-xs
+            = "#{t('datagrid.columns.clients.total')}:"
+            = client_hash[:assessment_count]
+    = domain_cell_data(client_hash[:domain_scores])
+
+- Organization.switch_to('public')
