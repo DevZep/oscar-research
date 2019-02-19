@@ -68,7 +68,9 @@ km:
       number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
       status: ស្ថានភាព
   custom_table:
+    active_program_stream: កំពុងចូលរួមកម្មវិធីចម្បង
     basic_fields: ពត៌មានទូទៅរបស់អតិថិជន
+    csi_domain_scores: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
     form_one_title:
       age: អាយុ
       birth_province: ស្រុកកំណើត

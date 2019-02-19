@@ -10,23 +10,23 @@ module AdvancedSearches
       group             = format_header('basic_fields')
       number_fields     = number_type_list.map { |item| AdvancedSearches::FilterTypes.number_options(item, format_header(item), group) }
       drop_list_fields  = drop_down_type_list.map { |item| AdvancedSearches::FilterTypes.drop_list_options(item.first, format_header(item.first), item.last, group) }
-      # drop_list_fields  << drop_list_ngos(ngos.first, format_header(ngos.first), ngos.last, group)
-      search_fields     = number_fields + drop_list_fields
+      default_domain_scores_options = AdvancedSearches::DomainScoreFields.render
+      search_fields     = number_fields + drop_list_fields + default_domain_scores_options
       search_fields.sort_by { |f| f[:label].downcase }
     end
 
     private
 
     def number_type_list
-      ['age', 'active_program_stream']
+      ['basicfield_date_of_birth', 'active_program_stream']
     end
 
     def drop_down_type_list
       [
         ['basicfield_gender', { female: 'Female', male: 'Male' }],
-        ['status', client_status],
-        ['current_province', provinces],
-        ['district', districts]
+        ['basicfield_status', client_status],
+        ['basicfield_current_province', provinces],
+        ['basicfield_district', districts]
       ]
     end
 
