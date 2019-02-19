@@ -87,4 +87,9 @@ module ClientsHelper
   #     end
   #   end
   # end
+  def encrypted_client_slug(id)
+    key = ENV['SLUG_ENCRYPTION_KEY']
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    encrypted_data = crypt.encrypt_and_sign(id)
+  end
 end

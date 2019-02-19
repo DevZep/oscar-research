@@ -1,6 +1,7 @@
 class ClientsController < AdminController
   before_action :find_params_advanced_search, :client_builder_fields, :build_advanced_search, only: :index
   before_action :basic_params, if: :has_params?
+  before_action :find_client, :find_csi_domains, only: :show
 
   def index
     respond_to do |f|
@@ -8,9 +9,11 @@ class ClientsController < AdminController
       f.html do
         @clients_count = clients.count
         @clients = clients
-        # @clients = Kaminari.paginate_array(clients).page(params[:page]).per(20)
       end
     end
+  end
+
+  def show
   end
 
   private
@@ -30,17 +33,16 @@ class ClientsController < AdminController
   end
 
   def fetch_clients
-    # org_short_names = Organization.pluck(:short_name)
     org_short_names = Organization.cambodian.visible.pluck(:short_name)
-    clients = []
+    all_clients = []
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
       next unless Setting.first.sharing_data?
-      clients << clients_query
-      clients.flatten.to_a
+      clients = clients_query
+      all_clients << { ngo: short_name, clients: clients.flatten }
     end
     Organization.switch_to('public')
-    clients.flatten
+    all_clients
   end
 
   def decorate_clients(value)
@@ -52,7 +54,6 @@ class ClientsController < AdminController
     basic_rules     = JSON.parse @basic_filter_params
     basicfield_ngo  = []
     org_short_names = Organization.cambodian.visible.pluck(:short_name)
-    # org_short_names = Organization.pluck(:short_name)
     filter_client_advanced_serach(org_short_names, basic_rules)
   end
 
@@ -89,13 +90,15 @@ class ClientsController < AdminController
   end
 
   def filter_client_advanced_serach(ngos, basic_rules)
-    clients = ngos.map do |short_name|
+    all_clients = []
+    ngos.each do |short_name|
       Organization.switch_to(short_name)
       next unless Setting.first.sharing_data?
-      AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients_query).filter.reload
+      clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients_query).filter.reload
+      all_clients << { ngo: short_name, clients: clients.flatten }
     end
     Organization.switch_to('public')
-    clients.flatten
+    all_clients
   end
 
   def clients_query
@@ -104,5 +107,19 @@ class ClientsController < AdminController
                   (SELECT COUNT(id) FROM client_enrollments WHERE client_enrollments.client_id = clients.id AND status = 'Active') as enrollment_count,
                   (SELECT COUNT(id) FROM assessments WHERE assessments.client_id = clients.id AND assessments.default = true) as assessment_count
                 ")
+  end
+
+  def find_client
+    crypt = ActiveSupport::MessageEncryptor.new(ENV['SLUG_ENCRYPTION_KEY'])
+    client_id  = crypt.decrypt_and_verify(params[:id])
+    ngo_short_name = params[:ngo]
+
+    Organization.switch_to(ngo_short_name)
+
+    @client = clients_query.friendly.find(client_id)
+  end
+
+  def find_csi_domains
+    @csi_domains = Domain.csi_domains
   end
 end

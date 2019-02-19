@@ -1,0 +1,21 @@
+#csiScores.modal.fade{"aria-labelledby" => "csiScoresLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4#csiScoresLabel.modal-title Modal title
+      .modal-body
+        -# %table.table.table-bordered.table-striped.table-hover
+        -#   %thead
+        -#     %tr
+        -#       %th Date of Assessment
+        -#       - Domain.csi_domains.each do |domain|
+        -#         %th= domain.name
+        -#   %tbody
+        -#
+        -#     %tr
+        -#       %td
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+        %button.btn.btn-primary{:type => "button"} Save changes

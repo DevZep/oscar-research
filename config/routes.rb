@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     match "/#{code}", to: 'errors#show', code: code, via: :all
   end
 
-  resources :clients, only: [:index]
+  resources :clients, only: [:index, :show]
   resources :advanced_search_save_queries
 
   scope 'admin' do

@@ -67,9 +67,11 @@ km:
       district: ស្រុក/ខណ្ឌ
       number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
       status: ស្ថានភាព
+      gender: ភេទ
   custom_table:
     basic_fields: ពត៌មានទូទៅរបស់អតិថិជន
     form_one_title:
+      active_program_stream: ចំនួនកម្មវិធីដែលកុមារចូលរួម
       age: អាយុ
       birth_province: ស្រុកកំណើត
       cambodia: កម្ពុជា
@@ -298,6 +300,7 @@ km:
         other: "%{count} កំហុស បានហាមឃាត់ %{resource} ពីការរក្សាទុក"
   layouts:
     side_menu:
+      clients: អតិថិជន
       edit_profile: កែសម្រួលព័ត៌មានផ្ទាល់ខ្លួន
       dashboard: តារាងទិន្នន័យ
       logout: ចាកចេញ

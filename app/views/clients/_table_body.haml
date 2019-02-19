@@ -1,10 +1,15 @@
-- clients.each do |client|
-  %tr
-    %td= client.display_age
-    %td= client.gender.try(&:titleize)
-    %td= client.status
-    %td.text-center
-      = client.enrollment_count
-    %td= client.province_name
-    %td= client.district_name
+- clients.each do |clients_hash|
+  - clients_hash[:clients].each do |client|
+    - url = encrypted_client_slug("#{client.slug}")
+    %tr{ data: { href: "/clients/#{url}?ngo=#{clients_hash[:ngo]}" } }
+      %td= client.display_age
+      %td= client.gender.try(&:titleize)
+      %td= client.status
+      %td.text-center
+        = client.enrollment_count
+      %td= client.province_name
+      %td= client.district_name
+
+  -# = render 'csi_scores'
+
 - Organization.switch_to('public')
