@@ -117,7 +117,7 @@ class ClientsController < AdminController
   end
 
   def find_client
-    crypt = ActiveSupport::MessageEncryptor.new(ENV['KEY'])
+    crypt = ActiveSupport::MessageEncryptor.new(ENV['SLUG_ENCRYPTION_KEY'])
     client_id  = crypt.decrypt_and_verify(params[:id])
     ngo_short_name = client_id.split('-').first
     Organization.switch_to(ngo_short_name)
