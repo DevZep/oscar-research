@@ -35,11 +35,13 @@ class ClientsController < AdminController
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
       next unless Setting.first.sharing_data?
-      clients = Client.includes(:province, :district).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
-      all_clients << map_clients(clients)
+      clients = Client.joins(:assessments).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id).reload
+      all_clients << map_clients(clients.includes(:province, :district, :client_enrollments), short_name)
+      clients = Client.where.not(id: clients.ids).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
+      all_clients << map_non_assessment_clients(clients.includes(:province, :district), short_name)
     end
     Organization.switch_to('public')
-    all_clients.flatten(1)
+    all_clients.flatten(1).uniq
   end
 
   def decorate_clients(value)
@@ -91,27 +93,46 @@ class ClientsController < AdminController
     clients = ngos.map do |short_name|
       Organization.switch_to(short_name)
       next unless Setting.first.sharing_data?
-      all_clients = Client.select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
-      filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, all_clients).filter
-      map_clients(filered_clients.includes(:province, :district))
+      all_clients = []
+
+      clients = Client.joins(:assessments).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id).reload
+      filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
+      all_clients << map_clients(filered_clients.includes(:province, :district, :client_enrollments), short_name)
+
+      clients = Client.where.not(id: clients.ids).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
+      filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
+      all_clients << map_non_assessment_clients(filered_clients.includes(:province, :district), short_name) if filered_clients.present?
+
+      all_clients.flatten.compact
     end
     Organization.switch_to('public')
-    clients.flatten(1).compact
+    clients.flatten(1).compact.uniq
   end
 
-  def map_clients(clients)
+  def map_clients(clients, short_name)
+    return [] if clients.blank?
     scores = []
-    ActiveRecord::Associations::Preloader.new.preload(clients.to_a, :assessments, Assessment.defaults)
-    ActiveRecord::Associations::Preloader.new.preload(clients.to_a, :client_enrollments, ClientEnrollment.active)
     csi_domains = Domain.csi_domains.order_by_name
+    default_assessments = Assessment.joins(:client).defaults
+    scores_hash = default_assessments.map {|assessment| [assessment.client_id, assessment, assessment.basic_info] }.group_by(&:first)
 
     clients_array = clients.map do |client|
-      default_assessments = client.assessments.defaults
-      enrollment_count    = client.client_enrollments.active
-      scores = default_assessments.map {|assessment| assessment.basic_info }
-      assessment = default_assessments.latest_record
-      domain_scores = csi_domains.map{ |domain| score = assessment.assessment_domains.find_by(domain_id: domain.id).try(:score) if assessment.present? }
-      { client: client, scores: scores, assessment_count: default_assessments.count, enrollment_count: enrollment_count.count, domain_scores: domain_scores }
+      enrollment_count   = client.client_enrollments.map(&:status).count{|status| status == 'Active'}
+      assessments   = scores_hash[client.id] || []
+      assessment = assessments.map(&:second).flatten.max_by(&:created_at)
+      if assessment.present?
+        assessment_domains = assessment.assessment_domains.pluck(:domain_id, :score).to_h
+        domain_scores = csi_domains.map{ |domain| assessment_domains[domain.id] } if assessment_domains.present?
+      else
+        domain_scores = (1..12).map{ |_| '' }
+      end
+      { client: client, scores: assessments.present? ? assessments.map(&:last).flatten : [], assessment_count: assessments.flatten.count, enrollment_count: enrollment_count, domain_scores: domain_scores, short_name: short_name }
+    end
+  end
+
+  def map_non_assessment_clients(clients, short_name)
+    clients_array = clients.map do |client|
+      { client: client, scores: [], assessment_count: 0, enrollment_count: 0, domain_scores: (1..12).map{ |_| '' }, short_name: short_name }
     end
   end
 end
