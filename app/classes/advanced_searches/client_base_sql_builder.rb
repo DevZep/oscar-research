@@ -43,8 +43,9 @@ module AdvancedSearches
             base_sql(field, operator, value)
           end
         elsif form_builder.first == 'domainscore'
-          form_builder = rule['id'].split('__')
-          domain_scores = AdvancedSearches::DomainScoreSqlBuilder.new(form_builder.second, rule).get_sql
+          domain_name = rule['id'].split('__').last
+          domain_id = Domain.find_by(identity: domain_name).try(:id)
+          domain_scores = AdvancedSearches::DomainScoreSqlBuilder.new(domain_id, rule).get_sql
           @sql_string << domain_scores[:id]
           @values << domain_scores[:values]
         elsif field != nil
