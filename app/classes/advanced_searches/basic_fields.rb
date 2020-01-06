@@ -52,7 +52,7 @@ module AdvancedSearches
       provinces = []
       org_short_names.map do |short_name|
         Organization.switch_to(short_name)
-        next unless Setting.first.sharing_data?
+        next unless (Setting.first && Setting.first.sharing_data?)
         provinces << Province.all.pluck(:name, :id)
       end
       Organization.switch_to('public')
@@ -64,7 +64,7 @@ module AdvancedSearches
       districts = []
       org_short_names.map do |short_name|
         Organization.switch_to(short_name)
-        next unless Setting.first.sharing_data?
+        next unless (Setting.first && Setting.first.sharing_data?)
         districts << District.all.pluck(:name, :id)
       end
       Organization.switch_to('public')
