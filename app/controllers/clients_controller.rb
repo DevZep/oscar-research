@@ -34,7 +34,7 @@ class ClientsController < AdminController
     all_clients = []
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
-      next unless (Setting.first && Setting.first.sharing_data?)
+      next unless org_sharing_data?
       clients = Client.joins(:assessments).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id).reload
       all_clients << map_clients(clients.includes(:province, :district, :client_enrollments), short_name)
       clients = Client.where.not(id: clients.ids).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
@@ -92,7 +92,7 @@ class ClientsController < AdminController
   def filter_client_advanced_serach(ngos, basic_rules)
     clients = ngos.map do |short_name|
       Organization.switch_to(short_name)
-      next unless (Setting.first && Setting.first.sharing_data?)
+      next unless org_sharing_data?
       all_clients = []
 
       clients = Client.joins(:assessments).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id).reload

@@ -1,4 +1,5 @@
 class AdminController < ApplicationController
+  include ApplicationHelper
   protect_from_forgery with: :exception
   before_action :authenticate_user!, :set_sidebar_basic_info
 
@@ -12,7 +13,7 @@ class AdminController < ApplicationController
     clients = 0
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
-      next unless (Setting.first && Setting.first.sharing_data?)
+      next unless org_sharing_data?
       clients += Client.count
     end
     Organization.switch_to('public')
