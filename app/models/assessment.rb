@@ -16,6 +16,10 @@ class Assessment < ActiveRecord::Base
   end
 
   def assessment_domains_score
-    domains.pluck(:name, :score).sort.map { |item| item.join(': ') }.join(', ')
+    if default
+      domains.csi_domains.distinct.pluck(:name, :score).sort.map { |item| item.join(': ') }.join(', ')
+    else
+      domains.custom_domains.distinct.pluck(:name, :score).sort.map { |item| item.join(': ') }.join(', ')
+    end
   end
 end
