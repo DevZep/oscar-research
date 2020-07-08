@@ -35,10 +35,11 @@ class ClientsController < AdminController
     org_short_names.each do |short_name|
       Organization.switch_to(short_name)
       next unless org_sharing_data?
-      clients = Client.joins(:assessments).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id).reload
-      all_clients << map_clients(clients.includes(:province, :district, :client_enrollments), short_name)
-      clients = Client.where.not(id: clients.ids).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
-      all_clients << map_non_assessment_clients(clients.includes(:province, :district), short_name)
+      clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
+      all_clients << map_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
+      clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
+      all_clients << map_non_assessment_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
+
     end
     Organization.switch_to('public')
     all_clients.flatten(1).uniq
@@ -95,13 +96,13 @@ class ClientsController < AdminController
       next unless org_sharing_data?
       all_clients = []
 
-      clients = Client.joins(:assessments).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id).reload
+      clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
       filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
-      all_clients << map_clients(filered_clients.includes(:province, :district, :client_enrollments), short_name)
+      all_clients << map_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name)
 
-      clients = Client.where.not(id: clients.ids).select(:id, :date_of_birth, :status, :gender, :province_id, :district_id)
+      clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
       filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
-      all_clients << map_non_assessment_clients(filered_clients.includes(:province, :district), short_name) if filered_clients.present?
+      all_clients << map_non_assessment_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name) if filered_clients.present?
 
       all_clients.flatten.compact
     end
@@ -115,9 +116,11 @@ class ClientsController < AdminController
     csi_domains = Domain.csi_domains.order_by_name
     default_assessments = Assessment.joins(:client).defaults
     scores_hash = default_assessments.map {|assessment| [assessment.client_id, assessment, assessment.basic_info] }.group_by(&:first)
-
     clients_array = clients.map do |client|
-      enrollment_count   = client.client_enrollments.map(&:status).count{|status| status == 'Active'}
+      active_enrollments   = client.client_enrollments.active
+      inactive_enrollments   = client.client_enrollments.inactive
+      enrollment_count   = active_enrollments.count
+
       assessments   = scores_hash[client.id] || []
       assessment = assessments.map(&:second).flatten.max_by(&:created_at)
       if assessment.present?
@@ -126,8 +129,41 @@ class ClientsController < AdminController
       else
         domain_scores = (1..12).map{ |_| '' }
       end
-      { client: client, scores: assessments.present? ? assessments.map(&:last).flatten : [], assessment_count: assessments.flatten.count, enrollment_count: enrollment_count, domain_scores: domain_scores, short_name: short_name }
+
+      active_enrollment_services = active_enrollments.joins(program_stream: :services).select("services.name")
+      inactive_enrollment_services = inactive_enrollments.joins(program_stream: :services).select("services.name")
+
+      {
+        client: client,
+        scores: assessments.present? ? assessments.map(&:last).flatten : [],
+        assessment_count: assessments.flatten.count,
+        enrollment_count: enrollment_count,
+        domain_scores: domain_scores,
+        short_name: short_name,
+        **map_exit_ngo(client),
+        carer_relationship_to_client: client.carer&.client_relationship,
+        current_services: active_enrollment_services.map(&:name).uniq.join(", "),
+        past_services: inactive_enrollment_services.map(&:name).uniq.join(", "),
+        assessment_date: assessment&.created_at&.strftime('%d %B %Y'),
+        referral_source_category: decorate_clients(client)&.referral_source_category,
+        reason_for_family_separation: map_quantitative_type_by_name(client, 'Reason for Family Separation'),
+        history_of_harm: map_quantitative_type_by_name(client, 'History of Harm'),
+        history_of_disability_and_or_illness: map_quantitative_type_by_name(client, 'History of Disability'),
+        history_of_high_risk_behaviours: map_quantitative_type_by_name(client, 'History of high-risk behaviours')
+      }
     end
+  end
+
+  def map_quantitative_type_by_name(client, value)
+    client.quantitative_cases.joins(:quantitative_type).merge(QuantitativeType.name_like(value)).pluck(:value).join(", ")
+  end
+
+  def map_exit_ngo(client)
+    exit_ngo = client.exit_ngos.last
+    {
+      exit_circumstance: exit_ngo&.exit_circumstance,
+      exit_reasons: exit_ngo&.exit_reasons&.join(", "),
+    }
   end
 
   def map_non_assessment_clients(clients, short_name)

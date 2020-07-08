@@ -1,6 +1,8 @@
 class ProgramStream < ActiveRecord::Base
   has_many   :client_enrollments, dependent: :restrict_with_error
   has_many   :clients, through: :client_enrollments
+  has_many   :program_stream_services, dependent: :destroy
+  has_many   :services, through: :program_stream_services
 
   has_paper_trail
 

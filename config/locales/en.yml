@@ -31,15 +31,40 @@ en:
 
     index:
       age: Age
+      birth_province: Birth Province
+      carer_relationship_to_client: Carer Relationship to client
+      current_service_types: Service Types of Current Program Enrolments
+      exit_circumstance: Exit Circumstance
+      exit_reasons: Reason For Exit
       export_to_xls: Export to XLS
+      history_of_disability_and_or_illness: History of disability and/or illness
+      history_of_harm: History of Harm
+      history_of_high_risk_behaviours: History of high-risk behaviours
+      initial_referral_date: Initial Referral Date
       load_save_search: Load Saved Search
       number_active_program: Number of Active Program
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: Reason for Family Separation
+      referral_source_category: Referral Source Category
       report_builder: Report Builder
       results: Results
       save_search_settings: Save Search Settings
+      slug: ID
       status: Status
     filter:
+      birth_province: Birth Province
+      carer_relationship_to_client: Carer Relationship to client
+      current_service_types: Service Types of Current Program Enrolments
+      exit_circumstance: Exit Circumstance
+      exit_reasons: Reason For Exit
       gender: Gender
+      history_of_disability_and_or_illness: History of disability and/or illness
+      history_of_harm: History of Harm
+      history_of_high_risk_behaviours: History of high-risk behaviours
+      initial_referral_date: Initial Referral Date
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: Reason for Family Separation
+      referral_source_category: Referral Source Category
       reset: Reset
       slug: ID
       search: Search
@@ -47,11 +72,23 @@ en:
     table_header:
       age: Age
       all_csi_assessments: All CSI Assessments
+      birth_province: Birth Province
+      carer_relationship_to_client: Carer Relationship to client
       current_province: Current Province
+      current_service_types: Service Types of Current Program Enrolments
       district: District/Khan
       date_of_birth: Date of Birth
+      exit_circumstance: Exit Circumstance
+      exit_reasons: Reason For Exit
       gender: Gender
+      history_of_disability_and_or_illness: History of disability and/or illness
+      history_of_harm: History of Harm
+      history_of_high_risk_behaviours: History of high-risk behaviours
+      initial_referral_date: Initial Referral Date
       number_active_program: Number of Active Program
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: Reason for Family Separation
+      referral_source_category: Referral Source Category
       slug: ID
       social_worker: DoSVY Social Worker
       status: Status
@@ -60,10 +97,20 @@ en:
       address: Address
       age: Age
       all_csi_assessments: All CSI Assessments
+      birth_province: Birth Province
+      carer_relationship_to_client: Carer Relationship to client
       current_province: Current Province
+      current_service_types: Service Types of Current Program Enrolments
       district: District/Khan
+      exit_circumstance: Exit Circumstance
+      exit_reasons: Reason For Exit
       gender: Gender
+      history_of_disability_and_or_illness: History of disability and/or illness
+      history_of_harm: History of Harm
+      history_of_high_risk_behaviours: History of high-risk behaviours
       number_active_program: Number of Active Program
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: Reason for Family Separation
       status: Status
   custom_table:
     active_program_stream: Active Program Stream
