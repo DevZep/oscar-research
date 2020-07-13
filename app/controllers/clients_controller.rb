@@ -34,8 +34,10 @@ class ClientsController < AdminController
     org_short_names = Organization.cambodian.visible.where.not(short_name: 'shared').pluck(:short_name)
     sql = org_short_names.map do |ngo|
         "
-          SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date, #{ngo}.clients.date_of_birth, #{ngo}.clients.gender,
-          #{ngo}.clients.status, #{ngo}.clients.birth_province_id, bp.name birth_province_name, cp.name province_name, d.name district_name, #{ngo}.clients.province_id, #{ngo}.clients.district_id,
+          SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date,
+          #{ngo}.clients.date_of_birth, #{ngo}.clients.gender, EXTRACT(year FROM age(current_date, date_of_birth)) display_age,
+          #{ngo}.clients.status, #{ngo}.clients.birth_province_id, bp.name birth_province_name, cp.name province_name,
+          d.name district_name, #{ngo}.clients.province_id, #{ngo}.clients.district_id,
           rs.name referral_source_category_name, cr.client_relationship FROM #{ngo}.clients
           LEFT OUTER JOIN #{ngo}.provinces cp ON cp.id = #{ngo}.clients.province_id
           LEFT OUTER JOIN #{ngo}.districts d ON d.id = #{ngo}.clients.district_id
@@ -115,6 +117,7 @@ class ClientsController < AdminController
     ngos.map do |short_name|
       Organization.switch_to(short_name)
       clients = filered_clients[0][short_name]
+      next if clients.blank?
       all_clients << map_clients(clients, short_name)
     end
     # clients = ngos.map do |short_name|
@@ -143,7 +146,7 @@ class ClientsController < AdminController
     scores = []
     csi_domains = Domain.csi_domains.order_by_name
     default_assessments = Assessment.joins(:client).defaults
-    scores_hash = default_assessments.map {|assessment| [assessment.client_id, assessment, assessment.basic_info] }.group_by(&:first)
+    scores_hash = default_assessments.map {|assessment| ["#{assessment.client_id}", assessment, assessment.basic_info] }.group_by(&:first)
     clients_array = clients.map do |client|
       client = OpenStruct.new(client)
       # active_enrollments   = client.client_enrollments.active
@@ -156,20 +159,19 @@ class ClientsController < AdminController
       assessment = assessments.map(&:second).flatten.max_by(&:created_at)
       if assessment.present?
         assessment_domains = assessment.assessment_domains.pluck(:domain_id, :score).to_h
-        domain_scores = csi_domains.map{ |domain| assessment_domains[domain.id] } if assessment_domains.present?
+        domain_scores = csi_domains.map{ |domain| assessment_domains[domain.id] || '' } if assessment_domains.present?
       else
         domain_scores = (1..12).map{ |_| '' }
       end
 
       active_enrollment_services = active_enrollments.joins(program_stream: :services).select("services.name")
       inactive_enrollment_services = inactive_enrollments.joins(program_stream: :services).select("services.name")
-
-      {
+      data = {
         client: client,
         scores: assessments.present? ? assessments.map(&:last).flatten : [],
         assessment_count: assessments.flatten.count,
         enrollment_count: enrollment_count,
-        domain_scores: domain_scores,
+        domain_scores: [*domain_scores, ''][0..11],
         short_name: short_name,
         **map_exit_ngo(client),
         # carer_relationship_to_client: client.carer&.client_relationship,
@@ -182,6 +184,7 @@ class ClientsController < AdminController
         history_of_disability_and_or_illness: map_quantitative_type_by_name(client, 'History of Disability'),
         history_of_high_risk_behaviours: map_quantitative_type_by_name(client, 'History of high-risk behaviours')
       }
+      data
     end
   end
 

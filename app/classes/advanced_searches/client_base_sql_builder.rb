@@ -166,26 +166,25 @@ module AdvancedSearches
     def birth_province(operator, value)
       # clients = @clients.joins(:birth_province)
       # province_id = Province.find_by(name: value).try(:id)
-      # case operator
-      # when 'equal'
-      #   client_sql = clients.where(birth_province_id: province_id).to_sql if province_id.present?
-      # when 'not_equal'
-      #   client_sql = Client.where.not(birth_province_id: province_id).to_sql if province_id.present?
-      # when 'is_empty'
-      #   client_sql = Client.where.not(id: clients.ids).to_sql
-      # when 'is_not_empty'
-      #   client_sql = clients.to_sql
-      # end
+      condition_operator = {
+        'equal' => "= '#{value}'",
+        'not_equal' => "!= '#{value}' OR bp.name = ''",
+        'is_empty' => "IS NULL OR bp.name = ''",
+        'is_not_empty' => "IS NOT NULL OR bp.name != ''"
+      }
+
       sql = Organization.cambodian.visible.where.not(short_name: 'shared').pluck(:short_name).map do |ngo|
         "
-          SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date, #{ngo}.clients.date_of_birth, #{ngo}.clients.gender,
-          #{ngo}.clients.status, #{ngo}.clients.birth_province_id, bp.name birth_province_name, cp.name province_name, d.name district_name, #{ngo}.clients.province_id, #{ngo}.clients.district_id,
+          SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date,
+          #{ngo}.clients.date_of_birth, #{ngo}.clients.gender, EXTRACT(year FROM age(current_date, date_of_birth)) display_age,
+          #{ngo}.clients.status, #{ngo}.clients.birth_province_id, bp.name birth_province_name, cp.name province_name,
+          d.name district_name, #{ngo}.clients.province_id, #{ngo}.clients.district_id,
           rs.name referral_source_category_name, cr.client_relationship FROM #{ngo}.clients
           LEFT OUTER JOIN #{ngo}.provinces cp ON cp.id = #{ngo}.clients.province_id
           LEFT OUTER JOIN #{ngo}.districts d ON d.id = #{ngo}.clients.district_id
           LEFT OUTER JOIN #{ngo}.carers cr ON cr.id = #{ngo}.clients.carer_id
           LEFT OUTER JOIN #{ngo}.referral_sources rs ON rs.id = #{ngo}.clients.referral_source_category_id
-          INNER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id WHERE bp.name = '#{value}'
+          LEFT OUTER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id WHERE bp.name #{condition_operator[operator]}
         ".squish
       end.join(" UNION ")
 
