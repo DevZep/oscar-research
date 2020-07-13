@@ -31,6 +31,7 @@ en:
 
     index:
       age: Age
+      assessment_date: Assessment Date
       birth_province: Birth Province
       carer_relationship_to_client: Carer Relationship to client
       current_service_types: Service Types of Current Program Enrolments
@@ -72,6 +73,7 @@ en:
     table_header:
       age: Age
       all_csi_assessments: All CSI Assessments
+      assessment_date: Assessment Date
       birth_province: Birth Province
       carer_relationship_to_client: Carer Relationship to client
       current_province: Current Province
