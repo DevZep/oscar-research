@@ -31,18 +31,43 @@ km:
     index:
       age: អាយុ
       all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
-      gender: ភេទ
+      birth_province: ស្រុកកំណើត
+      carer_relationship_to_client: ទំនាក់ទំនងរបស់អតិថិជន
+      current_service_types: Service Types of Current Program Enrolments
+      exit_circumstance: ស្ថានភាពនៃការចាកចេញ
+      exit_reasons: មូលហេតុនៃការចាកចេញ
       export_to_xls: ទាញចេញជាឯកសារប្រភេទ XLS
+      gender: ភេទ
+      history_of_disability_and_or_illness: ប្រវត្តិនៃជំងឺ និង/ឬពិការភាព
+      history_of_harm: ការបង្កទុក្ខទោស និងការកេងប្រវ័ញ្ច
+      history_of_high_risk_behaviours: ការបំពានគ្រឿងញៀនឬគ្រឿងស្រវឹង និងល្បែងស៊ីសង
+      initial_referral_date: កាលបរិចេ្ឆទនៃការបញ្ជូនដំបូង
       load_save_search: ផ្ទុកការស្វែងរក
       number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: ការបែកចេញពីគ្រួសារ
+      referral_source_category: ប្រភេទប្រភពនៃការបញ្ជូន
       report_builder: ការស្វែងរកឆ្លាតវៃ
       results: លទ្ធផល
       save_search_settings: រក្សាទុកទម្រង់នៃការស្វែងរក
+      slug: លេខសម្គាល់
       status: ស្ថានភាព
     filter:
       age: អាយុ
+      birth_province: ស្រុកកំណើត
+      carer_relationship_to_client: ទំនាក់ទំនងរបស់អតិថិជន
+      current_service_types: Service Types of Current Program Enrolments
+      exit_circumstance: ស្ថានភាពនៃការចាកចេញ
+      exit_reasons: មូលហេតុនៃការចាកចេញ
       district: ស្រុក/ខណ្ឌ
       gender: ភេទ
+      history_of_disability_and_or_illness: ប្រវត្តិនៃជំងឺ និង/ឬពិការភាព
+      history_of_harm: ការបង្កទុក្ខទោស និងការកេងប្រវ័ញ្ច
+      history_of_high_risk_behaviours: ការបំពានគ្រឿងញៀនឬគ្រឿងស្រវឹង និងល្បែងស៊ីសង
+      initial_referral_date: កាលបរិចេ្ឆទនៃការបញ្ជូនដំបូង
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: ការបែកចេញពីគ្រួសារ
+      referral_source_category: ប្រភេទប្រភពនៃការបញ្ជូន
       reset: សំអាត
       slug: លេខសំគាល់
       search: ស្វែងរក
@@ -50,11 +75,22 @@ km:
     table_header:
       age: អាយុ
       all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      carer_relationship_to_client: ទំនាក់ទំនងរបស់អតិថិជន
       current_province: ខេត្តបច្ចុប្បន្ន
+      current_service_types: Service Types of Current Program Enrolments
       date_of_birth: ថ្ងៃ ខែ ឆ្នាំ កំណើត
       district: ស្រុក/ខណ្ឌ
+      exit_circumstance: ស្ថានភាពនៃការចាកចេញ
+      exit_reasons: មូលហេតុនៃការចាកចេញ
       gender: ភេទ
+      history_of_disability_and_or_illness: ប្រវត្តិនៃជំងឺ និង/ឬពិការភាព
+      history_of_harm: ការបង្កទុក្ខទោស និងការកេងប្រវ័ញ្ច
+      history_of_high_risk_behaviours: ការបំពានគ្រឿងញៀនឬគ្រឿងស្រវឹង និងល្បែងស៊ីសង
+      initial_referral_date: កាលបរិចេ្ឆទនៃការបញ្ជូនដំបូង
       number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: ការបែកចេញពីគ្រួសារ
+      referral_source_category: ប្រភេទប្រភពនៃការបញ្ជូន
       slug: លេខសំគាល់
       social_worker: អ្នកកាន់ករណី
       status: ស្ថានភាព
@@ -63,9 +99,22 @@ km:
       address: ឣាសយដ្ឋាន
       age: អាយុ
       all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      carer_relationship_to_client: ទំនាក់ទំនងរបស់អតិថិជន
       current_province: ខេត្តបច្ចុប្បន្ន
+      current_service_types: Service Types of Current Program Enrolments
       district: ស្រុក/ខណ្ឌ
+      exit_circumstance: ស្ថានភាពនៃការចាកចេញ
+      exit_reasons: មូលហេតុនៃការចាកចេញ
+      gender: ភេទ
+      history_of_disability_and_or_illness: ប្រវត្តិនៃជំងឺ និង/ឬពិការភាព
+      history_of_harm: ការបង្កទុក្ខទោស និងការកេងប្រវ័ញ្ច
+      history_of_high_risk_behaviours: ការបំពានគ្រឿងញៀនឬគ្រឿងស្រវឹង និងល្បែងស៊ីសង
+      initial_referral_date: កាលបរិចេ្ឆទនៃការបញ្ជូនដំបូង
       number_active_program: ចំនួនកម្មវិធីដែលកុមារចូលរួម
+      past_service_types: Service Types of Past Program Enrolments
+      reason_for_family_separation: ការបែកចេញពីគ្រួសារ
+      referral_source_category: ប្រភេទប្រភពនៃការបញ្ជូន
+      slug: លេខសំគាល់
       status: ស្ថានភាព
   custom_table:
     active_program_stream: កំពុងចូលរួមកម្មវិធីចម្បង
