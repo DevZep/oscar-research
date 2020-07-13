@@ -30,17 +30,36 @@ class ClientsController < AdminController
 
   def fetch_clients
     # org_short_names = Organization.pluck(:short_name)
-    org_short_names = Organization.cambodian.visible.pluck(:short_name)
     all_clients = []
-    org_short_names.each do |short_name|
-      Organization.switch_to(short_name)
-      next unless org_sharing_data?
-      clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
-      all_clients << map_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
-      clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
-      all_clients << map_non_assessment_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
+    org_short_names = Organization.cambodian.visible.where.not(short_name: 'shared').pluck(:short_name)
+    sql = org_short_names.map do |ngo|
+        "
+          SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date, #{ngo}.clients.date_of_birth, #{ngo}.clients.gender,
+          #{ngo}.clients.status, #{ngo}.clients.birth_province_id, bp.name birth_province_name, cp.name province_name, d.name district_name, #{ngo}.clients.province_id, #{ngo}.clients.district_id,
+          rs.name referral_source_category_name, cr.client_relationship FROM #{ngo}.clients
+          LEFT OUTER JOIN #{ngo}.provinces cp ON cp.id = #{ngo}.clients.province_id
+          LEFT OUTER JOIN #{ngo}.districts d ON d.id = #{ngo}.clients.district_id
+          LEFT OUTER JOIN #{ngo}.carers cr ON cr.id = #{ngo}.clients.carer_id
+          LEFT OUTER JOIN #{ngo}.referral_sources rs ON rs.id = #{ngo}.clients.referral_source_category_id
+          INNER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id
+        ".squish
+      end.join(" UNION ")
 
+    fetched_clients = ActiveRecord::Base.connection.execute(sql).to_a.group_by{|record| record['organization_name'] }
+    org_short_names.map do |short_name|
+      Organization.switch_to(short_name)
+      clients = fetched_clients[short_name]
+      all_clients << map_clients(clients, short_name)
     end
+    # org_short_names.each do |short_name|
+    #   Organization.switch_to(short_name)
+    #   next unless org_sharing_data?
+    #   clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
+    #   all_clients << map_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
+    #   clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
+    #   all_clients << map_non_assessment_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
+
+    # end
     Organization.switch_to('public')
     all_clients.flatten(1).uniq
   end
@@ -91,23 +110,32 @@ class ClientsController < AdminController
   end
 
   def filter_client_advanced_serach(ngos, basic_rules)
-    clients = ngos.map do |short_name|
+    all_clients = []
+    filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules).filter
+    ngos.map do |short_name|
       Organization.switch_to(short_name)
-      next unless org_sharing_data?
-      all_clients = []
-
-      clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
-      filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
-      all_clients << map_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name)
-
-      clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
-      filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
-      all_clients << map_non_assessment_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name) if filered_clients.present?
-
-      all_clients.flatten.compact
+      clients = filered_clients[0][short_name]
+      all_clients << map_clients(clients, short_name)
     end
+    # clients = ngos.map do |short_name|
+    #   Organization.switch_to(short_name)
+    #   next unless org_sharing_data?
+    #   all_clients = []
+
+    #   clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
+    #   filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
+    #   binding.pry
+    #   all_clients << map_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name)
+
+    #   clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
+    #   filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
+    #   all_clients << map_non_assessment_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name) if filered_clients.present?
+
+    #   all_clients.flatten.compact
+    # end
     Organization.switch_to('public')
-    clients.flatten(1).compact.uniq
+    # clients.flatten(1).compact.uniq
+    all_clients.flatten(1).compact.uniq
   end
 
   def map_clients(clients, short_name)
@@ -117,8 +145,11 @@ class ClientsController < AdminController
     default_assessments = Assessment.joins(:client).defaults
     scores_hash = default_assessments.map {|assessment| [assessment.client_id, assessment, assessment.basic_info] }.group_by(&:first)
     clients_array = clients.map do |client|
-      active_enrollments   = client.client_enrollments.active
-      inactive_enrollments   = client.client_enrollments.inactive
+      client = OpenStruct.new(client)
+      # active_enrollments   = client.client_enrollments.active
+      active_enrollments   = ClientEnrollment.where(client_id: client.id).active
+      # inactive_enrollments   = client.client_enrollments.inactive
+      inactive_enrollments   = ClientEnrollment.where(client_id: client.id).active
       enrollment_count   = active_enrollments.count
 
       assessments   = scores_hash[client.id] || []
@@ -141,11 +172,11 @@ class ClientsController < AdminController
         domain_scores: domain_scores,
         short_name: short_name,
         **map_exit_ngo(client),
-        carer_relationship_to_client: client.carer&.client_relationship,
+        # carer_relationship_to_client: client.carer&.client_relationship,
         current_services: active_enrollment_services.map(&:name).uniq.join(", "),
         past_services: inactive_enrollment_services.map(&:name).uniq.join(", "),
         assessment_date: assessment&.created_at&.strftime('%d %B %Y'),
-        referral_source_category: decorate_clients(client)&.referral_source_category,
+        # referral_source_category: decorate_clients(client)&.referral_source_category,
         reason_for_family_separation: map_quantitative_type_by_name(client, 'Reason for Family Separation'),
         history_of_harm: map_quantitative_type_by_name(client, 'History of Harm'),
         history_of_disability_and_or_illness: map_quantitative_type_by_name(client, 'History of Disability'),
@@ -155,11 +186,11 @@ class ClientsController < AdminController
   end
 
   def map_quantitative_type_by_name(client, value)
-    client.quantitative_cases.joins(:quantitative_type).merge(QuantitativeType.name_like(value)).pluck(:value).join(", ")
+    QuantitativeCase.joins(:client_quantitative_cases).where(client_quantitative_cases: { client_id: client.id }).joins(:quantitative_type).merge(QuantitativeType.name_like(value)).pluck(:value).join(", ")
   end
 
   def map_exit_ngo(client)
-    exit_ngo = client.exit_ngos.last
+    exit_ngo = ExitNgo.where(client_id: client.id).last
     {
       exit_circumstance: exit_ngo&.exit_circumstance,
       exit_reasons: exit_ngo&.exit_reasons&.join(", "),

@@ -4,8 +4,8 @@ module AdvancedSearches
     BLANK_FIELDS = ['date_of_birth']
     # SENSITIVITY_FIELDS = %w(kid_id street_number house_number gov_city gov_district gov_commune gov_village_code gov_client_code gov_interview_village gov_interview_commune gov_interview_district gov_interview_city gov_caseworker_name gov_caseworker_phone gov_carer_name gov_carer_relationship gov_carer_home gov_carer_street gov_carer_village gov_carer_commune gov_carer_district gov_carer_city gov_carer_phone)
 
-    def initialize(clients, rules)
-      @clients     = clients
+    def initialize(rules)
+      # @clients     = clients
       @values      = []
       @sql_string  = []
       @condition    = rules['condition']
@@ -33,6 +33,10 @@ module AdvancedSearches
             @values << values
           elsif field == 'current_province'
             values = current_province(operator, value)
+            @sql_string << sql_string
+            @values << values
+          elsif field == 'birth_province'
+            values = birth_province(operator, value)
             @sql_string << sql_string
             @values << values
           elsif field == 'district'
@@ -144,7 +148,6 @@ module AdvancedSearches
       clients.ids
     end
 
-
     def current_province(operator, value)
       clients = @clients.joins(:province)
       province_id = Province.find_by(name: value).try(:id)
@@ -152,12 +155,41 @@ module AdvancedSearches
       when 'equal'
         clients = clients.where(province_id: province_id).ids if province_id.present?
       when 'not_equal'
-        clients = clients.where.not(province_id: province_id).ids if province_id.present?
+        clients = Client.where.not(province_id: province_id).ids if province_id.present?
       when 'is_empty'
-        @clients.where.not(id: clients.ids).ids
+        Client.where.not(id: clients.ids).ids
       when 'is_not_empty'
-        @clients.where(id: clients.ids).ids
+        clients.ids
       end
+    end
+
+    def birth_province(operator, value)
+      # clients = @clients.joins(:birth_province)
+      # province_id = Province.find_by(name: value).try(:id)
+      # case operator
+      # when 'equal'
+      #   client_sql = clients.where(birth_province_id: province_id).to_sql if province_id.present?
+      # when 'not_equal'
+      #   client_sql = Client.where.not(birth_province_id: province_id).to_sql if province_id.present?
+      # when 'is_empty'
+      #   client_sql = Client.where.not(id: clients.ids).to_sql
+      # when 'is_not_empty'
+      #   client_sql = clients.to_sql
+      # end
+      sql = Organization.cambodian.visible.where.not(short_name: 'shared').pluck(:short_name).map do |ngo|
+        "
+          SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date, #{ngo}.clients.date_of_birth, #{ngo}.clients.gender,
+          #{ngo}.clients.status, #{ngo}.clients.birth_province_id, bp.name birth_province_name, cp.name province_name, d.name district_name, #{ngo}.clients.province_id, #{ngo}.clients.district_id,
+          rs.name referral_source_category_name, cr.client_relationship FROM #{ngo}.clients
+          LEFT OUTER JOIN #{ngo}.provinces cp ON cp.id = #{ngo}.clients.province_id
+          LEFT OUTER JOIN #{ngo}.districts d ON d.id = #{ngo}.clients.district_id
+          LEFT OUTER JOIN #{ngo}.carers cr ON cr.id = #{ngo}.clients.carer_id
+          LEFT OUTER JOIN #{ngo}.referral_sources rs ON rs.id = #{ngo}.clients.referral_source_category_id
+          INNER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id WHERE bp.name = '#{value}'
+        ".squish
+      end.join(" UNION ")
+
+      results = ActiveRecord::Base.connection.execute(sql).to_a.group_by{|record| record['organization_name'] }
     end
 
     def district_query(operator, value)
