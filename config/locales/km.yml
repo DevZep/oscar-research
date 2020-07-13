@@ -31,6 +31,7 @@ km:
     index:
       age: អាយុ
       all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      assessment_date: កាលបរិច្ឆេទនៃការប៉ាន់ប្រមាណ
       birth_province: ស្រុកកំណើត
       carer_relationship_to_client: ទំនាក់ទំនងរបស់អតិថិជន
       current_service_types: Service Types of Current Program Enrolments
@@ -54,6 +55,7 @@ km:
       status: ស្ថានភាព
     filter:
       age: អាយុ
+      assessment_date: កាលបរិច្ឆេទនៃការប៉ាន់ប្រមាណ
       birth_province: ស្រុកកំណើត
       carer_relationship_to_client: ទំនាក់ទំនងរបស់អតិថិជន
       current_service_types: Service Types of Current Program Enrolments
@@ -75,6 +77,8 @@ km:
     table_header:
       age: អាយុ
       all_csi_assessments: ពិន្ទុកត្តាការប៉ាន់ប្រមាណCSI
+      assessment_date: កាលបរិច្ឆេទនៃការប៉ាន់ប្រមាណ
+      birth_province: ស្រុកកំណើត
       carer_relationship_to_client: ទំនាក់ទំនងរបស់អតិថិជន
       current_province: ខេត្តបច្ចុប្បន្ន
       current_service_types: Service Types of Current Program Enrolments
