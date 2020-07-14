@@ -4,12 +4,13 @@ module AdvancedSearches
     BLANK_FIELDS = ['date_of_birth']
     # SENSITIVITY_FIELDS = %w(kid_id street_number house_number gov_city gov_district gov_commune gov_village_code gov_client_code gov_interview_village gov_interview_commune gov_interview_district gov_interview_city gov_caseworker_name gov_caseworker_phone gov_carer_name gov_carer_relationship gov_carer_home gov_carer_street gov_carer_village gov_carer_commune gov_carer_district gov_carer_city gov_carer_phone)
 
-    def initialize(rules)
+    def initialize(rules, basic_sql)
       # @clients     = clients
       @values      = []
       @sql_string  = []
       @condition    = rules['condition']
       @basic_rules  = rules['rules'] || []
+      @basic_sql    = basic_sql
 
       @columns_visibility = []
     end
@@ -31,11 +32,11 @@ module AdvancedSearches
             values = age_field_query(operator, value)
             @sql_string << sql_string
             @values << values
-          elsif field == 'current_province'
+          elsif field == 'current_province.name'
             values = current_province(operator, value)
             @sql_string << sql_string
             @values << values
-          elsif field == 'birth_province'
+          elsif field == 'birth_province.name'
             values = birth_province(operator, value)
             @sql_string << sql_string
             @values << values
@@ -172,7 +173,8 @@ module AdvancedSearches
         'is_empty' => "IS NULL OR bp.name = ''",
         'is_not_empty' => "IS NOT NULL OR bp.name != ''"
       }
-
+      sql_sting  = @basic_sql['sql'].gsub(/basicfield_/, '').gsub(/birth_province/, 'bp')
+      sql_params = @basic_sql['params']
       sql = Organization.cambodian.visible.where.not(short_name: 'shared').pluck(:short_name).map do |ngo|
         "
           SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date,
@@ -184,10 +186,10 @@ module AdvancedSearches
           LEFT OUTER JOIN #{ngo}.districts d ON d.id = #{ngo}.clients.district_id
           LEFT OUTER JOIN #{ngo}.carers cr ON cr.id = #{ngo}.clients.carer_id
           LEFT OUTER JOIN #{ngo}.referral_sources rs ON rs.id = #{ngo}.clients.referral_source_category_id
-          LEFT OUTER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id WHERE bp.name #{condition_operator[operator]}
+          LEFT OUTER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id WHERE #{sql_sting}
         ".squish
       end.join(" UNION ")
-
+      binding.pry
       results = ActiveRecord::Base.connection.execute(sql).to_a.group_by{|record| record['organization_name'] }
     end
 

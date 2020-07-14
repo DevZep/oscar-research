@@ -18,9 +18,9 @@ module AdvancedSearchHelper
       basic_fields: I18n.t('custom_table.basic_fields'),
       basicfield_gender: I18n.t('custom_table.form_one_title.gender'),
       csi_domain_scores: I18n.t('custom_table.csi_domain_scores'),
-      basicfield_birth_province: I18n.t('custom_table.form_one_title.birth_province'),
-      basicfield_current_province: I18n.t('custom_table.form_one_title.current_province'),
-      basicfield_district: I18n.t('custom_table.form_one_title.district'),
+      "basicfield_birth_province.name": I18n.t('custom_table.form_one_title.birth_province'),
+      "basicfield_current_province.name": I18n.t('custom_table.form_one_title.current_province'),
+      "basicfield_district.name": I18n.t('custom_table.form_one_title.district'),
       form_one: I18n.t('custom_table.form_one_title.government_form_one'),
       basicfield_gender: I18n.t('custom_table.form_one_title.gender'),
       basicfield_status: I18n.t('custom_table.form_one_title.status')

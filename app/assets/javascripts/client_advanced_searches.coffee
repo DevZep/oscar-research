@@ -57,10 +57,11 @@ class OSCAR.ClientAdvancedSearches
     self = @
     $('#search').on 'click', ->
       basicRules = $('#builder').queryBuilder('getRules', { skip_empty: true, allow_invalid: true })
-
+      basicSql   = $("#builder").queryBuilder('getSQL', false)
       if (_.isEmpty(basicRules.rules) and !basicRules.valid) or (!(_.isEmpty(basicRules.rules)) and basicRules.valid)
         $('#builder').find('.has-error').remove()
         $('#client_advanced_search_basic_rules').val(self.handleStringfyRules(basicRules))
+        $('#client_advanced_search_basic_sql').val(self.handleStringfyRules(basicSql))
         self.handleSelectFieldVisibilityCheckBox()
         $('#advanced-search').submit()
 

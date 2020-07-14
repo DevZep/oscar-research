@@ -31,7 +31,7 @@ class ClientsController < AdminController
   def fetch_clients
     # org_short_names = Organization.pluck(:short_name)
     all_clients = []
-    org_short_names = Organization.cambodian.visible.where.not(short_name: 'shared').pluck(:short_name)
+    org_short_names = Organization.cambodian.visible.where(short_name: ['cif', 'mtp']).pluck(:short_name)
     sql = org_short_names.map do |ngo|
         "
           SELECT '#{ngo}' organization_name, #{ngo}.clients.id, #{ngo}.clients.slug, #{ngo}.clients.initial_referral_date,
@@ -43,7 +43,7 @@ class ClientsController < AdminController
           LEFT OUTER JOIN #{ngo}.districts d ON d.id = #{ngo}.clients.district_id
           LEFT OUTER JOIN #{ngo}.carers cr ON cr.id = #{ngo}.clients.carer_id
           LEFT OUTER JOIN #{ngo}.referral_sources rs ON rs.id = #{ngo}.clients.referral_source_category_id
-          INNER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id
+          LEFT OUTER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id
         ".squish
       end.join(" UNION ")
 
@@ -103,6 +103,10 @@ class ClientsController < AdminController
     @basic_filter_params  = @advanced_search_params[:basic_rules]
   end
 
+  def basic_sql
+    @basic_sql_params  = JSON.parse(@advanced_search_params[:basic_sql]).presence || { sql: '', params: {} }
+  end
+
   def list_clients_filter
     if has_params?
       clients = clients_ordered(client_filter_adavnced_searches)
@@ -113,7 +117,7 @@ class ClientsController < AdminController
 
   def filter_client_advanced_serach(ngos, basic_rules)
     all_clients = []
-    filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules).filter
+    filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, basic_sql).filter
     ngos.map do |short_name|
       Organization.switch_to(short_name)
       clients = filered_clients[0][short_name]

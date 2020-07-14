@@ -26,9 +26,9 @@ module AdvancedSearches
       [
         ['basicfield_gender', { female: 'Female', male: 'Male' }],
         ['basicfield_status', client_status],
-        ['basicfield_birth_province', provinces],
-        ['basicfield_current_province', provinces],
-        ['basicfield_district', districts]
+        ['basicfield_birth_province.name', provinces],
+        ['basicfield_current_province.name', provinces],
+        ['basicfield_district.name', districts]
       ]
     end
 
