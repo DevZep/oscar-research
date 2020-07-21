@@ -94,7 +94,6 @@ class Client < ActiveRecord::Base
               .gsub('current_province', 'cp').gsub('district', 'd')
               .gsub('gender', '%{ngo}.clients.gender')
               .gsub('status', '%{ngo}.clients.status')
-              .gsub(/enrollment_count(.*?)\d+/, '(SELECT %{ngo}.clients.id FROM %{ngo}.clients LEFT OUTER JOIN %{ngo}.client_enrollments ON %{ngo}.client_enrollments.client_id = %{ngo}.clients.id GROUP BY %{ngo}.clients.id HAVING COUNT(client_enrollments) = 12)')
               .gsub('date_of_birth', 'EXTRACT(year FROM age(current_date, %{ngo}.clients.date_of_birth))')
   end
 

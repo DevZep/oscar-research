@@ -54,15 +54,7 @@ class ClientsController < AdminController
       clients = fetched_clients[short_name]
       all_clients << map_clients(clients, short_name)
     end
-    # org_short_names.each do |short_name|
-    #   Organization.switch_to(short_name)
-    #   next unless org_sharing_data?
-    #   clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
-    #   all_clients << map_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
-    #   clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
-    #   all_clients << map_non_assessment_clients(clients.includes(:province, :district, :carer, :birth_province), short_name)
 
-    # end
     Organization.switch_to('public')
     all_clients.flatten(1).uniq
   end
@@ -125,24 +117,7 @@ class ClientsController < AdminController
       next if clients.blank?
       all_clients << map_clients(clients, short_name)
     end
-    # clients = ngos.map do |short_name|
-    #   Organization.switch_to(short_name)
-    #   next unless org_sharing_data?
-    #   all_clients = []
-
-    #   clients = Client.joins(:assessments).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id).reload
-    #   filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
-    #   binding.pry
-    #   all_clients << map_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name)
-
-    #   clients = Client.where.not(id: clients.ids).select(:id, :slug, :initial_referral_date, :date_of_birth, :gender, :status, :birth_province_id, :province_id, :district_id, :referral_source_category_id, :carer_id)
-    #   filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, clients).filter
-    #   all_clients << map_non_assessment_clients(filered_clients.includes(:province, :district, :carer, :birth_province), short_name) if filered_clients.present?
-
-    #   all_clients.flatten.compact
-    # end
     Organization.switch_to('public')
-    # clients.flatten(1).compact.uniq
     all_clients.flatten(1).compact.uniq
   end
 
