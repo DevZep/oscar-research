@@ -1,15 +1,41 @@
+- if params[:columns].nil? || params[:columns][:slug]  == '1'
+  %th=t('.slug')
 - if params[:columns].nil? || params[:columns][:age]  == '1'
   %th= t('.age')
 - if params[:columns].nil? || params[:columns][:gender]  == '1'
   %th= t('.gender')
 - if params[:columns].nil? || params[:columns][:status] == '1'
   %th= t('.status')
+- if params[:columns].nil? || params[:columns][:birth_province]  == '1'
+  %th=t('.birth_province')
 - if params[:columns].nil? || params[:columns][:current_province]  == '1'
   %th= t('.current_province')
 - if params[:columns].nil? || params[:columns][:district]  == '1'
   %th= t('.district')
+- if params[:columns].nil? || params[:columns][:referral_source_category]  == '1'
+  %th=t('.referral_source_category')
+- if params[:columns].nil? || params[:columns][:reason_for_family_separation]  == '1'
+  %th=t('.reason_for_family_separation')
+- if params[:columns].nil? || params[:columns][:history_of_harm]  == '1'
+  %th=t('.history_of_harm')
+- if params[:columns].nil? || params[:columns][:history_of_disability_and_or_illness]  == '1'
+  %th=t('.history_of_disability_and_or_illness')
+- if params[:columns].nil? || params[:columns][:history_of_high_risk_behaviours]  == '1'
+  %th=t('.history_of_high_risk_behaviours')
+- if params[:columns].nil? || params[:columns][:carer_relationship_to_client]  == '1'
+  %th=t('.carer_relationship_to_client')
+- if params[:columns].nil? || params[:columns][:assessment_date]  == '1'
+  %th=t('.assessment_date')
 - if params[:columns].nil? || params[:columns][:number_active_program] == '1'
   %th=t('.number_active_program')
 - if params[:columns].nil? || params[:columns][:all_csi_assessments] == '1'
   %th=t('.all_csi_assessments')
   = domain_header
+- if params[:columns].nil? || params[:columns][:current_service_types] == '1'
+  %th=t('.current_service_types')
+- if params[:columns].nil? || params[:columns][:past_service_types] == '1'
+  %th=t('.past_service_types')
+- if params[:columns].nil? || params[:columns][:exit_circumstance] == '1'
+  %th=t('.exit_circumstance')
+- if params[:columns].nil? || params[:columns][:exit_reasons] == '1'
+  %th=t('.exit_reasons')

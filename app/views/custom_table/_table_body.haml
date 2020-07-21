@@ -1,11 +1,20 @@
 - clients.each do |client_hash|
   - client = client_hash[:client]
   %tr
-    %td= client.display_age
+    %td= client.slug
+    %td= client.age_display
     %td= client.gender.try(&:titleize)
     %td= client.status
+    %td= client.birth_province_name
     %td= client.province_name
     %td= client.district_name
+    %td= client.referral_source_category_name
+    %td= client_hash[:reason_for_family_separation]
+    %td= client_hash[:history_of_harm]
+    %td= client_hash[:history_of_disability_and_or_illness]
+    %td= client_hash[:history_of_high_risk_behaviours]
+    %td= client.client_relationship
+    %td= client_hash[:assessment_date]
     %td.text-center
       = client_hash[:enrollment_count]
     %td.text-center
@@ -15,5 +24,9 @@
             = "#{t('datagrid.columns.clients.total')}:"
             = client_hash[:assessment_count]
     = domain_cell_data(client_hash[:domain_scores])
+    %td= client_hash[:current_services]
+    %td= client_hash[:past_services]
+    %td= client_hash[:exit_circumstance]
+    %td= client_hash[:exit_reasons]
 
 - Organization.switch_to('public')

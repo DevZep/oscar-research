@@ -37,6 +37,10 @@ class ClientDecorator < Draper::Decorator
     model.referral_source.name if model.referral_source
   end
 
+  def referral_source_category
+    ReferralSource.find_by(id: model.referral_source_category_id)&.name if model.referral_source_category_id
+  end
+
   def received_by
     model.received_by if model.received_by
   end

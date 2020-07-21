@@ -46,7 +46,16 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
   config.action_mailer.delivery_method = :letter_opener
-
+  config.after_initialize do
+    Bullet.enable = true
+    # Bullet.alert = true
+    # Bullet.bullet_logger = true
+    Bullet.console = true
+    # Bullet.rails_logger = true
+    Bullet.add_footer = true
+    # Bullet.stacktrace_includes = true
+    # Bullet.raise = true
+  end
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
