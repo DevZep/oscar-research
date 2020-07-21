@@ -95,7 +95,9 @@ class Client < ActiveRecord::Base
               .gsub('slug', '%{ngo}.clients.slug')
               .gsub('gender', '%{ngo}.clients.gender')
               .gsub('status', '%{ngo}.clients.status')
-              .gsub('date_of_birth', 'EXTRACT(year FROM age(current_date, %{ngo}.clients.date_of_birth))')
+              .gsub("date_of_birth != ''", "%{ngo}.clients.date_of_birth IS NOT NULL")
+              .gsub("date_of_birth = ''", "%{ngo}.clients.date_of_birth IS NULL")
+              .gsub(/date_of_birth(?=\s.*\d+)/, 'EXTRACT(year FROM age(current_date, %{ngo}.clients.date_of_birth))')
   end
 
   def reject?
