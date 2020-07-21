@@ -30,7 +30,7 @@ module AdvancedSearches
           LEFT OUTER JOIN #{ngo}.carers cr ON cr.id = #{ngo}.clients.carer_id
           LEFT OUTER JOIN #{ngo}.referral_sources rs ON rs.id = #{ngo}.clients.referral_source_category_id
           LEFT OUTER JOIN #{ngo}.provinces bp ON bp.id = #{ngo}.clients.birth_province_id
-          #{sql_string.present? && "WHERE #{sql_string}" %  { ngo: ngo } }
+          #{sql_string.present? && "WHERE #{sql_string}".gsub('%{ngo}', ngo) }
         "
       end.join(" UNION ").squish
 
