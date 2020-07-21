@@ -9,18 +9,19 @@ module AdvancedSearches
 
     def render
       group             = format_header('basic_fields')
+      text_fields       = ['basicfield_slug'].map { |item| AdvancedSearches::FilterTypes.text_options(item, format_header(item), group) }
       number_fields     = number_type_list.map { |item| AdvancedSearches::FilterTypes.number_options(item, format_header(item), group) }
       drop_list_fields  = drop_down_type_list.map { |item| AdvancedSearches::FilterTypes.drop_list_options(item.first, format_header(item.first), item.last, group) }
       # default_domain_scores_options = AdvancedSearches::DomainScoreFields.render
-      # default_domain_scores_options = AdvancedSearches::DomainScoreFields.render
-      search_fields     = number_fields + drop_list_fields
+      search_fields     = text_fields + number_fields + drop_list_fields
       search_fields.sort_by { |f| f[:label].downcase }
     end
 
     private
 
     def number_type_list
-      ['basicfield_date_of_birth', 'enrollment_count']
+      # ['basicfield_date_of_birth', 'enrollment_count']
+      ['basicfield_date_of_birth']
     end
 
     def drop_down_type_list
