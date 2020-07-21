@@ -20,15 +20,16 @@ module AdvancedSearches
     private
 
     def number_type_list
-      ['basicfield_date_of_birth', 'active_program_stream']
+      ['basicfield_date_of_birth', 'enrollment_count']
     end
 
     def drop_down_type_list
       [
         ['basicfield_gender', { female: 'Female', male: 'Male' }],
         ['basicfield_status', client_status],
-        ['basicfield_current_province', provinces],
-        ['basicfield_district', districts]
+        ['basicfield_birth_province.name', provinces],
+        ['basicfield_current_province.name', provinces],
+        ['basicfield_district.name', districts]
       ]
     end
 

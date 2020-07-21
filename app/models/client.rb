@@ -89,6 +89,14 @@ class Client < ActiveRecord::Base
     query
   end
 
+  def self.sql_string_mapping(sql_string)
+    sql_string.gsub(/basicfield_/, '').gsub('birth_province', 'bp')
+              .gsub('current_province', 'cp').gsub('district', 'd')
+              .gsub('gender', '%{ngo}.clients.gender')
+              .gsub('status', '%{ngo}.clients.status')
+              .gsub('date_of_birth', 'EXTRACT(year FROM age(current_date, %{ngo}.clients.date_of_birth))')
+  end
+
   def reject?
     state_changed? && state == 'rejected'
   end

@@ -30,6 +30,7 @@
 //= require inspinia.js
 //= require toastr/toastr.min
 //= require query_builder/query-builder.standalone.min
+//= require interactjs/interact.min
 
 //LOAD MODULE
 //= require namespace

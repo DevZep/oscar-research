@@ -19,5 +19,6 @@
 
 = simple_form_for :client_advanced_search, url: :clients, method: 'GET', html: { id: 'advanced-search' } do |f|
   = f.hidden_field :basic_rules
+  = f.hidden_field :basic_sql
   = hidden_field_tag :locale, "#{params[:locale]}"
   #client-builder-fields{ data: { fields: @builder_fields.to_json }}

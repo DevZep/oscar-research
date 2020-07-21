@@ -28,5 +28,5 @@ class OSCAR.AdvancedFilterBuilder
         contains: 'includes'
         not_contains: 'excludes'
     filters: @fieldList
-    # plugins:
-    #   'sortable': true
+    plugins:
+      'sortable': true
