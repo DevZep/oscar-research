@@ -19,7 +19,7 @@ module AdvancedSearches
     private
 
     def number_type_list
-      ['basicfield_date_of_birth', 'active_program_stream']
+      ['basicfield_date_of_birth', 'enrollment_count']
     end
 
     def drop_down_type_list

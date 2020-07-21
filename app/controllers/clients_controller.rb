@@ -38,6 +38,7 @@ class ClientsController < AdminController
           #{ngo}.clients.date_of_birth, #{ngo}.clients.gender, EXTRACT(year FROM age(current_date, date_of_birth)) display_age,
           #{ngo}.clients.status, #{ngo}.clients.birth_province_id, bp.name birth_province_name, cp.name province_name,
           d.name district_name, #{ngo}.clients.province_id, #{ngo}.clients.district_id,
+          (SELECT COUNT(*) FROM #{ngo}.client_enrollments WHERE #{ngo}.client_enrollments.client_id = #{ngo}.clients.id) enrollment_count,
           rs.name referral_source_category_name, cr.client_relationship FROM #{ngo}.clients
           LEFT OUTER JOIN #{ngo}.provinces cp ON cp.id = #{ngo}.clients.province_id
           LEFT OUTER JOIN #{ngo}.districts d ON d.id = #{ngo}.clients.district_id
@@ -120,7 +121,7 @@ class ClientsController < AdminController
     filered_clients = AdvancedSearches::ClientAdvancedSearch.new(basic_rules, basic_sql).filter
     ngos.map do |short_name|
       Organization.switch_to(short_name)
-      clients = filered_clients[0][short_name]
+      clients = filered_clients[short_name]
       next if clients.blank?
       all_clients << map_clients(clients, short_name)
     end

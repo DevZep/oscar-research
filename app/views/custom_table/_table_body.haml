@@ -2,7 +2,7 @@
   - client = client_hash[:client]
   %tr
     %td= client.slug
-    %td= client.display_age
+    %td= client.age_display
     %td= client.gender.try(&:titleize)
     %td= client.status
     %td= client.birth_province_name

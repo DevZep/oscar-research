@@ -13,7 +13,7 @@ module AdvancedSearchHelper
 
   def format_header(key)
     translations = {
-      active_program_stream: I18n.t('custom_table.active_program_stream'),
+      enrollment_count: I18n.t('custom_table.active_program_stream'),
       basicfield_date_of_birth: I18n.t('custom_table.form_one_title.age'),
       basic_fields: I18n.t('custom_table.basic_fields'),
       basicfield_gender: I18n.t('custom_table.form_one_title.gender'),

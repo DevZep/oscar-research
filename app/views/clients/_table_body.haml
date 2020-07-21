@@ -2,7 +2,7 @@
   - client = client_hash[:client]
   %tr
     %td= client.slug
-    %td= client.display_age
+    %td= client.age_display
     %td= client.gender.try(&:titleize)
     %td= client.status
     %td= client.birth_province_name
@@ -16,7 +16,7 @@
     %td= client.client_relationship
     %td= client_hash[:assessment_date]
     %td.text-center
-      = client_hash[:enrollment_count]
+      = client.enrollment_count
     %td.text-center
       .tooltip-demo.text-center
         = link_to '#!', {'data-container' => 'body', 'data-content' => "<div>#{all_csi_assessment_lists(client_hash[:scores])}</div>", 'data-original-title' => t('datagrid.columns.clients.total'), 'data-placement' => 'top', 'data-toggle' => 'popover', title: '', type: 'button', 'data-html' => 'true' } do
