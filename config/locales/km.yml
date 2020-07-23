@@ -376,14 +376,22 @@ km:
       enable_log_in_to_gov: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
       enable_log_in_to_research: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Research
       first_name: នាមខ្លួនជាអក្សរឡាតាំង
+      gender: ភេទ
+      gender_list:
+        female: ស្រី
+        male: ប្រុស
+        other_gender: ផ្សេងៗ
+        prefer_not_to_say: សុំមិន​និយាយ​ល្អ​ជាង
       id: លេខសំគាល់
       job_title: មុខតំណែង
       last_name: នាមត្រកូល
       mobile: លេខទូរស័ព្ទ
+      organization_name: ឈ្មោះអង្គភាព
       password: ពាក្យសម្ងាត់
       password_confirmation: បញ្ជាក់ពាក្យសម្ងាត់
       roles: តួនាទី
       save: រក្សាទុក
+      user_profile: ព័ត៌មានផ្ទាល់ខ្លួន
     index:
       add_new: បន្ថែមឣ្នកប្រើថ្មី
       export_to_xls: ទាញចេញជាឯកសារប្រភេទ XLS
@@ -392,15 +400,23 @@ km:
       email: ឣុីម៉ែល
       enable_gov_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
       enable_research_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Research
+      gender: ភេទ
+      gender_list:
+        female: ស្រី
+        male: ប្រុស
+        other_gender: ផ្សេងៗ
+        prefer_not_to_say: សុំមិន​និយាយ​ល្អ​ជាង
       id: លេខសំគាល់
       job_title: មុខតំណែង
       manage: សកម្មភាព
       mobile: លេខទូរស័ព្ទ
       name: ឈ្មោះ
       next: ទំព័របន្ទាប់
+      organization_name: ឈ្មោះអង្គភាព
       previous: ចុងក្រោយ
       results: លទ្ធផល
       search: ស្វែងរក
+      user_profile: ព័ត៌មានផ្ទាល់ខ្លួន
     new:
       new_user: New User
     show:
@@ -410,8 +426,16 @@ km:
       email: ឣុីម៉ែល
       enable_gov_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Gov
       enable_research_log_in: អនុញ្ញាតឲ្យចូលទៅកាន់ OSCaR Research
+      gender: ភេទ
+      gender_list:
+        female: ស្រី
+        male: ប្រុស
+        other_gender: ផ្សេងៗ
+        prefer_not_to_say: សុំមិន​និយាយ​ល្អ​ជាង
       job_title: មុខតំណែង
       mobile: លេខទូរស័ព្ទ
+      organization_name: ឈ្មោះអង្គភាព
+      user_profile: ព័ត៌មានផ្ទាល់ខ្លួន
     new:
       new_user: បង្កើតអ្នកប្រើប្រាស់ថ្មី
     edit:

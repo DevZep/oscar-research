@@ -4,6 +4,7 @@
       .row
         .col-xs-12.col-sm-6.col-md-4= f.input :first_name, label: t('.first_name')
         .col-xs-12.col-sm-6.col-md-4= f.input :last_name, label: t('.last_name')
+        .col-xs-12.col-sm-6.col-md-4= f.input :gender, collection: [t('.gender_list').values, User::GENDER_OPTIONS].transpose, label: t('.gender')
         .col-xs-12.col-sm-6.col-md-4.form-group.date.optional.user_date_of_birth
           %label.date.optional.control-label{ for: 'user_date_of_birth' }
             = t('.date_of_birth')
@@ -14,6 +15,9 @@
         .col-xs-12.col-sm-6.col-md-4= f.input :mobile, label: t('.mobile')
         .col-xs-12.col-sm-6.col-md-4= f.input :job_title, label: t('.job_title')
         .col-xs-12.col-sm-6.col-md-4= f.input :email, required: true, label: t('.email')
+        .col-xs-12.col-sm-6.col-md-4= f.input :organization_name, label: t('.organization_name')
+        .col-xs-12.col-sm-6.col-md-4= f.input :profile, collection: User::PROFILES, label: t('.user_profile')
+
       .row
         .col-xs-12.col-sm-6.col-md-4= f.input :roles, collection: User::ROLES, label_method: lambda { |val| val.titleize }, label: t('.roles')
         - if !@user.oscar_team?

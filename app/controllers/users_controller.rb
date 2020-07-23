@@ -63,7 +63,7 @@ class UsersController < AdminController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :start_date, :job_title, :mobile, :date_of_birth, :email, :roles, :password, :password_confirmation, :enable_research_log_in, :enable_gov_log_in)
+    params.require(:user).permit(:first_name, :last_name, :gender, :organization_name, :profile, :start_date, :job_title, :mobile, :date_of_birth, :email, :roles, :password, :password_confirmation, :enable_research_log_in, :enable_gov_log_in)
   end
 
   def find_user

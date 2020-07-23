@@ -376,14 +376,22 @@ en:
       enable_log_in_to_gov: Enable login to OSCaR Gov
       enable_log_in_to_research: Enable login to OSCaR Research
       first_name: First Name
+      gender: Gender
+      gender_list:
+        female: Female
+        male: Male
+        other_gender: Other
+        prefer_not_to_say: Prefer not to say
       id: ID
       job_title: Job Title
       last_name: Last Name
       name: Name
+      organization_name: Organization Name
       password: Password
       password_confirmation: Password Confirmation
       roles: Permission
       save: Save
+      user_profile: User Profile
     index:
       add_new: Add New User
       export_to_xls: Export Users
@@ -393,15 +401,23 @@ en:
       enable_gov_log_in: Enable login to OSCaR Gov
       enable_research_log_in: Enable login to OSCaR Research
       export_to_xls: Export Users
+      gender: Gender
+      gender_list:
+        female: Female
+        male: Male
+        other_gender: Other
+        prefer_not_to_say: Prefer not to say
       id: ID
       job_title: Job Title
       manage: Manage
       mobile: Mobile
       name: Name
       next: Next
+      organization_name: Organization Name
       previous: Previous
       results: Results
       search: Search
+      user_profile: User Profile
     new:
       new_user: New User
     show:
@@ -411,6 +427,12 @@ en:
       email: Email
       enable_gov_log_in: Enable login to OSCaR Gov
       enable_research_log_in: Enable login to OSCaR Research
+      gender: Gender
+      gender_list:
+        female: Female
+        male: Male
+        other_gender: Other
+        prefer_not_to_say: Prefer not to say
       id: ID
       job_title: Job Title
     new:

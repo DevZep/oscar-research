@@ -27,6 +27,12 @@
                   %strong
                     = @user.job_title
               %tr
+                %td
+                  = t('.user_profile')
+                %td
+                  %strong
+                    = @user.profile
+              %tr
                 %td.spacing-first-col
                   = t('.mobile')
                 %td
@@ -41,14 +47,24 @@
                     - if object_emails
                       - object_emails.each do |object_email|
                         = mail_to object_email
-
+              %tr
+                %td
+                  = t('.gender')
+                %td
+                  %strong
+                    = t('.gender_list')[@user.gender.gsub('other', 'other_gender').to_sym]
               %tr
                 %td.spacing-first-col
                   = t('.date_of_birth')
                 %td
                   %strong
                     = @user.date_of_birth
-
+              %tr
+                %td
+                  = t('.organization_name')
+                %td
+                  %strong
+                    = @user.organization_name
               %tr
                 %td.spacing-first-col
                   = t('.enable_research_log_in')

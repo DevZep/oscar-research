@@ -21,10 +21,13 @@ private
       [
         user.id,
         link_to(user.name, user),
+        I18n.t('users.index.gender_list')[user.gender.gsub('other', 'other_gender').to_sym],
         user.date_of_birth,
         user.mobile,
         user.email,
         user.job_title,
+        user.profile,
+        user.organization_name,
         user.enable_research_log_in? ? 'Yes' : 'No',
         user.enable_gov_log_in? ? 'Yes' : 'No'
       ]
@@ -53,7 +56,7 @@ private
   end
 
   def sort_column
-    columns = %w[id first_name date_of_birth mobile email job_title]
+    columns = %w[id first_name gender date_of_birth mobile email job_title]
     columns[params[:iSortCol_0].to_i]
   end
 
